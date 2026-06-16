@@ -1,0 +1,106 @@
+# ============================================
+# robots.txt — Ademir Agência
+# https://www.ademiragencia.com.br
+# ============================================
+
+# Permitir todos os buscadores principais
+User-agent: *
+Allow: /
+
+# Google
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+# Bing
+User-agent: Bingbot
+Allow: /
+
+# Yahoo
+User-agent: Slurp
+Allow: /
+
+# DuckDuckGo
+User-agent: DuckDuckBot
+Allow: /
+
+# Yandex
+User-agent: YandexBot
+Allow: /
+
+# Baidu
+User-agent: Baiduspider
+Allow: /
+
+# Meta / Facebook
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Facebot
+Allow: /
+
+# LinkedIn
+User-agent: LinkedInBot
+Allow: /
+
+# Twitter / X
+User-agent: Twitterbot
+Allow: /
+
+# WhatsApp
+User-agent: WhatsApp
+Allow: /
+
+# Telegram
+User-agent: TelegramBot
+Allow: /
+
+# ============================================
+# IAs — ChatGPT, Claude, Perplexity e outros
+# ============================================
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Diffbot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+# ============================================
+# Sitemap
+# ============================================
+Sitemap: https://www.ademiragencia.com.br/sitemap.xml
