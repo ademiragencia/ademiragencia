@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Qualificação de Projetos - Ademir Agência</title>
+<style>
+/* ==========================================================================
+   RESET & VARIÁVEIS GERAIS
+   ========================================================================== */
+:root {
+  --color-bg-main: #050505;
+  --color-bg-card: #121212;
+  --color-text-main: #f5f5f5;
+  --color-text-muted: #888888;
+  --color-primary: #e89b27; /* Dourado/Laranja do Logo Ademir */
+  --color-primary-hover: #c7821c;
+  --color-error: #ff4d4d;
+  --color-success: #00cc66;
+  --color-border: #333333;
+  --font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --transition-speed: 0.3s;
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 16px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-bg-main);
+  color: var(--color-text-main);
+  font-family: var(--font-family-base);
+  line-height: 1.6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* ==========================================================================
+   TIPOGRAFIA E ESTRUTURA
+   ========================================================================== */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-primary);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: 2rem;
+  text-align: center;
+  letter-spacing: -0.05em;
+}
+
+h3 {
+  margin-top: 40px; 
+  font-size: 1.2rem; 
+  border-bottom: 1px solid var(--color-border); 
+  padding-bottom: 10px;
+  color: #ffffff;
+}
+
+p {
+  margin-bottom: 1.5rem;
+  color: var(--color-text-muted);
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.highlight {
+  color: var(--color-primary);
+  font-weight: bold;
+}
+
+.container {
+  width: 100%;
+  max-width: 800px;
+  background-color: var(--color-bg-card);
+  padding: 50px;
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--color-border);
+}
+
+.logo {
+  max-width: 160px;
+  display: block;
+  margin: 0 auto 30px auto;
+}
+
+/* ==========================================================================
+   COMPONENTES DE FORMULÁRIO
+   ========================================================================== */
+.form-group {
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #e0e0e0;
+  font-size: 0.95rem;
+}
+
+.form-control {
+  width: 100%;
+  padding: 16px;
+  background-color: #1a1a1a;
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  color: var(--color-text-main);
+  font-size: 1rem;
+  transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(232, 155, 39, 0.2);
+}
+
+.form-control::placeholder {
+  color: #555;
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 120px;
+}
+
+select:invalid {
+  color: #555;
+}
+
+/* ==========================================================================
+   RADIO & CHECKBOX CUSTOMIZADOS
+   ========================================================================== */
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.radio-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  padding: 12px;
+  background-color: #1a1a1a;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  transition: all var(--transition-speed);
+}
+
+.radio-item:hover {
+  border-color: #555;
+  background-color: #222;
+}
+
+.radio-item input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--color-primary);
+  margin-top: 2px;
+}
+
+.radio-label-text {
+  font-size: 0.95rem;
+  color: #d0d0d0;
+  line-height: 1.4;
+}
+
+.radio-item input[type="radio"]:checked + .radio-label-text {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   BOTÕES E ANIMAÇÕES
+   ========================================================================== */
+.btn-submit {
+  width: 100%;
+  padding: 18px;
+  margin-top: 20px;
+  background: linear-gradient(135deg, #e89b27 0%, #b8750a 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--border-radius-md);
+  font-size: 1.2rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+}
+
+.btn-submit:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(232, 155, 39, 0.3);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.invalid {
+  border-color: var(--color-error) !important;
+}
+</style>
+</head>
+<body>
+
+<div class="container animate-fade-in">
+
+  <!-- Imagem da logo referenciada -->
+  <img src="1000503591.jpg" alt="Logo Ademir Agência" class="logo">
+
+  <div id="form-container">
+    <h2>Sua empresa é lucrativa ou um hobby caro?</h2>
+    <p>Este formulário <span class="highlight">não é para qualquer empresa</span>. Só vamos analisar a sua aplicação se as suas respostas provarem que você tem sede de escala e não tem medo de investir no seu negócio.</p>
+
+    <form action="https://api.web3forms.com/submit" method="POST" id="form-ademir" onsubmit="return validateForm('form-ademir')">
+      <!-- Chave Web3Forms -->
+      <input type="hidden" name="access_key" value="3e4ba65a-8492-4fc5-9741-a980ec00414c">
+      <input type="hidden" name="subject" value="[ALTO TICKET] Novo Lead QUALIFICADO - Ademir Agência">
+
+      <h3>Fase 1: Quem é você no mercado?</h3>
+
+      <div class="form-group">
+        <label for="name" class="form-label">Qual o seu nome e o da sua empresa?</label>
+        <input type="text" id="name" name="name" class="form-control" required placeholder="Ex: João - Construtora Alfa">
+      </div>
+
+      <div class="form-group">
+        <label for="instagram" class="form-label">Qual o @ do seu Instagram profissional?</label>
+        <input type="text" id="instagram" name="instagram" class="form-control" required placeholder="@suaempresa">
+      </div>
+
+      <div class="form-group">
+        <label for="whatsapp" class="form-label">WhatsApp com DDD (Onde a sua equipe de vendas atende)</label>
+        <input type="tel" id="whatsapp" name="whatsapp" class="form-control phone-mask" required placeholder="(00) 00000-0000">
+      </div>
+
+      <h3>Fase 2: Raio-X da sua Operação Comercial</h3>
+
+      <div class="form-group">
+        <label class="form-label">Seja honesto: Se um cliente procurar pelo seu serviço no Google agora, o que acontece?</label>
+        <div class="radio-group">
+          <label class="radio-item"><input type="radio" name="google_status" value="Acha a concorrência" required><span class="radio-label-text">Ele acha a minha concorrência. Meu Google Meu Negócio não existe ou está abandonado.</span></label>
+          <label class="radio-item"><input type="radio" name="google_status" value="Acha mas não compra"><span class="radio-label-text">Ele até me acha, mas o perfil não passa autoridade e não converte.</span></label>
+          <label class="radio-item"><input type="radio" name="google_status" value="Sou o primeiro"><span class="radio-label-text">Sou o primeiro da lista, tenho avaliações e recebo leads de lá todo dia.</span></label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Como está a sua captação de clientes no Meta Ads (Facebook/Instagram)?</label>
+        <select id="trafego_status" name="trafego_status" class="form-control" required>
+          <option value="" disabled selected>Selecione a sua realidade atual...</option>
+          <option value="Vivo de indicação">Não invisto nada. Vivo de indicação e rezo para o cliente aparecer.</option>
+          <option value="Aperto o botão turbinar">Só aperto o botão "Turbinar" e queimo dinheiro sem estratégia.</option>
+          <option value="Faço anúncios mas não converte">Já faço anúncios pelo Gerenciador, mas o custo por cliente está absurdo.</option>
+          <option value="Invisto pesado mas parei de crescer">Invisto pesado, mas o faturamento estagnou.</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Como funciona o seu atendimento no WhatsApp hoje?</label>
+        <div class="radio-group">
+          <label class="radio-item"><input type="radio" name="atendimento_wpp" value="Totalmente manual" required><span class="radio-label-text">100% manual. Eu ou minha equipe digitamos tudo do zero. Perco muito tempo.</span></label>
+          <label class="radio-item"><input type="radio" name="atendimento_wpp" value="Respostas prontas"><span class="radio-label-text">Uso algumas respostas prontas, mas nos perdemos no volume de conversas.</span></label>
+          <label class="radio-item"><input type="radio" name="atendimento_wpp" value="Tenho automação burra"><span class="radio-label-text">Até tenho um robô, mas ele parece burro e espanta os clientes.</span></label>
+          <label class="radio-item"><input type="radio" name="atendimento_wpp" value="Funil com IA avançado"><span class="radio-label-text">Já tenho funil de automação com Inteligência Artificial fechando vendas.</span></label>
+        </div>
+      </div>
+
+      <h3>Fase 3: O seu bolso e o seu nível de comprometimento</h3>
+
+      <div class="form-group">
+        <label for="faturamento" class="form-label">Qual foi o seu faturamento médio mensal nos últimos 3 meses?</label>
+        <select id="faturamento" name="faturamento" class="form-control" required>
+          <option value="" disabled selected>Seja transparente...</option>
+          <option value="Menos de 10k">Estou começando ou patinando (Menos de R$ 10.000)</option>
+          <option value="10k a 30k">R$ 10.000 a R$ 30.000</option>
+          <option value="30k a 80k">R$ 30.000 a R$ 80.000</option>
+          <option value="Mais de 80k">Acima de R$ 80.000 (Quero escalar agressivamente)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="investimento" class="form-label">Para implementarmos uma estrutura robusta de vendas, quanto você tem disponível para investir AGORA?</label>
+        <select id="investimento" name="investimento" class="form-control" required>
+          <option value="" disabled selected>Escolha o seu nível de comprometimento...</option>
+          <option value="Nao tenho dinheiro">Não tenho dinheiro para investir. (Se escolher essa, não envie o formulário)</option>
+          <option value="Ate 2 mil">Consigo investir até R$ 2.000 de imediato.</option>
+          <option value="Entre 2 e 5 mil">Estou preparado para investir entre R$ 2.000 e R$ 5.000.</option>
+          <option value="Acima de 5 mil">Tenho caixa e não me importo com o valor, desde que a agência traga lucro.</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="motivo" class="form-label">Última chance: Por que você merece que a Ademir Agência assuma o seu projeto?</label>
+        <textarea id="motivo" name="motivo" class="form-control" required placeholder="Venda o seu projeto para a nossa equipe. Se essa resposta for vazia, não daremos continuidade..."></textarea>
+      </div>
+
+      <button type="submit" class="btn-submit">Aplicar para a Seleção com a Ademir Agência</button>
+    </form>
+  </div>
+
+</div>
+
+<!-- ==========================================================================
+     SCRIPTS: MÁSCARAS E VALIDAÇÃO
+     ========================================================================== -->
+<script>
+  const FormUtils = (function() {
+    function applyPhoneMask() {
+      const phoneInputs = document.querySelectorAll('.phone-mask');
+      phoneInputs.forEach(input => {
+        input.addEventListener('input', function (e) {
+          let x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,5})(\d{0,4})/);
+          e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+        });
+      });
+    }
+    return { init: applyPhoneMask };
+  })();
+
+  function validateForm(formId) {
+    const form = document.getElementById(formId);
+    if (!form) return false;
+    
+    let isValid = true;
+    const requiredInputs = form.querySelectorAll('[required]');
+    
+    requiredInputs.forEach(input => {
+      // Verifica inputs de texto, select e textarea
+      if (input.type !== 'radio' && input.type !== 'checkbox') {
+        if (!input.value.trim()) {
+          isValid = false;
+          input.classList.add('invalid');
+        } else {
+          input.classList.remove('invalid');
+        }
+      }
+    });
+
+    // Validação específica para grupos de radio
+    const radioGroups = form.querySelectorAll('.radio-group');
+    radioGroups.forEach(group => {
+      const radios = group.querySelectorAll('input[type="radio"]');
+      if(radios.length > 0 && radios[0].hasAttribute('required')) {
+        let isChecked = false;
+        radios.forEach(radio => {
+          if(radio.checked) isChecked = true;
+        });
+        if(!isChecked) isValid = false;
+      }
+    });
+
+    if (!isValid) {
+      alert("Atenção: Todos os campos são obrigatórios para a análise da Ademir Agência. Preencha as informações pendentes.");
+    }
+    return isValid;
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    FormUtils.init();
+  });
+</script>
+
+</body>
+</html>
