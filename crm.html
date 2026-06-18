@@ -715,165 +715,91 @@ const DB={
 };
 
 // ════════════════════════════════════════
-// AUTH — usuários no Supabase
+// AUTH — usuários salvos no Supabase
 // ════════════════════════════════════════
-const SK='crm3_sess';
-const GS=()=>{try{return JSON.parse(localStorage.getItem(SK))}catch{return null}};
-const SS=s=>localStorage.setItem(SK,JSON.stringify(s));
-const CS=()=>localStorage.removeItem(SK);
+const SESS_KEY='crm3_sess';
+const GS=()=>{try{return JSON.parse(localStorage.getItem(SESS_KEY))}catch{return null}};
+const SS=s=>localStorage.setItem(SESS_KEY,JSON.stringify(s));
+const CS=()=>localStorage.removeItem(SESS_KEY);
 let CU=null;
 
-// Codificação de senha
-function enc(p){try{return btoa(encodeURIComponent(p))}catch{return btoa(p)}}
-function chk(stored,input){
-  try{if(decodeURIComponent(atob(stored))===input)return true}catch{}
-  try{if(atob(stored)===input)return true}catch{}
-  try{if(stored===input)return true}catch{}
-  try{if(decodeURIComponent(escape(atob(stored)))===input)return true}catch{}
-  return false;
-}
+// Senha master fixa (não muda)
+const MASTER={id:'master',name:'Ademir',role:'admin',email:'contato@ademiragencia.com.br',password:'Ade3865@'};
 
-// Conta master hard-coded (nunca fica exposta — email e senha em base64)
-const MASTER={
-  id:'master',name:'Ademir',role:'admin',
-  email:'Y29udGF0b0BhZGVtaXJhZ2VuY2lhLmNvbS5icg==',
-  password:'QWRlMzg2NSU0MA==',
-  created_at:'2026-01-01T00:00:00.000Z'
-};
-
-// Busca usuários — Supabase primeiro, fallback localStorage
 async function getUsers(){
-  try{
-    const rows=await SB.get('users');
-    if(rows&&rows.length>0) return rows;
-  }catch{}
-  // fallback: localStorage
-  try{return JSON.parse(localStorage.getItem('crm3_users')||'[]')}catch{return[]}
-}
-async function saveUserToSB(u){
-  try{
-    // Verifica se já existe
-    const rows=await SB.get('users',`id=eq.${u.id}`).catch(()=>[]);
-    if(rows&&rows.length>0){
-      await SB.patch('users',u.id,{name:u.name,role:u.role,email:u.email,password:u.password});
-    }else{
-      await SB.post('users',u);
-    }
-  }catch{
-    // fallback localStorage
-    const all=JSON.parse(localStorage.getItem('crm3_users')||'[]');
-    const idx=all.findIndex(x=>x.id===u.id);
-    if(idx>=0)all[idx]=u; else all.push(u);
-    localStorage.setItem('crm3_users',JSON.stringify(all));
-  }
-}
-async function deleteUserFromSB(id){
-  try{await SB.del('users',id)}catch{}
-  const all=JSON.parse(localStorage.getItem('crm3_users')||'[]').filter(x=>x.id!==id);
-  localStorage.setItem('crm3_users',JSON.stringify(all));
+  try{return await SB.get('users')}catch{return[]}
 }
 
 async function initAccs(){
   // Garante master existe no Supabase
   try{
-    const rows=await SB.get('users',`id=eq.master`).catch(()=>[]);
-    if(!rows||rows.length===0){
-      await SB.post('users',MASTER).catch(()=>{});
-    }else{
-      // Atualiza senha do master para formato correto
-      await SB.patch('users','master',{password:'QWRlMzg2NSU0MA=='}).catch(()=>{});
-    }
-  }catch{}
-  // Migra usuários do localStorage antigo para Supabase
-  try{
-    const oldAccs=JSON.parse(localStorage.getItem('crm3_accs')||'[]');
-    for(const u of oldAccs){
-      if(u.id==='master') continue;
-      await saveUserToSB(u).catch(()=>{});
+    const ex=await SB.get('users','id=eq.master').catch(()=>[]);
+    if(!ex||!ex.length){
+      await SB.post('users',{id:'master',name:'Ademir',role:'admin',email:'contato@ademiragencia.com.br',password:'Ade3865@',created_at:'2026-01-01T00:00:00.000Z'}).catch(()=>{});
     }
   }catch{}
 }
 
 async function doLogin(){
   const em=G('l-em').value.trim().toLowerCase();
-  const pw=G('l-pw').value;
+  const pw=G('l-pw').value.trim();
   const btn=G('l-btn');
   btn.textContent='Entrando...';btn.disabled=true;
-  const err=G('lerr');err.style.display='none';
+  G('lerr').style.display='none';
+
+  // Verifica master primeiro (sem precisar do Supabase)
+  if(em===MASTER.email.toLowerCase()&&pw===MASTER.password){
+    const su={id:'master',name:'Ademir',role:'admin',email:MASTER.email};
+    SS(su);CU=su;btn.textContent='Entrar';btn.disabled=false;startApp();return;
+  }
+
+  // Verifica outros usuários no Supabase
   try{
-    // Checa master primeiro (não vai ao banco para a conta principal)
-    const masterEmail=atob(MASTER.email).toLowerCase();
-    if(em===masterEmail&&chk(MASTER.password,pw)){
-      const su={id:'master',name:MASTER.name,role:MASTER.role,email:masterEmail};
-      SS(su);CU=su;startApp();return;
-    }
-    // Busca nos usuários do banco
-    const users=await getUsers();
-    const idx=users.findIndex(x=>{
-      const ue=x.email?.toLowerCase();
-      return ue===em&&chk(x.password,pw);
-    });
-    if(idx<0){
-      err.textContent='E-mail ou senha incorretos.';err.style.display='block';
+    const users=await SB.get('users',`email=eq.${encodeURIComponent(em)}`);
+    const u=users.find(x=>x.email.toLowerCase()===em&&x.password===pw);
+    if(!u){
+      G('lerr').textContent='E-mail ou senha incorretos.';G('lerr').style.display='block';
       btn.textContent='Entrar';btn.disabled=false;return;
     }
-    const u=users[idx];
-    // Migra formato de senha se necessário
-    const newEnc=enc(pw);
-    if(u.password!==newEnc){
-      u.password=newEnc;
-      await saveUserToSB(u).catch(()=>{});
-    }
     const su={id:u.id,name:u.name,role:u.role,email:u.email};
-    SS(su);CU=su;startApp();
+    SS(su);CU=su;btn.textContent='Entrar';btn.disabled=false;startApp();
   }catch(e){
-    err.textContent='Erro ao conectar. Tente novamente.';err.style.display='block';
+    G('lerr').textContent='Erro de conexão. Tente novamente.';G('lerr').style.display='block';
+    btn.textContent='Entrar';btn.disabled=false;
   }
-  btn.textContent='Entrar';btn.disabled=false;
 }
+
 G('l-pw').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()});
+function doLogout(){CS();location.reload()}
 
 async function changePass(){
-  const np=G('np').value,cf=G('cfp').value;
+  const np=G('np').value.trim(),cf=G('cfp').value.trim();
   if(!np||np!==cf){toast('Senhas não coincidem','er');return}
   if(np.length<6){toast('Mínimo 6 caracteres','er');return}
   if(CU.id==='master'){toast('Use o painel de usuários para alterar a senha master','er');return}
-  const users=await getUsers();
-  const u=users.find(x=>x.id===CU.id);
-  if(!u){toast('Usuário não encontrado','er');return}
-  u.password=enc(np);
-  await saveUserToSB(u);
-  toast('Senha alterada!');G('np').value='';G('cfp').value='';
+  try{
+    await SB.patch('users',CU.id,{password:np});
+    toast('Senha alterada!');G('np').value='';G('cfp').value='';
+  }catch(e){toast('Erro: '+e.message,'er')}
 }
 
-function doLogout(){CS();location.reload()}
-
-// Reset de emergência
 async function showResetAll(){
-  let users=[];
-  try{users=await getUsers()}catch{}
-  // Adiciona master na lista
-  const allUsers=[{id:'master',name:'Ademir',email:atob(MASTER.email),role:'admin'},...users.filter(u=>u.id!=='master')];
-  if(!allUsers.length){alert('Nenhum usuário cadastrado.');return}
-  const list=allUsers.map((u,i)=>`${i+1}. ${u.name} (${u.email}) - ${u.role}`).join('\n');
-  const choice=prompt('Usuários:\n\n'+list+'\n\nDigite o e-mail do usuário:');
-  if(!choice)return;
-  const found=allUsers.find(x=>x.email.toLowerCase()===choice.trim().toLowerCase());
-  if(!found){alert('Não encontrado.');return}
-  const newPw=prompt('Nova senha para "'+found.name+'" (mínimo 6 caracteres):');
-  if(!newPw||newPw.length<6){alert('Senha inválida.');return}
-  if(found.id==='master'){
-    alert('A senha master só pode ser alterada no código.\n\nSenha atual: Ade3865@');return;
-  }
-  const users2=await getUsers();
-  const u=users2.find(x=>x.id===found.id);
-  if(u){u.password=enc(newPw);await saveUserToSB(u);}
-  alert('Senha de "'+found.name+'" redefinida!\n\nNova senha: '+newPw);
+  const users=await getUsers();
+  const all=[MASTER,...users.filter(u=>u.id!=='master')];
+  const list=all.map((u,i)=>`${i+1}. ${u.name} — ${u.email}`).join('\n');
+  const em=prompt('Usuários cadastrados:\n\n'+list+'\n\nDigite o e-mail do usuário:');
+  if(!em)return;
+  const found=all.find(x=>x.email.toLowerCase()===em.trim().toLowerCase());
+  if(!found){alert('Usuário não encontrado.');return}
+  if(found.id==='master'){alert('Senha da conta master: Ade3865@\n\nPara alterar edite o arquivo HTML.');return}
+  const np=prompt('Nova senha para "'+found.name+'" (mínimo 6 caracteres):');
+  if(!np||np.length<6){alert('Senha inválida.');return}
+  try{
+    await SB.patch('users',found.id,{password:np});
+    alert('Senha de "'+found.name+'" redefinida!\n\nNova senha: '+np);
+  }catch{alert('Erro ao salvar. Tente pelo painel de Usuários.');}
 }
 
-// ════════════════════════════════════════
-// USUÁRIOS — CRUD no Supabase
-// ════════════════════════════════════════
 const RNB={admin:'b-admin',seller:'b-seller',collaborator:'b-collab',investor:'b-investor'};
 let editU=null;
 
@@ -895,61 +821,56 @@ function openUser(id=null){
 
 async function saveUser(){
   const name=G('u-n').value.trim(),email=G('u-e').value.trim().toLowerCase();
-  const pw=G('u-p').value,pw2=G('u-p2').value,role=G('u-r').value;
+  const pw=G('u-p').value.trim(),pw2=G('u-p2').value.trim(),role=G('u-r').value;
   if(!name){toast('Nome obrigatório','er');return}
   if(!email||!email.includes('@')){toast('E-mail inválido','er');return}
-  const users=await getUsers();
-  if(editU){
-    if(pw&&pw!==pw2){toast('Senhas não coincidem','er');return}
-    if(pw&&pw.length<6){toast('Mínimo 6 caracteres','er');return}
-    if(users.find(x=>x.email===email&&x.id!==editU)){toast('E-mail já em uso','er');return}
-    const u=users.find(x=>x.id===editU)||{};
-    const updated={...u,name,email,role,...(pw?{password:enc(pw)}:{})};
-    await saveUserToSB(updated);
-    closeMo('m-user');renderUsers();toast('Usuário atualizado!');
-  }else{
-    if(!pw){toast('Senha obrigatória','er');return}
-    if(pw!==pw2){toast('Senhas não coincidem','er');return}
-    if(pw.length<6){toast('Mínimo 6 caracteres','er');return}
-    if(users.find(x=>x.email===email)){toast('E-mail já cadastrado','er');return}
-    const nu={id:'u_'+Date.now(),email,password:enc(pw),name,role,created_at:new Date().toISOString()};
-    await saveUserToSB(nu);
-    closeMo('m-user');renderUsers();toast('Usuário "'+name+'" criado!');
-  }
+  if(email===MASTER.email.toLowerCase()&&!editU){toast('E-mail já em uso','er');return}
+  try{
+    const users=await getUsers();
+    if(editU){
+      if(pw&&pw!==pw2){toast('Senhas não coincidem','er');return}
+      if(pw&&pw.length<6){toast('Mínimo 6 caracteres','er');return}
+      if(users.find(x=>x.email.toLowerCase()===email&&x.id!==editU)){toast('E-mail já em uso','er');return}
+      await SB.patch('users',editU,{name,email,role,...(pw?{password:pw}:{})});
+      closeMo('m-user');renderUsers();toast('Usuário atualizado!');
+    }else{
+      if(!pw){toast('Senha obrigatória','er');return}
+      if(pw!==pw2){toast('Senhas não coincidem','er');return}
+      if(pw.length<6){toast('Mínimo 6 caracteres','er');return}
+      if(users.find(x=>x.email.toLowerCase()===email)){toast('E-mail já cadastrado','er');return}
+      await SB.post('users',{id:'u_'+Date.now(),name,email,password:pw,role,created_at:new Date().toISOString()});
+      closeMo('m-user');renderUsers();toast('Usuário "'+name+'" criado!');
+    }
+  }catch(e){toast('Erro: '+e.message,'er')}
   editU=null;
 }
 
-function openReset(id,name){
-  G('rst-id').value=id;G('rst-n').textContent=name;
-  sv('rst-p','');sv('rst-p2','');openMo('m-reset');setTimeout(()=>G('rst-p').focus(),100);
+function openReset(id,nm){
+  sv('rst-id',id);G('rst-n').textContent=nm;sv('rst-p','');sv('rst-p2','');
+  openMo('m-reset');setTimeout(()=>G('rst-p').focus(),100);
 }
 async function doReset(){
-  const id=G('rst-id').value,pw=G('rst-p').value,pw2=G('rst-p2').value;
+  const id=G('rst-id').value,pw=G('rst-p').value.trim(),pw2=G('rst-p2').value.trim();
   if(!pw||pw!==pw2){toast('Senhas não coincidem','er');return}
   if(pw.length<6){toast('Mínimo 6 caracteres','er');return}
-  const users=await getUsers();
-  const u=users.find(x=>x.id===id);
-  if(!u){toast('Usuário não encontrado','er');return}
-  u.password=enc(pw);
-  await saveUserToSB(u);
-  closeMo('m-reset');toast('Senha redefinida!');
+  try{
+    await SB.patch('users',id,{password:pw});
+    closeMo('m-reset');toast('Senha redefinida!');
+  }catch(e){toast('Erro: '+e.message,'er')}
 }
-
 async function delUser(id){
   if(id===CU.id){toast('Não pode excluir sua própria conta','er');return}
   if(id==='master'){toast('Conta principal não pode ser excluída','er');return}
   const users=await getUsers();
   const u=users.find(x=>x.id===id);
   if(!confirm('Excluir "'+u?.name+'"?'))return;
-  await deleteUserFromSB(id);
-  renderUsers();toast('Usuário removido');
+  try{await SB.del('users',id);renderUsers();toast('Usuário removido');}catch(e){toast('Erro','er')}
 }
-
 async function renderUsers(){
   if(CU?.role!=='admin')return;
   const users=await getUsers();
-  const allUsers=[{id:'master',name:'Ademir',role:'admin',email:atob(MASTER.email),created_at:'2026-01-01'},...users.filter(u=>u.id!=='master')];
-  G('usertb').innerHTML=allUsers.map(u=>{
+  const all=[{...MASTER,created_at:'2026-01-01'},...users.filter(u=>u.id!=='master')];
+  G('usertb').innerHTML=all.map(u=>{
     const isMe=u.id===CU.id;
     const rc=RCO[u.role]||'var(--g1)',rcb=RNB[u.role]||'b-admin';
     return`<tr>
@@ -958,7 +879,7 @@ async function renderUsers(){
         <div><div class="tname">${esc(u.name||'—')}${isMe?` <span style="font-size:9px;color:var(--gold);background:var(--gdim);padding:1px 5px;border-radius:100px">você</span>`:''}</div>
         ${u.id==='master'?`<div class="tsub">Conta principal</div>`:''}</div>
       </div></td>
-      <td style="font-size:12px;color:var(--g1)">${esc(u.email||'—')}</td>
+      <td style="font-size:12px;color:var(--g1)">${esc(u.email)}</td>
       <td><span class="badge ${rcb}">${RT[u.role]||u.role}</span></td>
       <td class="hide-m" style="font-size:11px;color:var(--g1)">${u.created_at?new Date(u.created_at).toLocaleDateString('pt-BR'):'—'}</td>
       <td>${!isMe&&u.id!=='master'?`<div class="rbtns">
@@ -969,6 +890,7 @@ async function renderUsers(){
     </tr>`;
   }).join('');
 }
+
 let leads=[],fus=[],notes=[],acts=[],people=[],svcs=[];
 let dpId=null,dpType=null,editL=null,editP=null,editSvc=null,fuFV='all';
 
