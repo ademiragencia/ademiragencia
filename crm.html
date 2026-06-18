@@ -272,8 +272,8 @@ tr:hover .abtns{opacity:1}
     <div class="llogo"><img src="https://res.cloudinary.com/dmdaiwkyl/image/upload/v1781641114/ChatGPT_Image_16_de_jun._de_2026_16_18_24_skbudu.png"></div>
     <div class="ltitle">Bem-vindo de volta</div><div class="lsub">CRM — Ademir Agência</div>
     <div class="lerr" id="lerr"></div>
-    <div class="fg"><label class="fl">E-mail</label><input class="fi" id="lem" type="email" value="contato@ademiragencia.com.br"></div>
-    <div class="fg"><label class="fl">Senha</label><input class="fi" id="lpw" type="password" placeholder="••••••••"></div>
+    <div class="fg"><label class="fl">E-mail</label><input class="fi" id="lem" type="email" placeholder="seu@email.com" autocomplete="email"></div>
+    <div class="fg"><label class="fl">Senha</label><input class="fi" id="lpw" type="password" placeholder="••••••••" autocomplete="current-password"></div>
     <button class="btn btn-g" style="width:100%;justify-content:center;padding:12px;font-size:15px;margin-top:4px" onclick="doLogin()" id="lbtn">Entrar</button>
   </div>
 </div>
@@ -468,7 +468,7 @@ tr:hover .abtns{opacity:1}
   <div class="modal" style="max-width:480px"><div class="mh"><div class="mt" id="m-user-t">Novo Usuário</div><button class="mc" onclick="closeM('m-user')">✕</button></div>
   <div class="mb"><input type="hidden" id="user-id">
     <div class="fr2"><div class="fg"><label class="fl">Nome Completo *</label><input class="fi" id="u-name" placeholder="João Silva"></div><div class="fg"><label class="fl">Função</label><select class="fs" id="u-role"><option value="admin">Administrador</option><option value="seller">Vendedor</option><option value="collaborator">Colaborador</option><option value="investor">Investidor</option></select></div></div>
-    <div class="fg"><label class="fl">E-mail *</label><input class="fi" id="u-email" type="email" placeholder="joao@ademiragencia.com.br"></div>
+    <div class="fg"><label class="fl">E-mail *</label><input class="fi" id="u-email" type="email" placeholder="email@dominio.com"></div>
     <div class="fr2"><div class="fg"><label class="fl">Senha *</label><input class="fi" id="u-pass" type="password" placeholder="Mínimo 6 caracteres"></div><div class="fg"><label class="fl">Confirmar Senha *</label><input class="fi" id="u-pass2" type="password" placeholder="Repetir senha"></div></div>
     <div style="background:var(--gold-dim);border:1px solid rgba(245,166,35,.25);border-radius:9px;padding:10px 14px;font-size:12px;color:rgba(255,255,255,.65);margin-bottom:14px">
       <strong style="color:var(--gold)">Dica:</strong> Compartilhe o e-mail e senha com o usuário após criar o acesso. Ele poderá trocar a senha no perfil.
@@ -518,70 +518,32 @@ const saveSess=s=>localStorage.setItem(SK2,JSON.stringify(s));
 const clrSess=()=>localStorage.removeItem(SK2);
 let CU=null;
 
-function ensureMaster(){
-  // Credentials are NEVER stored in the source code.
-  // On first run, admin sets up the master account via the setup screen.
-  const accs=getAccs();
-  if(!accs.find(a=>a.role==='admin')){
-    showSetup();
-  }
-}
-
-function showSetup(){
-  hideLdr();
-  G('login').style.display='none';
-  G('app').classList.remove('on');
-  let setup=G('setup-screen');
-  if(!setup){
-    setup=document.createElement('div');
-    setup.id='setup-screen';
-    setup.style.cssText='display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(245,166,35,.07) 0%,transparent 70%),var(--bg)';
-    setup.innerHTML=`
-      <div style="width:100%;max-width:440px;background:var(--bg2);border:1px solid var(--border2);border-radius:20px;padding:40px">
-        <div style="display:flex;justify-content:center;margin-bottom:28px">
-          <img src="https://res.cloudinary.com/dmdaiwkyl/image/upload/v1781641114/ChatGPT_Image_16_de_jun._de_2026_16_18_24_skbudu.png" style="height:54px;filter:drop-shadow(0 0 18px var(--gold-glow))">
-        </div>
-        <div style="font-family:'Outfit',sans-serif;font-size:22px;font-weight:900;text-align:center;margin-bottom:6px">Configuração inicial</div>
-        <div style="font-size:13px;color:var(--gray);text-align:center;margin-bottom:28px;line-height:1.6">Crie a conta de administrador.<br>Isso acontece apenas uma vez.</div>
-        <div style="background:var(--gold-dim);border:1px solid rgba(245,166,35,.25);border-radius:9px;padding:10px 14px;font-size:12px;color:rgba(255,255,255,.7);margin-bottom:20px">
-          <strong style="color:var(--gold)">Segurança:</strong> Suas credenciais são salvas apenas no seu navegador, criptografadas. Nunca ficam no código-fonte.
-        </div>
-        <div id="setup-err" style="display:none;background:var(--rdim);border:1px solid rgba(239,68,68,.3);color:var(--red);padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:14px"></div>
-        <div class="fg"><label class="fl">Seu Nome</label><input class="fi" id="su-name" placeholder="Ademir" autocomplete="name"></div>
-        <div class="fg"><label class="fl">E-mail de acesso</label><input class="fi" id="su-email" type="email" placeholder="contato@ademiragencia.com.br" autocomplete="email"></div>
-        <div class="fg"><label class="fl">Senha</label><input class="fi" id="su-pass" type="password" placeholder="Mínimo 8 caracteres" autocomplete="new-password"></div>
-        <div class="fg"><label class="fl">Confirmar Senha</label><input class="fi" id="su-pass2" type="password" placeholder="Repetir senha" autocomplete="new-password"></div>
-        <button class="btn btn-g" style="width:100%;justify-content:center;padding:12px;font-size:15px;margin-top:4px" onclick="doSetup()">Criar conta e entrar</button>
-      </div>`;
-    document.body.appendChild(setup);
-  }
-  setup.style.display='flex';
-  setTimeout(()=>G('su-name')?.focus(),100);
-}
-
-function doSetup(){
-  const name=G('su-name').value.trim();
-  const email=G('su-email').value.trim().toLowerCase();
-  const pass=G('su-pass').value;
-  const pass2=G('su-pass2').value;
-  const err=G('setup-err');
-  err.style.display='none';
-  if(!name){err.textContent='Nome obrigatório.';err.style.display='block';return;}
-  if(!email||!email.includes('@')){err.textContent='E-mail inválido.';err.style.display='block';return;}
-  if(!pass||pass.length<8){err.textContent='Senha deve ter no mínimo 8 caracteres.';err.style.display='block';return;}
-  if(pass!==pass2){err.textContent='As senhas não coincidem.';err.style.display='block';return;}
-  const master={id:'master',email,password:btoa(unescape(encodeURIComponent(pass))),name,role:'admin',created_at:new Date().toISOString()};
-  saveAccs([master]);
-  G('setup-screen').style.display='none';
-  CU=master;
-  saveSess(master);
-  initApp();
-}
+// Senha master codificada — não é texto puro
+// Para trocar: btoa(unescape(encodeURIComponent('suasenha'))) no console
+const _M={
+  id:'master',
+  name:'Ademir',
+  role:'admin',
+  email:'Y29udGF0b0BhZGVtaXJhZ2VuY2lhLmNvbS5icg==', // contato@ademiragencia.com.br
+  password:'QWRlMzg2NUA=', // Ade3865@
+  created_at:'2026-01-01T00:00:00.000Z'
+};
 
 function hashPass(p){return btoa(unescape(encodeURIComponent(p)));}
 function checkPass(stored,input){
-  // Support both encoded (new) and plain (legacy) — migrate on match
-  return stored===hashPass(input)||stored===input;
+  try{
+    const decoded=decodeURIComponent(escape(atob(stored)));
+    return decoded===input;
+  }catch{return stored===input;}
+}
+function decodeMail(s){try{return atob(s)}catch{return s}}
+
+function ensureMaster(){
+  let a=getAccs();
+  if(!a.find(x=>x.id==='master')){
+    a.push(_M);
+    saveAccs(a);
+  }
 }
 
 function doLogin(){
@@ -590,19 +552,19 @@ function doLogin(){
   const err=G('lerr'), btn=G('lbtn');
   err.style.display='none'; btn.textContent='Entrando...'; btn.disabled=true;
   const accs=getAccs();
-  const u=accs.find(a=>a.email===email&&checkPass(a.password,pw));
+  const u=accs.find(a=>{
+    const ae=a.id==='master'?decodeMail(a.email):a.email;
+    return ae===email && checkPass(a.password,pw);
+  });
   if(!u){
     err.textContent='E-mail ou senha incorretos.';
     err.style.display='block';
     btn.textContent='Entrar'; btn.disabled=false;
     return;
   }
-  // Migrate plain password to encoded on login
-  if(u.password===pw){
-    saveAccs(accs.map(a=>a.id===u.id?{...a,password:hashPass(pw)}:a));
-    u.password=hashPass(pw);
-  }
-  saveSess(u); CU=u; initApp();
+  // Store display email decoded for session
+  const sessionUser={...u, email: u.id==='master'?decodeMail(u.email):u.email};
+  saveSess(sessionUser); CU=sessionUser; initApp();
   btn.textContent='Entrar'; btn.disabled=false;
 }
 G('lpw').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
@@ -1267,18 +1229,10 @@ function delUser(id){
 // ══ INIT ══
 ensureMaster();
 const sess=getSess();
-if(sess){
-  // Validate session still exists in accounts
-  const valid=getAccs().find(a=>a.id===sess.id);
-  if(valid){CU=sess;initApp();}
-  else{clrSess();hideLdr();G('login').style.display='flex';}
+if(sess&&getAccs().find(a=>a.id===sess.id)){
+  CU=sess; initApp();
 }else{
-  const accs=getAccs();
-  if(!accs.length||!accs.find(a=>a.role==='admin')){
-    // No admin yet — show setup
-  }else{
-    hideLdr();G('login').style.display='flex';
-  }
+  clrSess(); hideLdr(); G('login').style.display='flex';
 }
 </script>
 </body>
