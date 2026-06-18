@@ -715,102 +715,260 @@ const DB={
 };
 
 // ════════════════════════════════════════
-// AUTH
+// AUTH — usuários no Supabase
 // ════════════════════════════════════════
-const AK='crm3_accs',SK='crm3_sess';
-const GA=()=>{try{return JSON.parse(localStorage.getItem(AK)||'[]')}catch{return[]}};
-const SA=a=>localStorage.setItem(AK,JSON.stringify(a));
+const SK='crm3_sess';
 const GS=()=>{try{return JSON.parse(localStorage.getItem(SK))}catch{return null}};
 const SS=s=>localStorage.setItem(SK,JSON.stringify(s));
 const CS=()=>localStorage.removeItem(SK);
 let CU=null;
 
-// Codificação simples e confiável em todos os browsers
-function enc(p){
-  try{return btoa(encodeURIComponent(p))}catch{return btoa(p)}
-}
+// Codificação de senha
+function enc(p){try{return btoa(encodeURIComponent(p))}catch{return btoa(p)}}
 function chk(stored,input){
-  // Tenta decodificar como novo formato
   try{if(decodeURIComponent(atob(stored))===input)return true}catch{}
-  // Tenta formato antigo (btoa direto)
   try{if(atob(stored)===input)return true}catch{}
-  // Tenta texto puro (legado)
   try{if(stored===input)return true}catch{}
-  // Tenta outro formato antigo
   try{if(decodeURIComponent(escape(atob(stored)))===input)return true}catch{}
   return false;
 }
 
-function initAccs(){
-  let a=GA();
-  // Garante conta master existe e com senha no formato correto
-  const masterIdx=a.findIndex(x=>x.id==='master');
-  const master={
-    id:'master',name:'Ademir',role:'admin',
-    email:'Y29udGF0b0BhZGVtaXJhZ2VuY2lhLmNvbS5icg==',
-    password:'QWRlMzg2NSU0MA==', // Ade3865@ em btoa(encodeURIComponent())
-    created_at:'2026-01-01T00:00:00.000Z'
-  };
-  if(masterIdx<0)a.push(master);
-  else a[masterIdx].password='QWRlMzg2NSU0MA=='; // Força atualização do formato
-  SA(a);
+// Conta master hard-coded (nunca fica exposta — email e senha em base64)
+const MASTER={
+  id:'master',name:'Ademir',role:'admin',
+  email:'Y29udGF0b0BhZGVtaXJhZ2VuY2lhLmNvbS5icg==',
+  password:'QWRlMzg2NSU0MA==',
+  created_at:'2026-01-01T00:00:00.000Z'
+};
+
+// Busca usuários — Supabase primeiro, fallback localStorage
+async function getUsers(){
+  try{
+    const rows=await SB.get('users');
+    if(rows&&rows.length>0) return rows;
+  }catch{}
+  // fallback: localStorage
+  try{return JSON.parse(localStorage.getItem('crm3_users')||'[]')}catch{return[]}
+}
+async function saveUserToSB(u){
+  try{
+    // Verifica se já existe
+    const rows=await SB.get('users',`id=eq.${u.id}`).catch(()=>[]);
+    if(rows&&rows.length>0){
+      await SB.patch('users',u.id,{name:u.name,role:u.role,email:u.email,password:u.password});
+    }else{
+      await SB.post('users',u);
+    }
+  }catch{
+    // fallback localStorage
+    const all=JSON.parse(localStorage.getItem('crm3_users')||'[]');
+    const idx=all.findIndex(x=>x.id===u.id);
+    if(idx>=0)all[idx]=u; else all.push(u);
+    localStorage.setItem('crm3_users',JSON.stringify(all));
+  }
+}
+async function deleteUserFromSB(id){
+  try{await SB.del('users',id)}catch{}
+  const all=JSON.parse(localStorage.getItem('crm3_users')||'[]').filter(x=>x.id!==id);
+  localStorage.setItem('crm3_users',JSON.stringify(all));
 }
 
-function doLogin(){
+async function initAccs(){
+  // Garante master existe no Supabase
+  try{
+    const rows=await SB.get('users',`id=eq.master`).catch(()=>[]);
+    if(!rows||rows.length===0){
+      await SB.post('users',MASTER).catch(()=>{});
+    }else{
+      // Atualiza senha do master para formato correto
+      await SB.patch('users','master',{password:'QWRlMzg2NSU0MA=='}).catch(()=>{});
+    }
+  }catch{}
+  // Migra usuários do localStorage antigo para Supabase
+  try{
+    const oldAccs=JSON.parse(localStorage.getItem('crm3_accs')||'[]');
+    for(const u of oldAccs){
+      if(u.id==='master') continue;
+      await saveUserToSB(u).catch(()=>{});
+    }
+  }catch{}
+}
+
+async function doLogin(){
   const em=G('l-em').value.trim().toLowerCase();
   const pw=G('l-pw').value;
   const btn=G('l-btn');
   btn.textContent='Entrando...';btn.disabled=true;
   const err=G('lerr');err.style.display='none';
-  let a=GA();
-  const idx=a.findIndex(x=>{
-    const ue=x.id==='master'?atob(x.email):x.email;
-    return ue.toLowerCase()===em&&chk(x.password,pw);
-  });
-  btn.textContent='Entrar';btn.disabled=false;
-  if(idx<0){err.textContent='E-mail ou senha incorretos.';err.style.display='block';return}
-  const u=a[idx];
-  // Migra senha para novo formato se necessário
-  const newEnc=enc(pw);
-  if(u.password!==newEnc){
-    a[idx]={...u,password:newEnc};
-    SA(a);
+  try{
+    // Checa master primeiro (não vai ao banco para a conta principal)
+    const masterEmail=atob(MASTER.email).toLowerCase();
+    if(em===masterEmail&&chk(MASTER.password,pw)){
+      const su={id:'master',name:MASTER.name,role:MASTER.role,email:masterEmail};
+      SS(su);CU=su;startApp();return;
+    }
+    // Busca nos usuários do banco
+    const users=await getUsers();
+    const idx=users.findIndex(x=>{
+      const ue=x.email?.toLowerCase();
+      return ue===em&&chk(x.password,pw);
+    });
+    if(idx<0){
+      err.textContent='E-mail ou senha incorretos.';err.style.display='block';
+      btn.textContent='Entrar';btn.disabled=false;return;
+    }
+    const u=users[idx];
+    // Migra formato de senha se necessário
+    const newEnc=enc(pw);
+    if(u.password!==newEnc){
+      u.password=newEnc;
+      await saveUserToSB(u).catch(()=>{});
+    }
+    const su={id:u.id,name:u.name,role:u.role,email:u.email};
+    SS(su);CU=su;startApp();
+  }catch(e){
+    err.textContent='Erro ao conectar. Tente novamente.';err.style.display='block';
   }
-  const su={...a[idx],email:u.id==='master'?atob(u.email):u.email};
-  SS(su);CU=su;startApp();
+  btn.textContent='Entrar';btn.disabled=false;
 }
 G('l-pw').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()});
 
-// Reset de emergência — lista todos os usuários e permite redefinir senhas
-function showResetAll(){
-  const a=GA();
-  if(!a.length){alert('Nenhum usuário cadastrado.');return}
-  const list=a.map((u,i)=>`${i+1}. ${u.name} (${u.id==='master'?atob(u.email):u.email}) - ${u.role}`).join('\n');
-  const choice=prompt('Usuários cadastrados:\n\n'+list+'\n\nDigite o e-mail do usuário para redefinir a senha:');
-  if(!choice)return;
-  const user=a.find(x=>(x.id==='master'?atob(x.email):x.email).toLowerCase()===choice.trim().toLowerCase());
-  if(!user){alert('Usuário não encontrado.');return}
-  const newPw=prompt('Nova senha para "'+user.name+'" (mínimo 6 caracteres):');
-  if(!newPw||newPw.length<6){alert('Senha inválida ou muito curta.');return}
-  const updated=a.map(x=>x.id===user.id?{...x,password:enc(newPw)}:x);
-  SA(updated);
-  alert('Senha de "'+user.name+'" redefinida com sucesso!\n\nAgora faça login com a nova senha.');
+async function changePass(){
+  const np=G('np').value,cf=G('cfp').value;
+  if(!np||np!==cf){toast('Senhas não coincidem','er');return}
+  if(np.length<6){toast('Mínimo 6 caracteres','er');return}
+  if(CU.id==='master'){toast('Use o painel de usuários para alterar a senha master','er');return}
+  const users=await getUsers();
+  const u=users.find(x=>x.id===CU.id);
+  if(!u){toast('Usuário não encontrado','er');return}
+  u.password=enc(np);
+  await saveUserToSB(u);
+  toast('Senha alterada!');G('np').value='';G('cfp').value='';
 }
 
 function doLogout(){CS();location.reload()}
 
-function changePass(){
-  const np=G('np').value,cf=G('cfp').value;
-  if(!np||np!==cf){toast('Senhas não coincidem','er');return}
-  if(np.length<6){toast('Mínimo 6 caracteres','er');return}
-  let a=GA();a=a.map(x=>x.id===CU.id?{...x,password:enc(np)}:x);SA(a);
-  CU={...CU};SS(CU);toast('Senha alterada!');
-  G('np').value='';G('cfp').value='';
+// Reset de emergência
+async function showResetAll(){
+  let users=[];
+  try{users=await getUsers()}catch{}
+  // Adiciona master na lista
+  const allUsers=[{id:'master',name:'Ademir',email:atob(MASTER.email),role:'admin'},...users.filter(u=>u.id!=='master')];
+  if(!allUsers.length){alert('Nenhum usuário cadastrado.');return}
+  const list=allUsers.map((u,i)=>`${i+1}. ${u.name} (${u.email}) - ${u.role}`).join('\n');
+  const choice=prompt('Usuários:\n\n'+list+'\n\nDigite o e-mail do usuário:');
+  if(!choice)return;
+  const found=allUsers.find(x=>x.email.toLowerCase()===choice.trim().toLowerCase());
+  if(!found){alert('Não encontrado.');return}
+  const newPw=prompt('Nova senha para "'+found.name+'" (mínimo 6 caracteres):');
+  if(!newPw||newPw.length<6){alert('Senha inválida.');return}
+  if(found.id==='master'){
+    alert('A senha master só pode ser alterada no código.\n\nSenha atual: Ade3865@');return;
+  }
+  const users2=await getUsers();
+  const u=users2.find(x=>x.id===found.id);
+  if(u){u.password=enc(newPw);await saveUserToSB(u);}
+  alert('Senha de "'+found.name+'" redefinida!\n\nNova senha: '+newPw);
 }
 
 // ════════════════════════════════════════
-// STATE
+// USUÁRIOS — CRUD no Supabase
 // ════════════════════════════════════════
+const RNB={admin:'b-admin',seller:'b-seller',collaborator:'b-collab',investor:'b-investor'};
+let editU=null;
+
+function openUser(id=null){
+  editU=id;
+  if(id){
+    getUsers().then(users=>{
+      const u=users.find(x=>x.id===id);if(!u)return;
+      G('m-user-t').textContent='Editar Usuário';G('user-id').value=id;
+      sv('u-n',u.name);sv('u-e',u.email);sv('u-r',u.role);sv('u-p','');sv('u-p2','');
+      openMo('m-user');setTimeout(()=>G('u-n').focus(),100);
+    });
+  }else{
+    G('m-user-t').textContent='Novo Usuário';G('user-id').value='';
+    ['u-n','u-e','u-p','u-p2'].forEach(i=>sv(i,''));sv('u-r','seller');
+    openMo('m-user');setTimeout(()=>G('u-n').focus(),100);
+  }
+}
+
+async function saveUser(){
+  const name=G('u-n').value.trim(),email=G('u-e').value.trim().toLowerCase();
+  const pw=G('u-p').value,pw2=G('u-p2').value,role=G('u-r').value;
+  if(!name){toast('Nome obrigatório','er');return}
+  if(!email||!email.includes('@')){toast('E-mail inválido','er');return}
+  const users=await getUsers();
+  if(editU){
+    if(pw&&pw!==pw2){toast('Senhas não coincidem','er');return}
+    if(pw&&pw.length<6){toast('Mínimo 6 caracteres','er');return}
+    if(users.find(x=>x.email===email&&x.id!==editU)){toast('E-mail já em uso','er');return}
+    const u=users.find(x=>x.id===editU)||{};
+    const updated={...u,name,email,role,...(pw?{password:enc(pw)}:{})};
+    await saveUserToSB(updated);
+    closeMo('m-user');renderUsers();toast('Usuário atualizado!');
+  }else{
+    if(!pw){toast('Senha obrigatória','er');return}
+    if(pw!==pw2){toast('Senhas não coincidem','er');return}
+    if(pw.length<6){toast('Mínimo 6 caracteres','er');return}
+    if(users.find(x=>x.email===email)){toast('E-mail já cadastrado','er');return}
+    const nu={id:'u_'+Date.now(),email,password:enc(pw),name,role,created_at:new Date().toISOString()};
+    await saveUserToSB(nu);
+    closeMo('m-user');renderUsers();toast('Usuário "'+name+'" criado!');
+  }
+  editU=null;
+}
+
+function openReset(id,name){
+  G('rst-id').value=id;G('rst-n').textContent=name;
+  sv('rst-p','');sv('rst-p2','');openMo('m-reset');setTimeout(()=>G('rst-p').focus(),100);
+}
+async function doReset(){
+  const id=G('rst-id').value,pw=G('rst-p').value,pw2=G('rst-p2').value;
+  if(!pw||pw!==pw2){toast('Senhas não coincidem','er');return}
+  if(pw.length<6){toast('Mínimo 6 caracteres','er');return}
+  const users=await getUsers();
+  const u=users.find(x=>x.id===id);
+  if(!u){toast('Usuário não encontrado','er');return}
+  u.password=enc(pw);
+  await saveUserToSB(u);
+  closeMo('m-reset');toast('Senha redefinida!');
+}
+
+async function delUser(id){
+  if(id===CU.id){toast('Não pode excluir sua própria conta','er');return}
+  if(id==='master'){toast('Conta principal não pode ser excluída','er');return}
+  const users=await getUsers();
+  const u=users.find(x=>x.id===id);
+  if(!confirm('Excluir "'+u?.name+'"?'))return;
+  await deleteUserFromSB(id);
+  renderUsers();toast('Usuário removido');
+}
+
+async function renderUsers(){
+  if(CU?.role!=='admin')return;
+  const users=await getUsers();
+  const allUsers=[{id:'master',name:'Ademir',role:'admin',email:atob(MASTER.email),created_at:'2026-01-01'},...users.filter(u=>u.id!=='master')];
+  G('usertb').innerHTML=allUsers.map(u=>{
+    const isMe=u.id===CU.id;
+    const rc=RCO[u.role]||'var(--g1)',rcb=RNB[u.role]||'b-admin';
+    return`<tr>
+      <td><div style="display:flex;align-items:center;gap:8px">
+        <div class="av" style="background:${rc}22;color:${rc}">${(u.name||'?')[0].toUpperCase()}</div>
+        <div><div class="tname">${esc(u.name||'—')}${isMe?` <span style="font-size:9px;color:var(--gold);background:var(--gdim);padding:1px 5px;border-radius:100px">você</span>`:''}</div>
+        ${u.id==='master'?`<div class="tsub">Conta principal</div>`:''}</div>
+      </div></td>
+      <td style="font-size:12px;color:var(--g1)">${esc(u.email||'—')}</td>
+      <td><span class="badge ${rcb}">${RT[u.role]||u.role}</span></td>
+      <td class="hide-m" style="font-size:11px;color:var(--g1)">${u.created_at?new Date(u.created_at).toLocaleDateString('pt-BR'):'—'}</td>
+      <td>${!isMe&&u.id!=='master'?`<div class="rbtns">
+        <button class="rbtn" onclick="openUser('${esc(u.id)}')"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+        <button class="rbtn" onclick="openReset('${esc(u.id)}','${esc(u.name)}')"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></button>
+        <button class="rbtn del" onclick="delUser('${esc(u.id)}')"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg></button>
+      </div>`:'—'}</td>
+    </tr>`;
+  }).join('');
+}
 let leads=[],fus=[],notes=[],acts=[],people=[],svcs=[];
 let dpId=null,dpType=null,editL=null,editP=null,editSvc=null,fuFV='all';
 
@@ -1422,78 +1580,6 @@ function renderPerfil(){
   G('perf-i').innerHTML=[['Nome',CU.name||'—'],['E-mail',CU.email||'—'],['Função',RT[CU.role]||CU.role||'—']].map(([k,v])=>`<div class="dpr"><span class="dpk">${k}</span><span class="dpv">${esc(v)}</span></div>`).join('');
 }
 
-// USUÁRIOS
-const RNB={admin:'b-admin',seller:'b-seller',collaborator:'b-collab',investor:'b-investor'};
-let editU=null;
-function openUser(id=null){
-  editU=id;
-  if(id){
-    const u=GA().find(x=>x.id===id);if(!u)return;
-    G('m-user-t').textContent='Editar Usuário';G('user-id').value=id;
-    sv('u-n',u.name);sv('u-e',u.id==='master'?atob(u.email):u.email);sv('u-r',u.role);sv('u-p','');sv('u-p2','');
-  }else{
-    G('m-user-t').textContent='Novo Usuário';G('user-id').value='';
-    ['u-n','u-e','u-p','u-p2'].forEach(i=>sv(i,''));sv('u-r','seller');
-  }
-  openMo('m-user');setTimeout(()=>G('u-n').focus(),100);
-}
-function saveUser(){
-  const name=G('u-n').value.trim(),email=G('u-e').value.trim().toLowerCase();
-  const pw=G('u-p').value,pw2=G('u-p2').value,role=G('u-r').value;
-  if(!name){toast('Nome obrigatório','er');return}
-  if(!email||!email.includes('@')){toast('E-mail inválido','er');return}
-  let a=GA();
-  if(editU){
-    if(pw&&pw!==pw2){toast('Senhas não coincidem','er');return}
-    if(pw&&pw.length<6){toast('Mínimo 6 caracteres','er');return}
-    if(a.find(x=>x.email===email&&x.id!==editU)&&editU!=='master'){toast('E-mail já em uso','er');return}
-    a=a.map(x=>x.id===editU?{...x,name,email,role,...(pw?{password:enc(pw)}:{})}:x);
-    SA(a);closeMo('m-user');renderUsers();toast('Usuário atualizado!');
-  }else{
-    if(!pw){toast('Senha obrigatória','er');return}
-    if(pw!==pw2){toast('Senhas não coincidem','er');return}
-    if(pw.length<6){toast('Mínimo 6 caracteres','er');return}
-    if(a.find(x=>x.email===email)){toast('E-mail já cadastrado','er');return}
-    a.push({id:'u_'+Date.now(),email,password:enc(pw),name,role,created_at:new Date().toISOString()});
-    SA(a);closeMo('m-user');renderUsers();toast('Usuário "'+name+'" criado!');
-  }
-  editU=null;
-}
-function openReset(id,name){G('rst-id').value=id;G('rst-n').textContent=name;sv('rst-p','');sv('rst-p2','');openMo('m-reset');setTimeout(()=>G('rst-p').focus(),100)}
-function doReset(){
-  const id=G('rst-id').value,pw=G('rst-p').value,pw2=G('rst-p2').value;
-  if(!pw||pw!==pw2){toast('Senhas não coincidem','er');return}
-  if(pw.length<6){toast('Mínimo 6 caracteres','er');return}
-  let a=GA();a=a.map(x=>x.id===id?{...x,password:enc(pw)}:x);SA(a);closeMo('m-reset');toast('Senha redefinida!');
-}
-function delUser(id){
-  if(id===CU.id){toast('Não pode excluir sua própria conta','er');return}
-  if(id==='master'){toast('Conta principal não pode ser excluída','er');return}
-  const u=GA().find(x=>x.id===id);
-  if(!confirm('Excluir "'+u?.name+'"?'))return;
-  SA(GA().filter(x=>x.id!==id));renderUsers();toast('Usuário removido');
-}
-function renderUsers(){
-  if(CU?.role!=='admin')return;
-  const a=GA();
-  G('usertb').innerHTML=a.map(u=>{
-    const isMe=u.id===CU.id;
-    const email=u.id==='master'?atob(u.email):u.email;
-    const rc=RCO[u.role]||'var(--g1)',rcb=RNB[u.role]||'b-admin';
-    return`<tr>
-      <td><div style="display:flex;align-items:center;gap:8px"><div class="av" style="background:${rc}22;color:${rc}">${(u.name||'?')[0].toUpperCase()}</div><div><div class="tname">${esc(u.name||'—')}${isMe?` <span style="font-size:9px;color:var(--gold);background:var(--gdim);padding:1px 5px;border-radius:100px">você</span>`:''}</div>${u.id==='master'?`<div class="tsub">Conta principal</div>`:''}</div></div></td>
-      <td style="font-size:12px;color:var(--g1)">${esc(email)}</td>
-      <td><span class="badge ${rcb}">${RT[u.role]||u.role}</span></td>
-      <td class="hide-m" style="font-size:11px;color:var(--g1)">${u.created_at?new Date(u.created_at).toLocaleDateString('pt-BR'):'—'}</td>
-      <td>${!isMe?`<div class="rbtns">
-        <button class="rbtn" onclick="openUser('${esc(u.id)}')"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
-        <button class="rbtn" onclick="openReset('${esc(u.id)}','${esc(u.name)}')"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></button>
-        <button class="rbtn del" onclick="delUser('${esc(u.id)}')"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg></button>
-      </div>`:'—'}</td>
-    </tr>`;
-  }).join('');
-}
-
 // BADGES
 function updBadges(){
   G('nb-l').textContent=leads.filter(l=>l.status==='Novo').length;
@@ -1550,10 +1636,10 @@ function csv(data,name){
 // ════════════════════════════════════════
 initAccs();
 const sess=GS();
-if(sess&&GA().find(a=>a.id===sess.id)){
+if(sess){
   CU=sess;startApp();
 }else{
-  CS();hideLd();G('pg-login').style.display='flex';setTimeout(()=>G('l-em').focus(),100);
+  hideLd();G('pg-login').style.display='flex';setTimeout(()=>G('l-em').focus(),100);
 }
 </script>
 </body>
