@@ -13,10 +13,12 @@
   --color-bg-card: #121212;
   --color-text-main: #f5f5f5;
   --color-text-muted: #888888;
-  --color-primary: #e89b27; /* Dourado/Laranja do Logo Ademir */
+  --color-primary: #e89b27;
   --color-primary-hover: #c7821c;
   --color-error: #ff4d4d;
   --color-success: #00cc66;
+  --color-warning: #ffcc00;
+  --color-danger: #ff3333;
   --color-border: #333333;
   --font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --transition-speed: 0.3s;
@@ -38,9 +40,9 @@ body {
   line-height: 1.6;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start; /* Ajustado para rolagem fluida */
   min-height: 100vh;
-  padding: 20px;
+  padding: 40px 20px;
 }
 
 /* ==========================================================================
@@ -93,6 +95,69 @@ p {
   max-width: 160px;
   display: block;
   margin: 0 auto 30px auto;
+}
+
+/* ==========================================================================
+   MARKETINÔMETRO (BARRA ANIMADA)
+   ========================================================================== */
+.marketinometro-container {
+  background-color: #1a1a1a;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  padding: 20px;
+  margin-bottom: 40px;
+  text-align: center;
+  position: sticky;
+  top: 10px;
+  z-index: 100;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+}
+
+.marketinometro-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.marketinometro-title {
+  font-weight: 700;
+  color: #fff;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.marketinometro-score-text {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--color-primary);
+}
+
+.marketinometro-bar-bg {
+  width: 100%;
+  height: 12px;
+  background-color: #333;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.marketinometro-bar-fill {
+  height: 100%;
+  width: 0%; /* Inicia em 0 */
+  background: linear-gradient(90deg, var(--color-danger) 0%, var(--color-warning) 50%, var(--color-success) 100%);
+  background-size: 200% 100%;
+  border-radius: 10px;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1), background-position 0.8s ease;
+}
+
+.marketinometro-status {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  transition: color 0.3s ease;
 }
 
 /* ==========================================================================
@@ -211,12 +276,12 @@ select:invalid {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.6s ease-out forwards;
+  animation: fadeIn 0.8s ease-out forwards;
 }
 
 .invalid {
@@ -228,17 +293,31 @@ select:invalid {
 
 <div class="container animate-fade-in">
 
-  <!-- Nova logo adicionada -->
+  <!-- Logo Atualizada -->
   <img src="https://res.cloudinary.com/dmdaiwkyl/image/upload/v1781641114/ChatGPT_Image_16_de_jun._de_2026_16_18_24_skbudu.png" alt="Logo Ademir Agência" class="logo">
 
   <div id="form-container">
     <h2>Sua empresa é lucrativa ou um hobby caro?</h2>
-    <p>Este formulário <span class="highlight">não é para qualquer empresa</span>. Só vamos analisar a sua aplicação se as suas respostas provarem que você tem sede de escala e não tem medo de investir no seu negócio.</p>
+    <p>Preencha os dados e veja o seu <span class="highlight">Nível de Maturidade</span> subir no nosso Marketinômetro em tempo real.</p>
+
+    <!-- MARKETINÔMETRO ANIMADO -->
+    <div class="marketinometro-container">
+      <div class="marketinometro-header">
+        <span class="marketinometro-title">Marketinômetro</span>
+        <span class="marketinometro-score-text"><span id="score-number">0</span>/100</span>
+      </div>
+      <div class="marketinometro-bar-bg">
+        <div class="marketinometro-bar-fill" id="score-bar"></div>
+      </div>
+      <div class="marketinometro-status" id="score-status">Responda para calcular o seu nível...</div>
+    </div>
 
     <form action="https://api.web3forms.com/submit" method="POST" id="form-ademir" onsubmit="return validateForm('form-ademir')">
       <!-- Chave Web3Forms -->
       <input type="hidden" name="access_key" value="3e4ba65a-8492-4fc5-9741-a980ec00414c">
       <input type="hidden" name="subject" value="[ALTO TICKET] Novo Lead QUALIFICADO - Ademir Agência">
+      <!-- Input oculto para enviar a nota final junto com o form -->
+      <input type="hidden" name="nota_marketinometro" id="nota_marketinometro_input" value="0">
 
       <h3>Fase 1: Quem é você no mercado?</h3>
 
@@ -259,57 +338,47 @@ select:invalid {
 
       <h3>Fase 2: Raio-X da sua Operação Comercial</h3>
 
+      <!-- Adicionados data-score em todas as opções para o cálculo -->
       <div class="form-group">
         <label class="form-label">Seja honesto: Se um cliente procurar pelo seu serviço no Google agora, o que acontece?</label>
-        <div class="radio-group">
-          <label class="radio-item"><input type="radio" name="google_status" value="Acha a concorrência" required><span class="radio-label-text">Ele acha a minha concorrência. Meu Google Meu Negócio não existe ou está abandonado.</span></label>
-          <label class="radio-item"><input type="radio" name="google_status" value="Acha mas não compra"><span class="radio-label-text">Ele até me acha, mas o perfil não passa autoridade e não converte.</span></label>
-          <label class="radio-item"><input type="radio" name="google_status" value="Sou o primeiro"><span class="radio-label-text">Sou o primeiro da lista, tenho avaliações e recebo leads de lá todo dia.</span></label>
+        <div class="radio-group score-trigger">
+          <label class="radio-item"><input type="radio" name="google_status" value="Acha a concorrência" data-score="0" required><span class="radio-label-text">Ele acha a minha concorrência. Meu Google não existe.</span></label>
+          <label class="radio-item"><input type="radio" name="google_status" value="Acha mas não compra" data-score="10"><span class="radio-label-text">Ele até me acha, mas o perfil não converte.</span></label>
+          <label class="radio-item"><input type="radio" name="google_status" value="Sou o primeiro" data-score="25"><span class="radio-label-text">Sou o primeiro da lista e recebo leads todo dia.</span></label>
         </div>
       </div>
 
       <div class="form-group">
         <label class="form-label">Como está a sua captação de clientes no Meta Ads (Facebook/Instagram)?</label>
-        <select id="trafego_status" name="trafego_status" class="form-control" required>
+        <select id="trafego_status" name="trafego_status" class="form-control score-trigger" required>
           <option value="" disabled selected>Selecione a sua realidade atual...</option>
-          <option value="Vivo de indicação">Não invisto nada. Vivo de indicação e rezo para o cliente aparecer.</option>
-          <option value="Aperto o botão turbinar">Só aperto o botão "Turbinar" e queimo dinheiro sem estratégia.</option>
-          <option value="Faço anúncios mas não converte">Já faço anúncios pelo Gerenciador, mas o custo por cliente está absurdo.</option>
-          <option value="Invisto pesado mas parei de crescer">Invisto pesado, mas o faturamento estagnou.</option>
+          <option value="Vivo de indicação" data-score="0">Não invisto nada. Vivo de indicação.</option>
+          <option value="Aperto o botão turbinar" data-score="5">Só aperto o botão "Turbinar" e perco dinheiro.</option>
+          <option value="Faço anúncios mas não converte" data-score="15">Faço anúncios pelo Gerenciador, mas o custo está alto.</option>
+          <option value="Invisto pesado mas parei de crescer" data-score="25">Invisto pesado, mas o faturamento estagnou (Preciso escalar).</option>
         </select>
       </div>
 
       <div class="form-group">
         <label class="form-label">Como funciona o seu atendimento no WhatsApp hoje?</label>
-        <div class="radio-group">
-          <label class="radio-item"><input type="radio" name="atendimento_wpp" value="Totalmente manual" required><span class="radio-label-text">100% manual. Eu ou minha equipe digitamos tudo do zero. Perco muito tempo.</span></label>
-          <label class="radio-item"><input type="radio" name="atendimento_wpp" value="Respostas prontas"><span class="radio-label-text">Uso algumas respostas prontas, mas nos perdemos no volume de conversas.</span></label>
-          <label class="radio-item"><input type="radio" name="atendimento_wpp" value="Tenho automação burra"><span class="radio-label-text">Até tenho um robô, mas ele parece burro e espanta os clientes.</span></label>
-          <label class="radio-item"><input type="radio" name="atendimento_wpp" value="Funil com IA avançado"><span class="radio-label-text">Já tenho funil de automação com Inteligência Artificial fechando vendas.</span></label>
+        <div class="radio-group score-trigger">
+          <label class="radio-item"><input type="radio" name="atendimento_wpp" value="Totalmente manual" data-score="0" required><span class="radio-label-text">100% manual. Perco muito tempo digitando.</span></label>
+          <label class="radio-item"><input type="radio" name="atendimento_wpp" value="Respostas prontas" data-score="5"><span class="radio-label-text">Uso respostas prontas, mas nos perdemos no volume.</span></label>
+          <label class="radio-item"><input type="radio" name="atendimento_wpp" value="Tenho automação burra" data-score="10"><span class="radio-label-text">Tenho um robô, mas ele espanta os clientes.</span></label>
+          <label class="radio-item"><input type="radio" name="atendimento_wpp" value="Funil com IA avançado" data-score="25"><span class="radio-label-text">Já tenho funil de automação fechando vendas.</span></label>
         </div>
       </div>
 
       <h3>Fase 3: O seu bolso e o seu nível de comprometimento</h3>
 
       <div class="form-group">
-        <label for="faturamento" class="form-label">Qual foi o seu faturamento médio mensal nos últimos 3 meses?</label>
-        <select id="faturamento" name="faturamento" class="form-control" required>
-          <option value="" disabled selected>Seja transparente...</option>
-          <option value="Menos de 10k">Estou começando ou patinando (Menos de R$ 10.000)</option>
-          <option value="10k a 30k">R$ 10.000 a R$ 30.000</option>
-          <option value="30k a 80k">R$ 30.000 a R$ 80.000</option>
-          <option value="Mais de 80k">Acima de R$ 80.000 (Quero escalar agressivamente)</option>
-        </select>
-      </div>
-
-      <div class="form-group">
         <label for="investimento" class="form-label">Para implementarmos uma estrutura robusta de vendas, quanto você tem disponível para investir AGORA?</label>
-        <select id="investimento" name="investimento" class="form-control" required>
+        <select id="investimento" name="investimento" class="form-control score-trigger" required>
           <option value="" disabled selected>Escolha o seu nível de comprometimento...</option>
-          <option value="Nao tenho dinheiro">Não tenho dinheiro para investir. (Se escolher essa, não envie o formulário)</option>
-          <option value="Ate 2 mil">Consigo investir até R$ 2.000 de imediato.</option>
-          <option value="Entre 2 e 5 mil">Estou preparado para investir entre R$ 2.000 e R$ 5.000.</option>
-          <option value="Acima de 5 mil">Tenho caixa e não me importo com o valor, desde que a agência traga lucro.</option>
+          <option value="Nao tenho dinheiro" data-score="0">Não tenho dinheiro para investir agora.</option>
+          <option value="Ate 2 mil" data-score="5">Consigo investir até R$ 2.000 de imediato.</option>
+          <option value="Entre 2 e 5 mil" data-score="15">Estou preparado para investir entre R$ 2.000 e R$ 5.000.</option>
+          <option value="Acima de 5 mil" data-score="25">Tenho caixa e busco uma agência que traga alto lucro.</option>
         </select>
       </div>
 
@@ -325,9 +394,100 @@ select:invalid {
 </div>
 
 <!-- ==========================================================================
-     SCRIPTS: MÁSCARAS E VALIDAÇÃO
+     SCRIPTS: LÓGICA DO MARKETINÔMETRO, MÁSCARAS E VALIDAÇÃO
      ========================================================================== -->
 <script>
+  // ---------------------------------------------------------
+  // 1. SISTEMA DO MARKETINÔMETRO
+  // ---------------------------------------------------------
+  const Marketinometro = (function() {
+    let currentScore = 0;
+    const maxScore = 100; // 4 perguntas valendo no máximo 25 pontos cada
+    
+    // Seleciona os elementos da interface
+    const scoreNumEl = document.getElementById('score-number');
+    const scoreBarEl = document.getElementById('score-bar');
+    const scoreStatusEl = document.getElementById('score-status');
+    const inputHiddenScore = document.getElementById('nota_marketinometro_input');
+
+    function updateGauge() {
+      // Pega os valores selecionados
+      let total = 0;
+      
+      // Selects
+      const selects = document.querySelectorAll('select.score-trigger');
+      selects.forEach(select => {
+        if(select.selectedIndex > 0) {
+          const opt = select.options[select.selectedIndex];
+          total += parseInt(opt.getAttribute('data-score')) || 0;
+        }
+      });
+
+      // Radios
+      const radios = document.querySelectorAll('.score-trigger input[type="radio"]:checked');
+      radios.forEach(radio => {
+        total += parseInt(radio.getAttribute('data-score')) || 0;
+      });
+
+      // Garante que não passe de 100
+      total = Math.min(total, maxScore);
+      
+      // Anima o número subindo/descendo
+      animateValue(scoreNumEl, currentScore, total, 500);
+      currentScore = total;
+
+      // Atualiza a barra
+      scoreBarEl.style.width = `${total}%`;
+      inputHiddenScore.value = total;
+
+      // Altera o gradiente e o texto baseado na pontuação
+      if (total === 0) {
+        scoreStatusEl.textContent = "Responda as perguntas para analisar sua maturidade...";
+        scoreStatusEl.style.color = "var(--color-text-muted)";
+        scoreBarEl.style.backgroundPosition = "0% 0%";
+      } else if (total <= 30) {
+        scoreStatusEl.textContent = "🚨 ALERTA: Zona de Risco (Sobrevivência)";
+        scoreStatusEl.style.color = "var(--color-danger)";
+        scoreBarEl.style.backgroundPosition = "0% 0%";
+      } else if (total <= 70) {
+        scoreStatusEl.textContent = "⚠️ ATENÇÃO: Empresa Estagnada (Potencial Desperdiçado)";
+        scoreStatusEl.style.color = "var(--color-warning)";
+        scoreBarEl.style.backgroundPosition = "50% 0%";
+      } else {
+        scoreStatusEl.textContent = "🚀 EXCELENTE: Estrutura Pronta para Escalar";
+        scoreStatusEl.style.color = "var(--color-success)";
+        scoreBarEl.style.backgroundPosition = "100% 0%";
+      }
+    }
+
+    // Função para animar os números
+    function animateValue(obj, start, end, duration) {
+      let startTimestamp = null;
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        obj.innerHTML = Math.floor(progress * (end - start) + start);
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        }
+      };
+      window.requestAnimationFrame(step);
+    }
+
+    function init() {
+      // Adiciona o EventListener para todos os inputs de pontuação
+      const triggers = document.querySelectorAll('.score-trigger input, .score-trigger select');
+      triggers.forEach(trigger => {
+        trigger.addEventListener('change', updateGauge);
+      });
+    }
+
+    return { init };
+  })();
+
+  // ---------------------------------------------------------
+  // 2. MÁSCARAS E VALIDAÇÃO DE FORMULÁRIO
+  // ---------------------------------------------------------
   const FormUtils = (function() {
     function applyPhoneMask() {
       const phoneInputs = document.querySelectorAll('.phone-mask');
@@ -349,7 +509,6 @@ select:invalid {
     const requiredInputs = form.querySelectorAll('[required]');
     
     requiredInputs.forEach(input => {
-      // Verifica inputs de texto, select e textarea
       if (input.type !== 'radio' && input.type !== 'checkbox') {
         if (!input.value.trim()) {
           isValid = false;
@@ -360,7 +519,6 @@ select:invalid {
       }
     });
 
-    // Validação específica para grupos de radio
     const radioGroups = form.querySelectorAll('.radio-group');
     radioGroups.forEach(group => {
       const radios = group.querySelectorAll('input[type="radio"]');
@@ -379,7 +537,9 @@ select:invalid {
     return isValid;
   }
 
+  // Inicializa tudo ao carregar a página
   document.addEventListener('DOMContentLoaded', () => {
+    Marketinometro.init();
     FormUtils.init();
   });
 </script>
