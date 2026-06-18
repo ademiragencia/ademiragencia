@@ -658,12 +658,24 @@ tr:hover td{background:rgba(255,255,255,.012)}
 // SUPABASE
 // ════════════════════════════════════════
 const SURL='https://dujlrpugmsfapfnfxaza.supabase.co/rest/v1';
-const SKEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1amxycHVnbXNmYXBmbmZ4YXphIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE2OTc1MzgsImV4cCI6MjA5NzI3MzUzOH0.9_b1hx7Bg8b2vjxiWIbrdFTiVUKMyTmzD7vK6pXOqIQ';
+const SKEY='sb_publishable_Z4WZWvTGHK2FUIzQDVhanA_E95izatS';
+const TBL_USERS='crm_users';
 
 const SB={
-  h(extra={}){return{'apikey':SKEY,'Authorization':'Bearer '+SKEY,'Content-Type':'application/json',...extra}},
+  h(extra={}){
+    const h={'apikey':SKEY,'Content-Type':'application/json',...extra};
+    // Chave sb_publishable_* não é JWT. Para ela, use apenas apikey.
+    // Se algum dia usar anon JWT legado, o Authorization continua funcionando.
+    if(SKEY.startsWith('eyJ'))h.Authorization='Bearer '+SKEY;
+    return h;
+  },
+  url(table,qs=''){
+    const params=['order=created_at.desc'];
+    if(qs)params.push(qs.replace(/^&/,''));
+    return `${SURL}/${table}?${params.join('&')}`;
+  },
   async get(table,qs=''){
-    const r=await fetch(`${SURL}/${table}?order=created_at.desc&${qs}`,{headers:SB.h()});
+    const r=await fetch(SB.url(table,qs),{headers:SB.h()});
     if(!r.ok)throw new Error(await r.text());
     return r.json();
   },
@@ -673,12 +685,12 @@ const SB={
     return r.json();
   },
   async patch(table,id,data){
-    const r=await fetch(`${SURL}/${table}?id=eq.${id}`,{method:'PATCH',headers:SB.h({'Prefer':'return=representation'}),body:JSON.stringify(data)});
+    const r=await fetch(`${SURL}/${table}?id=eq.${encodeURIComponent(id)}`,{method:'PATCH',headers:SB.h({'Prefer':'return=representation'}),body:JSON.stringify(data)});
     if(!r.ok)throw new Error(await r.text());
     return r.json();
   },
   async del(table,id){
-    const r=await fetch(`${SURL}/${table}?id=eq.${id}`,{method:'DELETE',headers:SB.h()});
+    const r=await fetch(`${SURL}/${table}?id=eq.${encodeURIComponent(id)}`,{method:'DELETE',headers:SB.h()});
     if(!r.ok)throw new Error(await r.text());
     return true;
   }
@@ -705,13 +717,27 @@ const LS={
 };
 
 // ════════════════════════════════════════
-// DB — Supabase first, LS fallback
+// DB — Supabase real, sem fallback silencioso
+// Rode o arquivo supabase_schema.sql no Supabase antes de usar.
+// Se quiser testar sem Supabase no navegador, mude ALLOW_LOCAL_FALLBACK para true.
 // ════════════════════════════════════════
+const ALLOW_LOCAL_FALLBACK=false;
+async function dbTry(action, fallback, label){
+  try{return await action()}
+  catch(e){
+    console.error('Erro no Supabase em '+label, e);
+    if(ALLOW_LOCAL_FALLBACK){
+      console.warn('Usando localStorage apenas como teste/offline. Estes dados NÃO vão para o Supabase.');
+      return fallback();
+    }
+    throw new Error('Banco de dados não configurado ou sem permissão. Rode o SQL no Supabase e confira URL/publishable key. Detalhe: '+(e.message||e));
+  }
+}
 const DB={
-  async get(t,qs=''){try{return await SB.get(t,qs)}catch{return LS.get(t)}},
-  async post(t,d){try{const r=await SB.post(t,d);return Array.isArray(r)?r:[r]}catch{return LS.post(t,d)}},
-  async patch(t,id,d){try{const r=await SB.patch(t,id,d);return Array.isArray(r)?r:[r]}catch{return LS.patch(t,id,d)}},
-  async del(t,id){try{return await SB.del(t,id)}catch{return LS.del(t,id)}}
+  async get(t,qs=''){return dbTry(()=>SB.get(t,qs),()=>LS.get(t),'get '+t)},
+  async post(t,d){return dbTry(async()=>{const r=await SB.post(t,d);return Array.isArray(r)?r:[r]},()=>LS.post(t,d),'post '+t)},
+  async patch(t,id,d){return dbTry(async()=>{const r=await SB.patch(t,id,d);return Array.isArray(r)?r:[r]},()=>LS.patch(t,id,d),'patch '+t)},
+  async del(t,id){return dbTry(()=>SB.del(t,id),()=>LS.del(t,id),'delete '+t)}
 };
 
 // ════════════════════════════════════════
@@ -727,15 +753,15 @@ let CU=null;
 const MASTER={id:'master',name:'Ademir',role:'admin',email:'contato@ademiragencia.com.br',password:'Ade3865@'};
 
 async function getUsers(){
-  try{return await SB.get('users')}catch{return[]}
+  try{return await SB.get(TBL_USERS)}catch{return[]}
 }
 
 async function initAccs(){
   // Garante master existe no Supabase
   try{
-    const ex=await SB.get('users','id=eq.master').catch(()=>[]);
+    const ex=await SB.get(TBL_USERS,'id=eq.master').catch(()=>[]);
     if(!ex||!ex.length){
-      await SB.post('users',{id:'master',name:'Ademir',role:'admin',email:'contato@ademiragencia.com.br',password:'Ade3865@',created_at:'2026-01-01T00:00:00.000Z'}).catch(()=>{});
+      await SB.post(TBL_USERS,{id:'master',name:'Ademir',role:'admin',email:'contato@ademiragencia.com.br',password:'Ade3865@',created_at:'2026-01-01T00:00:00.000Z'}).catch(()=>{});
     }
   }catch{}
 }
@@ -755,7 +781,7 @@ async function doLogin(){
 
   // Verifica outros usuários no Supabase
   try{
-    const users=await SB.get('users',`email=eq.${encodeURIComponent(em)}`);
+    const users=await SB.get(TBL_USERS,`email=eq.${encodeURIComponent(em)}`);
     const u=users.find(x=>x.email.toLowerCase()===em&&x.password===pw);
     if(!u){
       G('lerr').textContent='E-mail ou senha incorretos.';G('lerr').style.display='block';
@@ -778,7 +804,7 @@ async function changePass(){
   if(np.length<6){toast('Mínimo 6 caracteres','er');return}
   if(CU.id==='master'){toast('Use o painel de usuários para alterar a senha master','er');return}
   try{
-    await SB.patch('users',CU.id,{password:np});
+    await SB.patch(TBL_USERS,CU.id,{password:np});
     toast('Senha alterada!');G('np').value='';G('cfp').value='';
   }catch(e){toast('Erro: '+e.message,'er')}
 }
@@ -795,7 +821,7 @@ async function showResetAll(){
   const np=prompt('Nova senha para "'+found.name+'" (mínimo 6 caracteres):');
   if(!np||np.length<6){alert('Senha inválida.');return}
   try{
-    await SB.patch('users',found.id,{password:np});
+    await SB.patch(TBL_USERS,found.id,{password:np});
     alert('Senha de "'+found.name+'" redefinida!\n\nNova senha: '+np);
   }catch{alert('Erro ao salvar. Tente pelo painel de Usuários.');}
 }
@@ -831,14 +857,14 @@ async function saveUser(){
       if(pw&&pw!==pw2){toast('Senhas não coincidem','er');return}
       if(pw&&pw.length<6){toast('Mínimo 6 caracteres','er');return}
       if(users.find(x=>x.email.toLowerCase()===email&&x.id!==editU)){toast('E-mail já em uso','er');return}
-      await SB.patch('users',editU,{name,email,role,...(pw?{password:pw}:{})});
+      await SB.patch(TBL_USERS,editU,{name,email,role,...(pw?{password:pw}:{})});
       closeMo('m-user');renderUsers();toast('Usuário atualizado!');
     }else{
       if(!pw){toast('Senha obrigatória','er');return}
       if(pw!==pw2){toast('Senhas não coincidem','er');return}
       if(pw.length<6){toast('Mínimo 6 caracteres','er');return}
       if(users.find(x=>x.email.toLowerCase()===email)){toast('E-mail já cadastrado','er');return}
-      await SB.post('users',{id:'u_'+Date.now(),name,email,password:pw,role,created_at:new Date().toISOString()});
+      await SB.post(TBL_USERS,{id:'u_'+Date.now(),name,email,password:pw,role,created_at:new Date().toISOString()});
       closeMo('m-user');renderUsers();toast('Usuário "'+name+'" criado!');
     }
   }catch(e){toast('Erro: '+e.message,'er')}
@@ -854,7 +880,7 @@ async function doReset(){
   if(!pw||pw!==pw2){toast('Senhas não coincidem','er');return}
   if(pw.length<6){toast('Mínimo 6 caracteres','er');return}
   try{
-    await SB.patch('users',id,{password:pw});
+    await SB.patch(TBL_USERS,id,{password:pw});
     closeMo('m-reset');toast('Senha redefinida!');
   }catch(e){toast('Erro: '+e.message,'er')}
 }
@@ -864,7 +890,7 @@ async function delUser(id){
   const users=await getUsers();
   const u=users.find(x=>x.id===id);
   if(!confirm('Excluir "'+u?.name+'"?'))return;
-  try{await SB.del('users',id);renderUsers();toast('Usuário removido');}catch(e){toast('Erro','er')}
+  try{await SB.del(TBL_USERS,id);renderUsers();toast('Usuário removido');}catch(e){toast('Erro','er')}
 }
 async function renderUsers(){
   if(CU?.role!=='admin')return;
@@ -923,7 +949,7 @@ async function startApp(){
     toast('CRM conectado ✓');
   }catch(e){
     hideLd();
-    toast('Carregado (offline)','er');
+    toast('Erro no banco. Rode o SQL do Supabase.','er');
     applyRole();updTB();updBadges();renderDash();popSelects();
   }
 }
