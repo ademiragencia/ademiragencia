@@ -608,8 +608,7 @@ tr:hover .abtns{opacity:1}
 // IMPORTANTE: Troque SK pela chave "anon public" do seu projeto Supabase
 // Project Settings → API → anon public (começa com eyJ...)
 const SB='https://dujlrpugmsfapfnfxaza.supabase.co';
-let SK='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1amxycHVnbXNmYXBmbmZ4YXphIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE2OTc1MzgsImV4cCI6MjA5NzI3MzUzOH0.9_b1hx7Bg8b2vjxiWIbrdFTiVUKMyTmzD7vK6pXOqIQ';
-const USE_SB=SK.startsWith('eyJ');
+const SK='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1amxycHVnbXNmYXBmbmZ4YXphIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE2OTc1MzgsImV4cCI6MjA5NzI3MzUzOH0.9_b1hx7Bg8b2vjxiWIbrdFTiVUKMyTmzD7vK6pXOqIQ';
 
 // ══ LOCAL STORAGE DB ══
 const LS={
@@ -638,12 +637,24 @@ async function sbR(method,path,body=null){
   return t?JSON.parse(t):[];
 }
 
-// ══ DB UNIFICADO ══
+// ══ DB — tenta Supabase primeiro, cai para localStorage se falhar ══
 const DB={
-  get:(t,q='')=>USE_SB?sbR('GET',`/${t}?order=created_at.desc&${q}`):LS.get(t),
-  post:(t,b)=>USE_SB?sbR('POST',`/${t}`,b):LS.post(t,b),
-  patch:(t,id,b)=>USE_SB?sbR('PATCH',`/${t}?id=eq.${encodeURIComponent(id)}`,b):LS.patch(t,id,b),
-  del:(t,id)=>USE_SB?sbR('DELETE',`/${t}?id=eq.${encodeURIComponent(id)}`):LS.del(t,id),
+  get:async(t,q='')=>{
+    try{return await sbR('GET',`/${t}?order=created_at.desc&${q}`)}
+    catch{return LS.get(t)}
+  },
+  post:async(t,b)=>{
+    try{return await sbR('POST',`/${t}`,b)}
+    catch{return LS.post(t,b)}
+  },
+  patch:async(t,id,b)=>{
+    try{return await sbR('PATCH',`/${t}?id=eq.${encodeURIComponent(id)}`,b)}
+    catch{return LS.patch(t,id,b)}
+  },
+  del:async(t,id)=>{
+    try{return await sbR('DELETE',`/${t}?id=eq.${encodeURIComponent(id)}`)}
+    catch{return LS.del(t,id)}
+  }
 };
 
 // ══ AUTH (local) ══
@@ -738,7 +749,7 @@ async function initApp(){
     setLdr('Carregando serviços...'); try{services=await DB.get('services')}catch{services=[];}
 
     // Migrar dados do localStorage para Supabase se ainda não foram migrados
-    if(USE_SB && !localStorage.getItem('crm_migrated_v1')){
+    if(!localStorage.getItem('crm_migrated_v1')){
       setLdr('Migrando dados locais para Supabase...');
       await migrateLocalToSupabase();
       // Recarregar após migração
@@ -749,8 +760,8 @@ async function initApp(){
       try{services=await DB.get('services')}catch{}
     }
     hideLdr(); updTB(); updBadges(); renderDash(); popSelects(); applyRoleRestrictions();
-    if(USE_SB) setInterval(syncAll,12000);
-    toast(USE_SB?'Conectado ao Supabase ✓':'CRM ativo — dados salvos localmente ✓');
+    setInterval(syncAll,12000);
+    toast('CRM conectado ✓');
   }catch(e){
     hideLdr(); toast('Aviso: '+e.message,'er');
     updTB(); renderDash();
