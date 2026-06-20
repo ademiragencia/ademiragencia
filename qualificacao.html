@@ -2,546 +2,858 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Qualificação de Projetos - Ademir Agência</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Diagnóstico Gratuito de Redes Sociais — Ademir Agência</title>
+<meta name="description" content="Descubra em 2 minutos o que está travando o crescimento das suas redes sociais e receba um diagnóstico personalizado gratuito.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* ==========================================================================
-   RESET & VARIÁVEIS GERAIS
-   ========================================================================== */
-:root {
-  --color-bg-main: #050505;
-  --color-bg-card: #121212;
-  --color-text-main: #f5f5f5;
-  --color-text-muted: #888888;
-  --color-primary: #e89b27;
-  --color-primary-hover: #c7821c;
-  --color-error: #ff4d4d;
-  --color-success: #00cc66;
-  --color-warning: #ffcc00;
-  --color-danger: #ff3333;
-  --color-border: #333333;
-  --font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --transition-speed: 0.3s;
-  --border-radius-sm: 4px;
-  --border-radius-md: 8px;
-  --border-radius-lg: 16px;
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0A0A0A;--bg2:#111111;--bg3:#161616;
+  --gold:#F5A623;--gold2:#FFB84D;--gold-dim:rgba(245,166,35,0.12);--gold-glow:rgba(245,166,35,0.3);
+  --white:#FFFFFF;--gray:#888;--gray2:#444;
+  --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.14);
+  --green:#22c55e;--green-dim:rgba(34,197,94,0.12);
+  --red:#ef4444;--red-dim:rgba(239,68,68,0.12);
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--white);
+  -webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden;
+  display:flex;align-items:center;justify-content:center;padding:20px;
+}
+h1,h2,h3,.display{font-family:'Outfit',sans-serif;letter-spacing:-0.02em}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-thumb{background:var(--gray2);border-radius:4px}
+
+body{
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(245,166,35,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(245,166,35,0.05) 0%, transparent 60%),
+    var(--bg);
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+.quiz-shell{
+  width:100%;max-width:640px;
+  background:var(--bg2);
+  border:1px solid var(--border2);
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,0.5);
+  position:relative;
 }
 
-body {
-  background-color: var(--color-bg-main);
-  color: var(--color-text-main);
-  font-family: var(--font-family-base);
-  line-height: 1.6;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start; /* Ajustado para rolagem fluida */
-  min-height: 100vh;
-  padding: 40px 20px;
+/* PROGRESS BAR */
+.progress-wrap{
+  height:4px;background:var(--bg3);position:relative;overflow:hidden;
+}
+.progress-bar{
+  height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));
+  width:0%;transition:width 0.5s cubic-bezier(.4,0,.2,1);
+  box-shadow:0 0 12px var(--gold-glow);
 }
 
-/* ==========================================================================
-   TIPOGRAFIA E ESTRUTURA
-   ========================================================================== */
-h1, h2, h3, h4, h5, h6 {
-  color: var(--color-primary);
-  font-weight: 700;
-  margin-bottom: 1rem;
-  line-height: 1.2;
+/* HEADER */
+.quiz-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 28px 0;
+}
+.quiz-logo{height:30px;filter:drop-shadow(0 0 8px var(--gold-glow))}
+.quiz-step-count{
+  font-size:12px;color:var(--gray);font-weight:600;
+  display:flex;align-items:center;gap:6px;
+}
+.step-dot{width:5px;height:5px;border-radius:50%;background:var(--gold)}
+
+/* STEPS CONTAINER */
+.steps-container{
+  position:relative;
+  min-height:420px;
+}
+.step{
+  display:none;
+  padding:36px 28px 32px;
+  animation:stepIn 0.4s cubic-bezier(.16,1,.3,1);
+}
+.step.active{display:block}
+@keyframes stepIn{
+  from{opacity:0;transform:translateX(16px)}
+  to{opacity:1;transform:translateX(0)}
+}
+.step.exiting{animation:stepOut 0.25s ease forwards}
+@keyframes stepOut{
+  from{opacity:1;transform:translateX(0)}
+  to{opacity:0;transform:translateX(-16px)}
 }
 
-h2 {
-  font-size: 2rem;
-  text-align: center;
-  letter-spacing: -0.05em;
+.step-eyebrow{
+  font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:10px;
+}
+.step-title{
+  font-size:26px;font-weight:800;line-height:1.25;margin-bottom:8px;
+  letter-spacing:-0.02em;
+}
+.step-sub{
+  font-size:14px;color:var(--gray);margin-bottom:28px;line-height:1.5;
 }
 
-h3 {
-  margin-top: 40px; 
-  font-size: 1.2rem; 
-  border-bottom: 1px solid var(--color-border); 
-  padding-bottom: 10px;
-  color: #ffffff;
+/* OPTIONS GRID */
+.options-grid{display:flex;flex-direction:column;gap:10px}
+.options-grid.cols-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt-card{
+  display:flex;align-items:center;gap:14px;
+  padding:16px 18px;
+  background:var(--bg3);
+  border:1.5px solid var(--border2);
+  border-radius:14px;
+  cursor:pointer;
+  transition:all 0.18s ease;
+  position:relative;
+  -webkit-tap-highlight-color:transparent;
+}
+.opt-card:hover{border-color:rgba(245,166,35,0.4);background:rgba(245,166,35,0.04)}
+.opt-card.selected{
+  border-color:var(--gold);
+  background:var(--gold-dim);
+  box-shadow:0 0 0 1px var(--gold) inset;
+}
+.opt-icon{
+  width:38px;height:38px;border-radius:10px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,0.05);
+  transition:all 0.18s ease;
+}
+.opt-card.selected .opt-icon{background:var(--gold);color:#000}
+.opt-icon svg{width:19px;height:19px;stroke-width:2;fill:none;stroke:currentColor;color:var(--gray)}
+.opt-card.selected .opt-icon svg{color:#000}
+.opt-text{flex:1}
+.opt-label{font-size:15px;font-weight:600;color:var(--white);margin-bottom:2px}
+.opt-desc{font-size:12.5px;color:var(--gray);line-height:1.4}
+.opt-check{
+  width:22px;height:22px;border-radius:50%;border:2px solid var(--border2);
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  transition:all 0.18s ease;
+}
+.opt-card.selected .opt-check{background:var(--gold);border-color:var(--gold)}
+.opt-check svg{width:12px;height:12px;stroke:#000;stroke-width:3;fill:none;opacity:0;transition:opacity 0.15s}
+.opt-card.selected .opt-check svg{opacity:1}
+
+/* COMPACT PILL OPTIONS (for shorter questions) */
+.pills-grid{display:flex;flex-wrap:wrap;gap:10px}
+.pill-opt{
+  padding:13px 22px;border-radius:100px;
+  background:var(--bg3);border:1.5px solid var(--border2);
+  font-size:14px;font-weight:600;color:var(--white);
+  cursor:pointer;transition:all 0.18s ease;
+}
+.pill-opt:hover{border-color:rgba(245,166,35,0.4)}
+.pill-opt.selected{background:var(--gold);border-color:var(--gold);color:#000}
+
+/* INPUT FIELDS */
+.field-group{margin-bottom:18px}
+.field-label{
+  font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  color:var(--gray);margin-bottom:8px;display:block;
+}
+.field-input,.field-select{
+  width:100%;background:var(--bg3);border:1.5px solid var(--border2);
+  border-radius:12px;padding:14px 16px;color:var(--white);
+  font-family:'Space Grotesk',sans-serif;font-size:15px;outline:none;
+  transition:border-color 0.2s,box-shadow 0.2s;
+}
+.field-input::placeholder{color:var(--gray2)}
+.field-input:focus,.field-select:focus{
+  border-color:var(--gold);box-shadow:0 0 0 4px rgba(245,166,35,0.1);
+}
+.field-select{cursor:pointer;-webkit-appearance:none;appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 16px center;padding-right:42px;
+}
+.field-select option{background:var(--bg3)}
+.field-error{font-size:12px;color:var(--red);margin-top:6px;display:none}
+
+/* NAV BUTTONS */
+.step-nav{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  margin-top:32px;
+}
+.btn-back{
+  display:flex;align-items:center;gap:6px;
+  background:none;border:none;color:var(--gray);
+  font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;
+  cursor:pointer;padding:10px 4px;transition:color 0.15s;
+}
+.btn-back:hover{color:var(--white)}
+.btn-back svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.5}
+.btn-back.hidden{visibility:hidden}
+
+.btn-next{
+  display:flex;align-items:center;gap:8px;
+  background:var(--gold);color:#000;border:none;
+  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;
+  padding:15px 28px;border-radius:100px;cursor:pointer;
+  transition:all 0.2s ease;
+  box-shadow:0 8px 24px rgba(245,166,35,0.25);
+  flex:1;justify-content:center;
+}
+.btn-next:hover{background:var(--gold2);box-shadow:0 10px 28px rgba(245,166,35,0.35);transform:translateY(-1px)}
+.btn-next:active{transform:translateY(0)}
+.btn-next:disabled{opacity:0.4;cursor:not-allowed;box-shadow:none}
+.btn-next:disabled:hover{transform:none;background:var(--gold)}
+.btn-next svg{width:17px;height:17px;stroke:currentColor;stroke-width:2.5;fill:none}
+
+/* LOADING SPINNER on submit */
+.spinner{
+  width:18px;height:18px;border:2.5px solid rgba(0,0,0,0.25);
+  border-top-color:#000;border-radius:50%;
+  animation:spin 0.7s linear infinite;display:none;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.btn-next.loading .spinner{display:block}
+.btn-next.loading .btn-next-label,.btn-next.loading svg.btn-arrow{display:none}
+
+/* RESULT / SUCCESS SCREEN */
+.result-screen{display:none;padding:48px 32px;text-align:center}
+.result-screen.active{display:block;animation:stepIn 0.5s cubic-bezier(.16,1,.3,1)}
+.result-icon{
+  width:80px;height:80px;border-radius:50%;
+  background:var(--gold-dim);border:2px solid var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 24px;
+  box-shadow:0 0 40px var(--gold-glow);
+  animation:popIn 0.5s cubic-bezier(.34,1.56,.64,1) 0.1s both;
+}
+@keyframes popIn{from{transform:scale(0.5);opacity:0}to{transform:scale(1);opacity:1}}
+.result-icon svg{width:38px;height:38px;stroke:var(--gold);stroke-width:2.5;fill:none}
+.result-title{font-size:24px;font-weight:800;margin-bottom:12px;letter-spacing:-0.02em}
+.result-sub{font-size:14.5px;color:var(--gray);line-height:1.65;margin-bottom:32px;max-width:420px;margin-left:auto;margin-right:auto}
+.result-score-card{
+  background:var(--bg3);border:1px solid var(--border2);border-radius:16px;
+  padding:24px;margin-bottom:28px;text-align:left;
+}
+.result-score-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.result-score-row:last-child{margin-bottom:0}
+.result-score-label{font-size:13px;color:var(--gray);font-weight:500}
+.result-score-value{font-size:14px;font-weight:700;color:var(--white)}
+.result-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--green-dim);color:var(--green);
+  padding:4px 12px;border-radius:100px;font-size:12px;font-weight:700;
+}
+.result-actions{display:flex;flex-direction:column;gap:12px}
+.btn-whatsapp{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  background:#25D366;color:#fff;border:none;
+  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;
+  padding:16px 28px;border-radius:100px;cursor:pointer;text-decoration:none;
+  transition:all 0.2s ease;box-shadow:0 8px 24px rgba(37,211,102,0.25);
+}
+.btn-whatsapp:hover{background:#20bd5a;transform:translateY(-1px)}
+.btn-whatsapp svg{width:20px;height:20px;fill:currentColor}
+.btn-secondary-link{
+  font-size:13px;color:var(--gray);text-decoration:none;font-weight:600;
+  transition:color 0.15s;
+}
+.btn-secondary-link:hover{color:var(--white)}
+
+/* ERROR SCREEN */
+.error-msg{
+  display:none;background:var(--red-dim);border:1px solid rgba(239,68,68,0.3);
+  color:var(--red);padding:12px 16px;border-radius:10px;font-size:13px;
+  margin-top:16px;text-align:center;
 }
 
-p {
-  margin-bottom: 1.5rem;
-  color: var(--color-text-muted);
-  text-align: center;
-  font-size: 1.1rem;
+/* TRUST FOOTER */
+.trust-footer{
+  display:flex;align-items:center;justify-content:center;gap:18px;
+  padding:18px 28px;border-top:1px solid var(--border);
+  flex-wrap:wrap;
 }
+.trust-item{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--gray);font-weight:500}
+.trust-item svg{width:14px;height:14px;stroke:var(--gold);fill:none;stroke-width:2;flex-shrink:0}
 
-.highlight {
-  color: var(--color-primary);
-  font-weight: bold;
-}
-
-.container {
-  width: 100%;
-  max-width: 800px;
-  background-color: var(--color-bg-card);
-  padding: 50px;
-  border-radius: var(--border-radius-lg);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-  border: 1px solid var(--color-border);
-}
-
-.logo {
-  max-width: 160px;
-  display: block;
-  margin: 0 auto 30px auto;
-}
-
-/* ==========================================================================
-   MARKETINÔMETRO (BARRA ANIMADA)
-   ========================================================================== */
-.marketinometro-container {
-  background-color: #1a1a1a;
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius-md);
-  padding: 20px;
-  margin-bottom: 40px;
-  text-align: center;
-  position: sticky;
-  top: 10px;
-  z-index: 100;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-}
-
-.marketinometro-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-.marketinometro-title {
-  font-weight: 700;
-  color: #fff;
-  font-size: 1.1rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.marketinometro-score-text {
-  font-size: 1.5rem;
-  font-weight: 900;
-  color: var(--color-primary);
-}
-
-.marketinometro-bar-bg {
-  width: 100%;
-  height: 12px;
-  background-color: #333;
-  border-radius: 10px;
-  overflow: hidden;
-  position: relative;
-}
-
-.marketinometro-bar-fill {
-  height: 100%;
-  width: 0%; /* Inicia em 0 */
-  background: linear-gradient(90deg, var(--color-danger) 0%, var(--color-warning) 50%, var(--color-success) 100%);
-  background-size: 200% 100%;
-  border-radius: 10px;
-  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1), background-position 0.8s ease;
-}
-
-.marketinometro-status {
-  margin-top: 10px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--color-text-muted);
-  transition: color 0.3s ease;
-}
-
-/* ==========================================================================
-   COMPONENTES DE FORMULÁRIO
-   ========================================================================== */
-.form-group {
-  margin-bottom: 25px;
-  position: relative;
-}
-
-.form-label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-  color: #e0e0e0;
-  font-size: 0.95rem;
-}
-
-.form-control {
-  width: 100%;
-  padding: 16px;
-  background-color: #1a1a1a;
-  border: 2px solid var(--color-border);
-  border-radius: var(--border-radius-md);
-  color: var(--color-text-main);
-  font-size: 1rem;
-  transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
-}
-
-.form-control:focus {
-  outline: none;
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(232, 155, 39, 0.2);
-}
-
-.form-control::placeholder {
-  color: #555;
-}
-
-textarea.form-control {
-  resize: vertical;
-  min-height: 120px;
-}
-
-select:invalid {
-  color: #555;
-}
-
-/* ==========================================================================
-   RADIO & CHECKBOX CUSTOMIZADOS
-   ========================================================================== */
-.radio-group {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 10px;
-}
-
-.radio-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  cursor: pointer;
-  padding: 12px;
-  background-color: #1a1a1a;
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius-md);
-  transition: all var(--transition-speed);
-}
-
-.radio-item:hover {
-  border-color: #555;
-  background-color: #222;
-}
-
-.radio-item input[type="radio"] {
-  width: 20px;
-  height: 20px;
-  accent-color: var(--color-primary);
-  margin-top: 2px;
-}
-
-.radio-label-text {
-  font-size: 0.95rem;
-  color: #d0d0d0;
-  line-height: 1.4;
-}
-
-.radio-item input[type="radio"]:checked + .radio-label-text {
-  color: var(--color-primary);
-  font-weight: 600;
-}
-
-/* ==========================================================================
-   BOTÕES E ANIMAÇÕES
-   ========================================================================== */
-.btn-submit {
-  width: 100%;
-  padding: 18px;
-  margin-top: 20px;
-  background: linear-gradient(135deg, #e89b27 0%, #b8750a 100%);
-  color: #ffffff;
-  border: none;
-  border-radius: var(--border-radius-md);
-  font-size: 1.2rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  cursor: pointer;
-  transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
-}
-
-.btn-submit:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(232, 155, 39, 0.3);
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.animate-fade-in {
-  animation: fadeIn 0.8s ease-out forwards;
-}
-
-.invalid {
-  border-color: var(--color-error) !important;
+/* RESPONSIVE */
+@media (max-width:480px){
+  body{padding:0;align-items:flex-start}
+  .quiz-shell{border-radius:0;min-height:100vh;max-width:100%;border:none}
+  .step{padding:28px 20px 24px}
+  .result-screen{padding:40px 22px}
+  .step-title{font-size:22px}
+  .quiz-header{padding:18px 20px 0}
+  .options-grid.cols-2{grid-template-columns:1fr}
+  .trust-footer{padding:16px 20px;gap:14px}
 }
 </style>
 </head>
 <body>
 
-<div class="container animate-fade-in">
+<div class="quiz-shell">
+  <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
 
-  <!-- Logo Atualizada -->
-  <img src="https://res.cloudinary.com/dmdaiwkyl/image/upload/v1781641114/ChatGPT_Image_16_de_jun._de_2026_16_18_24_skbudu.png" alt="Logo Ademir Agência" class="logo">
+  <div class="quiz-header">
+    <img src="https://res.cloudinary.com/dmdaiwkyl/image/upload/v1781641114/ChatGPT_Image_16_de_jun._de_2026_16_18_24_skbudu.png" alt="Ademir Agência" class="quiz-logo">
+    <div class="quiz-step-count"><span class="step-dot"></span><span id="stepCounter">1 de 9</span></div>
+  </div>
 
-  <div id="form-container">
-    <h2>Sua empresa é lucrativa ou um hobby caro?</h2>
-    <p>Preencha os dados e veja o seu <span class="highlight">Nível de Maturidade</span> subir no nosso Marketinômetro em tempo real.</p>
+  <div class="steps-container" id="stepsContainer">
 
-    <!-- MARKETINÔMETRO ANIMADO -->
-    <div class="marketinometro-container">
-      <div class="marketinometro-header">
-        <span class="marketinometro-title">Marketinômetro</span>
-        <span class="marketinometro-score-text"><span id="score-number">0</span>/100</span>
+    <!-- STEP 1: Tipo de negócio -->
+    <div class="step active" data-step="1">
+      <div class="step-eyebrow">Diagnóstico gratuito</div>
+      <h1 class="step-title">Qual é o seu tipo de negócio?</h1>
+      <p class="step-sub">Vamos personalizar sua análise com base no seu segmento.</p>
+      <div class="options-grid" id="q1-options">
+        <div class="opt-card" data-value="Varejo / Loja física">
+          <div class="opt-icon"><svg viewBox="0 0 24 24"><path d="M3 9l1-5h16l1 5"/><path d="M3 9h18v11H3z"/><path d="M9 14h6"/></svg></div>
+          <div class="opt-text"><div class="opt-label">Varejo / Loja física</div><div class="opt-desc">Roupas, calçados, presentes, mercado</div></div>
+          <div class="opt-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+        <div class="opt-card" data-value="Saúde / Estética">
+          <div class="opt-icon"><svg viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0016.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 002 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div>
+          <div class="opt-text"><div class="opt-label">Saúde / Estética</div><div class="opt-desc">Clínicas, consultórios, salões</div></div>
+          <div class="opt-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+        <div class="opt-card" data-value="Alimentação">
+          <div class="opt-icon"><svg viewBox="0 0 24 24"><path d="M3 11h18M5 11l1.5-7h11L19 11M5 11v7a2 2 0 002 2h10a2 2 0 002-2v-7"/></svg></div>
+          <div class="opt-text"><div class="opt-label">Alimentação</div><div class="opt-desc">Restaurante, delivery, confeitaria</div></div>
+          <div class="opt-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+        <div class="opt-card" data-value="Serviços profissionais">
+          <div class="opt-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg></div>
+          <div class="opt-text"><div class="opt-label">Serviços profissionais</div><div class="opt-desc">Advogado, contador, consultor</div></div>
+          <div class="opt-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+        <div class="opt-card" data-value="Imóveis / Construção">
+          <div class="opt-icon"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/></svg></div>
+          <div class="opt-text"><div class="opt-label">Imóveis / Construção</div><div class="opt-desc">Corretoras, construtoras, reformas</div></div>
+          <div class="opt-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+        <div class="opt-card" data-value="Outro">
+          <div class="opt-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          <div class="opt-text"><div class="opt-label">Outro segmento</div><div class="opt-desc">Me conte mais nas próximas etapas</div></div>
+          <div class="opt-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
       </div>
-      <div class="marketinometro-bar-bg">
-        <div class="marketinometro-bar-fill" id="score-bar"></div>
-      </div>
-      <div class="marketinometro-status" id="score-status">Responda para calcular o seu nível...</div>
     </div>
 
-    <form action="https://api.web3forms.com/submit" method="POST" id="form-ademir" onsubmit="return validateForm('form-ademir')">
-      <!-- Chave Web3Forms -->
-      <input type="hidden" name="access_key" value="3e4ba65a-8492-4fc5-9741-a980ec00414c">
-      <input type="hidden" name="subject" value="[ALTO TICKET] Novo Lead QUALIFICADO - Ademir Agência">
-      <!-- Input oculto para enviar a nota final junto com o form -->
-      <input type="hidden" name="nota_marketinometro" id="nota_marketinometro_input" value="0">
-
-      <h3>Fase 1: Quem é você no mercado?</h3>
-
-      <div class="form-group">
-        <label for="name" class="form-label">Qual o seu nome e o da sua empresa?</label>
-        <input type="text" id="name" name="name" class="form-control" required placeholder="Ex: João - Construtora Alfa">
-      </div>
-
-      <div class="form-group">
-        <label for="instagram" class="form-label">Qual o @ do seu Instagram profissional?</label>
-        <input type="text" id="instagram" name="instagram" class="form-control" required placeholder="@suaempresa">
-      </div>
-
-      <div class="form-group">
-        <label for="whatsapp" class="form-label">WhatsApp com DDD (Onde a sua equipe de vendas atende)</label>
-        <input type="tel" id="whatsapp" name="whatsapp" class="form-control phone-mask" required placeholder="(00) 00000-0000">
-      </div>
-
-      <h3>Fase 2: Raio-X da sua Operação Comercial</h3>
-
-      <!-- Adicionados data-score em todas as opções para o cálculo -->
-      <div class="form-group">
-        <label class="form-label">Seja honesto: Se um cliente procurar pelo seu serviço no Google agora, o que acontece?</label>
-        <div class="radio-group score-trigger">
-          <label class="radio-item"><input type="radio" name="google_status" value="Acha a concorrência" data-score="0" required><span class="radio-label-text">Ele acha a minha concorrência. Meu Google não existe.</span></label>
-          <label class="radio-item"><input type="radio" name="google_status" value="Acha mas não compra" data-score="10"><span class="radio-label-text">Ele até me acha, mas o perfil não converte.</span></label>
-          <label class="radio-item"><input type="radio" name="google_status" value="Sou o primeiro" data-score="25"><span class="radio-label-text">Sou o primeiro da lista e recebo leads todo dia.</span></label>
+    <!-- STEP 2: Presença atual -->
+    <div class="step" data-step="2">
+      <div class="step-eyebrow">Etapa 2 de 9</div>
+      <h1 class="step-title">Você já tem redes sociais ativas?</h1>
+      <p class="step-sub">Isso nos ajuda a entender de onde estamos partindo.</p>
+      <div class="options-grid" id="q2-options">
+        <div class="opt-card" data-value="Não tenho nenhuma">
+          <div class="opt-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></div>
+          <div class="opt-text"><div class="opt-label">Não tenho nenhuma</div><div class="opt-desc">Vou começar do zero</div></div>
+          <div class="opt-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+        <div class="opt-card" data-value="Tenho, mas posto pouco ou nada">
+          <div class="opt-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div class="opt-text"><div class="opt-label">Tenho, mas posto pouco</div><div class="opt-desc">Criei mas abandonei</div></div>
+          <div class="opt-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+        <div class="opt-card" data-value="Posto regularmente, mas sem resultado">
+          <div class="opt-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+          <div class="opt-text"><div class="opt-label">Posto, mas sem resultado</div><div class="opt-desc">Engajamento baixo, poucas vendas</div></div>
+          <div class="opt-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+        <div class="opt-card" data-value="Já tenho bom engajamento, quero escalar">
+          <div class="opt-icon"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+          <div class="opt-text"><div class="opt-label">Tenho engajamento, quero escalar</div><div class="opt-desc">Já funciona, quero ir além</div></div>
+          <div class="opt-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
         </div>
       </div>
+    </div>
 
-      <div class="form-group">
-        <label class="form-label">Como está a sua captação de clientes no Meta Ads (Facebook/Instagram)?</label>
-        <select id="trafego_status" name="trafego_status" class="form-control score-trigger" required>
-          <option value="" disabled selected>Selecione a sua realidade atual...</option>
-          <option value="Vivo de indicação" data-score="0">Não invisto nada. Vivo de indicação.</option>
-          <option value="Aperto o botão turbinar" data-score="5">Só aperto o botão "Turbinar" e perco dinheiro.</option>
-          <option value="Faço anúncios mas não converte" data-score="15">Faço anúncios pelo Gerenciador, mas o custo está alto.</option>
-          <option value="Invisto pesado mas parei de crescer" data-score="25">Invisto pesado, mas o faturamento estagnou (Preciso escalar).</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Como funciona o seu atendimento no WhatsApp hoje?</label>
-        <div class="radio-group score-trigger">
-          <label class="radio-item"><input type="radio" name="atendimento_wpp" value="Totalmente manual" data-score="0" required><span class="radio-label-text">100% manual. Perco muito tempo digitando.</span></label>
-          <label class="radio-item"><input type="radio" name="atendimento_wpp" value="Respostas prontas" data-score="5"><span class="radio-label-text">Uso respostas prontas, mas nos perdemos no volume.</span></label>
-          <label class="radio-item"><input type="radio" name="atendimento_wpp" value="Tenho automação burra" data-score="10"><span class="radio-label-text">Tenho um robô, mas ele espanta os clientes.</span></label>
-          <label class="radio-item"><input type="radio" name="atendimento_wpp" value="Funil com IA avançado" data-score="25"><span class="radio-label-text">Já tenho funil de automação fechando vendas.</span></label>
+    <!-- STEP 3: Maior dificuldade -->
+    <div class="step" data-step="3">
+      <div class="step-eyebrow">Etapa 3 de 9</div>
+      <h1 class="step-title">Qual é a sua maior dificuldade hoje?</h1>
+      <p class="step-sub">Escolha a que mais pesa no seu dia a dia.</p>
+      <div class="options-grid" id="q3-options">
+        <div class="opt-card" data-value="Não sei o que postar / falta de conteúdo">
+          <div class="opt-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+          <div class="opt-text"><div class="opt-label">Não sei o que postar</div><div class="opt-desc">Falta de ideias e consistência</div></div>
+          <div class="opt-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+        <div class="opt-card" data-value="Poucos seguidores / pouco alcance">
+          <div class="opt-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+          <div class="opt-text"><div class="opt-label">Pouco alcance</div><div class="opt-desc">Os posts não saem da bolha</div></div>
+          <div class="opt-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+        <div class="opt-card" data-value="Não converto seguidores em clientes">
+          <div class="opt-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6"/></svg></div>
+          <div class="opt-text"><div class="opt-label">Não converto em vendas</div><div class="opt-desc">Tenho público, mas não vende</div></div>
+          <div class="opt-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+        <div class="opt-card" data-value="Falta de tempo para gerenciar">
+          <div class="opt-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div class="opt-text"><div class="opt-label">Falta de tempo</div><div class="opt-desc">Não consigo manter a frequência</div></div>
+          <div class="opt-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+        <div class="opt-card" data-value="Não sei usar anúncios pagos">
+          <div class="opt-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+          <div class="opt-text"><div class="opt-label">Não sei usar anúncios</div><div class="opt-desc">Tráfego pago é um mistério</div></div>
+          <div class="opt-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
         </div>
       </div>
+    </div>
 
-      <h3>Fase 3: O seu bolso e o seu nível de comprometimento</h3>
-
-      <div class="form-group">
-        <label for="investimento" class="form-label">Para implementarmos uma estrutura robusta de vendas, quanto você tem disponível para investir AGORA?</label>
-        <select id="investimento" name="investimento" class="form-control score-trigger" required>
-          <option value="" disabled selected>Escolha o seu nível de comprometimento...</option>
-          <option value="Nao tenho dinheiro" data-score="0">Não tenho dinheiro para investir agora.</option>
-          <option value="Ate 2 mil" data-score="5">Consigo investir até R$ 2.000 de imediato.</option>
-          <option value="Entre 2 e 5 mil" data-score="15">Estou preparado para investir entre R$ 2.000 e R$ 5.000.</option>
-          <option value="Acima de 5 mil" data-score="25">Tenho caixa e busco uma agência que traga alto lucro.</option>
-        </select>
+    <!-- STEP 4: Investimento em anúncios -->
+    <div class="step" data-step="4">
+      <div class="step-eyebrow">Etapa 4 de 9</div>
+      <h1 class="step-title">Você já investe em anúncios pagos?</h1>
+      <p class="step-sub">Instagram Ads, Facebook Ads, Google Ads...</p>
+      <div class="pills-grid" id="q4-options">
+        <div class="pill-opt" data-value="Sim, atualmente">Sim, atualmente</div>
+        <div class="pill-opt" data-value="Já investi, mas parei">Já investi, mas parei</div>
+        <div class="pill-opt" data-value="Nunca investi">Nunca investi</div>
+        <div class="pill-opt" data-value="Não sei o que é">Não sei o que é</div>
       </div>
+    </div>
 
-      <div class="form-group">
-        <label for="motivo" class="form-label">Última chance: Por que você merece que a Ademir Agência assuma o seu projeto?</label>
-        <textarea id="motivo" name="motivo" class="form-control" required placeholder="Venda o seu projeto para a nossa equipe. Se essa resposta for vazia, não daremos continuidade..."></textarea>
+    <!-- STEP 5: Orçamento mensal -->
+    <div class="step" data-step="5">
+      <div class="step-eyebrow">Etapa 5 de 9</div>
+      <h1 class="step-title">Qual orçamento mensal você pretende investir em marketing?</h1>
+      <p class="step-sub">Isso inclui gestão + verba de anúncios. Seja realista — vamos te mostrar o que é possível com cada faixa.</p>
+      <div class="options-grid" id="q5-options">
+        <div class="opt-card" data-value="Até R$ 1.000">
+          <div class="opt-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6"/></svg></div>
+          <div class="opt-text"><div class="opt-label">Até R$ 1.000/mês</div></div>
+          <div class="opt-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+        <div class="opt-card" data-value="R$ 1.000 a R$ 3.000">
+          <div class="opt-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6"/></svg></div>
+          <div class="opt-text"><div class="opt-label">R$ 1.000 a R$ 3.000/mês</div></div>
+          <div class="opt-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+        <div class="opt-card" data-value="R$ 3.000 a R$ 7.000">
+          <div class="opt-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6"/></svg></div>
+          <div class="opt-text"><div class="opt-label">R$ 3.000 a R$ 7.000/mês</div></div>
+          <div class="opt-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+        <div class="opt-card" data-value="Acima de R$ 7.000">
+          <div class="opt-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6"/></svg></div>
+          <div class="opt-text"><div class="opt-label">Acima de R$ 7.000/mês</div></div>
+          <div class="opt-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+        <div class="opt-card" data-value="Ainda não defini">
+          <div class="opt-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          <div class="opt-text"><div class="opt-label">Ainda não defini</div></div>
+          <div class="opt-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
       </div>
+    </div>
 
-      <button type="submit" class="btn-submit">Aplicar para a Seleção com a Ademir Agência</button>
-    </form>
+    <!-- STEP 6: Urgência -->
+    <div class="step" data-step="6">
+      <div class="step-eyebrow">Etapa 6 de 9</div>
+      <h1 class="step-title">Quando você quer começar a ver resultados?</h1>
+      <p class="step-sub">Isso define como vamos priorizar sua estratégia.</p>
+      <div class="pills-grid" id="q6-options">
+        <div class="pill-opt" data-value="O quanto antes (urgente)">O quanto antes</div>
+        <div class="pill-opt" data-value="Nas próximas semanas">Próximas semanas</div>
+        <div class="pill-opt" data-value="No próximo mês">Próximo mês</div>
+        <div class="pill-opt" data-value="Só estou pesquisando">Só pesquisando</div>
+      </div>
+    </div>
+
+    <!-- STEP 7: Objetivo principal -->
+    <div class="step" data-step="7">
+      <div class="step-eyebrow">Etapa 7 de 9</div>
+      <h1 class="step-title">Qual é o seu principal objetivo agora?</h1>
+      <p class="step-sub">Escolha o que mais representa o momento do seu negócio.</p>
+      <div class="options-grid" id="q7-options">
+        <div class="opt-card" data-value="Aumentar vendas">
+          <div class="opt-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+          <div class="opt-text"><div class="opt-label">Aumentar vendas</div></div>
+          <div class="opt-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+        <div class="opt-card" data-value="Atrair mais clientes / leads">
+          <div class="opt-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+          <div class="opt-text"><div class="opt-label">Atrair mais clientes</div></div>
+          <div class="opt-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+        <div class="opt-card" data-value="Fortalecer a marca / autoridade">
+          <div class="opt-icon"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7.4L12 17l-6.3 4.4 2.3-7.4-6-4.6h7.6z"/></svg></div>
+          <div class="opt-text"><div class="opt-label">Fortalecer a marca</div></div>
+          <div class="opt-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+        <div class="opt-card" data-value="Profissionalizar a presença online">
+          <div class="opt-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="15" y2="13"/></svg></div>
+          <div class="opt-text"><div class="opt-label">Profissionalizar a presença</div></div>
+          <div class="opt-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 8: Cidade -->
+    <div class="step" data-step="8">
+      <div class="step-eyebrow">Quase lá</div>
+      <h1 class="step-title">De onde você fala?</h1>
+      <p class="step-sub">Para sabermos se atendemos sua região.</p>
+      <div class="field-group">
+        <label class="field-label">Cidade / Estado</label>
+        <input type="text" class="field-input" id="cidade" placeholder="Ex: Campo Grande, MS">
+        <div class="field-error" id="cidade-error">Conte pra gente sua cidade.</div>
+      </div>
+    </div>
+
+    <!-- STEP 9: Dados de contato -->
+    <div class="step" data-step="9">
+      <div class="step-eyebrow">Última etapa</div>
+      <h1 class="step-title">Para onde enviamos seu diagnóstico?</h1>
+      <p class="step-sub">Seus dados estão seguros e usados apenas para enviar sua análise personalizada.</p>
+      <div class="field-group">
+        <label class="field-label">Nome completo</label>
+        <input type="text" class="field-input" id="nome" placeholder="Seu nome">
+        <div class="field-error" id="nome-error">Preencha seu nome.</div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">WhatsApp</label>
+        <input type="tel" class="field-input" id="whatsapp" placeholder="(67) 99999-9999">
+        <div class="field-error" id="whatsapp-error">Preencha um WhatsApp válido.</div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">E-mail</label>
+        <input type="email" class="field-input" id="email" placeholder="seu@email.com">
+        <div class="field-error" id="email-error">Preencha um e-mail válido.</div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Nome da empresa (opcional)</label>
+        <input type="text" class="field-input" id="empresa" placeholder="Nome do seu negócio">
+      </div>
+    </div>
+
+  </div><!-- /steps-container -->
+
+  <!-- NAV (shared across steps) -->
+  <div style="padding:0 28px 28px" id="navWrap">
+    <div class="step-nav">
+      <button class="btn-back hidden" id="btnBack" type="button">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        Voltar
+      </button>
+      <button class="btn-next" id="btnNext" type="button" disabled>
+        <span class="btn-next-label">Continuar</span>
+        <svg class="btn-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        <span class="spinner"></span>
+      </button>
+    </div>
+    <div class="error-msg" id="submitError">Algo deu errado ao enviar. Tente novamente ou chame no WhatsApp.</div>
+  </div>
+
+  <!-- RESULT SCREEN -->
+  <div class="result-screen" id="resultScreen">
+    <div class="result-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <h2 class="result-title" id="resultTitle">Diagnóstico recebido!</h2>
+    <p class="result-sub" id="resultSub">Nossa equipe já está analisando suas respostas. Em breve você recebe um plano de ação personalizado direto no seu WhatsApp.</p>
+
+    <div class="result-score-card">
+      <div class="result-score-row">
+        <span class="result-score-label">Seu perfil</span>
+        <span class="result-score-value" id="resultPerfil">—</span>
+      </div>
+      <div class="result-score-row">
+        <span class="result-score-label">Prioridade de atendimento</span>
+        <span class="result-badge" id="resultPrioridade">Análise em andamento</span>
+      </div>
+    </div>
+
+    <div class="result-actions">
+      <a href="#" class="btn-whatsapp" id="btnWhatsapp" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.116 1.518 5.845L0 24l6.345-1.475A11.93 11.93 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.78 9.78 0 01-5.243-1.512l-.376-.224-3.736.868.876-3.696-.245-.387A9.766 9.766 0 012.182 12C2.182 6.582 6.582 2.182 12 2.182S21.818 6.582 21.818 12 17.418 21.818 12 21.818zm5.355-7.31c-.293-.146-1.734-.857-2.003-.954-.269-.098-.465-.146-.66.146-.196.293-.758.954-.93 1.15-.171.196-.342.22-.635.073-.293-.147-1.236-.456-2.355-1.453-.87-.776-1.458-1.735-1.629-2.028-.171-.293-.018-.452.128-.598.132-.131.293-.342.44-.513.146-.171.195-.293.293-.488.098-.196.049-.366-.024-.513-.073-.146-.66-1.59-.904-2.178-.238-.572-.48-.494-.66-.503-.171-.008-.366-.01-.562-.01s-.513.073-.782.366c-.269.293-1.026 1.003-1.026 2.447s1.05 2.838 1.196 3.034c.146.196 2.066 3.155 5.007 4.425.7.302 1.247.482 1.673.617.703.224 1.343.192 1.85.117.564-.084 1.734-.709 1.978-1.394.244-.684.244-1.27.171-1.393-.073-.122-.269-.196-.562-.342z"/></svg>
+        Falar agora no WhatsApp
+      </a>
+      <a href="https://www.ademiragencia.com.br" class="btn-secondary-link">Voltar para o site</a>
+    </div>
+  </div>
+
+  <div class="trust-footer" id="trustFooter">
+    <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Dados protegidos</div>
+    <div class="trust-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Leva 2 minutos</div>
+    <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>100% gratuito</div>
   </div>
 
 </div>
 
-<!-- ==========================================================================
-     SCRIPTS: LÓGICA DO MARKETINÔMETRO, MÁSCARAS E VALIDAÇÃO
-     ========================================================================== -->
 <script>
-  // ---------------------------------------------------------
-  // 1. SISTEMA DO MARKETINÔMETRO
-  // ---------------------------------------------------------
-  const Marketinometro = (function() {
-    let currentScore = 0;
-    const maxScore = 100; // 4 perguntas valendo no máximo 25 pontos cada
-    
-    // Seleciona os elementos da interface
-    const scoreNumEl = document.getElementById('score-number');
-    const scoreBarEl = document.getElementById('score-bar');
-    const scoreStatusEl = document.getElementById('score-status');
-    const inputHiddenScore = document.getElementById('nota_marketinometro_input');
+// ═══════════════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════════════
+const WEB3FORMS_KEY = '3e4ba65a-8492-4fc5-9741-a980ec00414c';
+const TOTAL_STEPS = 9;
+let currentStep = 1;
+const answers = {};
 
-    function updateGauge() {
-      // Pega os valores selecionados
-      let total = 0;
-      
-      // Selects
-      const selects = document.querySelectorAll('select.score-trigger');
-      selects.forEach(select => {
-        if(select.selectedIndex > 0) {
-          const opt = select.options[select.selectedIndex];
-          total += parseInt(opt.getAttribute('data-score')) || 0;
-        }
-      });
+// ═══════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════
+function updateProgress(){
+  const pct = ((currentStep - 1) / TOTAL_STEPS) * 100;
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('stepCounter').textContent = currentStep + ' de ' + TOTAL_STEPS;
+}
 
-      // Radios
-      const radios = document.querySelectorAll('.score-trigger input[type="radio"]:checked');
-      radios.forEach(radio => {
-        total += parseInt(radio.getAttribute('data-score')) || 0;
-      });
+function showStep(n){
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  const target = document.querySelector('.step[data-step="' + n + '"]');
+  if(target) target.classList.add('active');
+  document.getElementById('btnBack').classList.toggle('hidden', n === 1);
+  updateProgress();
+  validateCurrentStep();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
 
-      // Garante que não passe de 100
-      total = Math.min(total, maxScore);
-      
-      // Anima o número subindo/descendo
-      animateValue(scoreNumEl, currentScore, total, 500);
-      currentScore = total;
+function nextStep(){
+  if(currentStep < TOTAL_STEPS){
+    currentStep++;
+    showStep(currentStep);
+  } else {
+    submitForm();
+  }
+}
 
-      // Atualiza a barra
-      scoreBarEl.style.width = `${total}%`;
-      inputHiddenScore.value = total;
+function prevStep(){
+  if(currentStep > 1){
+    currentStep--;
+    showStep(currentStep);
+  }
+}
 
-      // Altera o gradiente e o texto baseado na pontuação
-      if (total === 0) {
-        scoreStatusEl.textContent = "Responda as perguntas para analisar sua maturidade...";
-        scoreStatusEl.style.color = "var(--color-text-muted)";
-        scoreBarEl.style.backgroundPosition = "0% 0%";
-      } else if (total <= 30) {
-        scoreStatusEl.textContent = "🚨 ALERTA: Zona de Risco (Sobrevivência)";
-        scoreStatusEl.style.color = "var(--color-danger)";
-        scoreBarEl.style.backgroundPosition = "0% 0%";
-      } else if (total <= 70) {
-        scoreStatusEl.textContent = "⚠️ ATENÇÃO: Empresa Estagnada (Potencial Desperdiçado)";
-        scoreStatusEl.style.color = "var(--color-warning)";
-        scoreBarEl.style.backgroundPosition = "50% 0%";
-      } else {
-        scoreStatusEl.textContent = "🚀 EXCELENTE: Estrutura Pronta para Escalar";
-        scoreStatusEl.style.color = "var(--color-success)";
-        scoreBarEl.style.backgroundPosition = "100% 0%";
-      }
-    }
+document.getElementById('btnNext').addEventListener('click', nextStep);
+document.getElementById('btnBack').addEventListener('click', prevStep);
 
-    // Função para animar os números
-    function animateValue(obj, start, end, duration) {
-      let startTimestamp = null;
-      const step = (timestamp) => {
-        if (!startTimestamp) startTimestamp = timestamp;
-        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-        obj.innerHTML = Math.floor(progress * (end - start) + start);
-        if (progress < 1) {
-          window.requestAnimationFrame(step);
-        }
-      };
-      window.requestAnimationFrame(step);
-    }
-
-    function init() {
-      // Adiciona o EventListener para todos os inputs de pontuação
-      const triggers = document.querySelectorAll('.score-trigger input, .score-trigger select');
-      triggers.forEach(trigger => {
-        trigger.addEventListener('change', updateGauge);
-      });
-    }
-
-    return { init };
-  })();
-
-  // ---------------------------------------------------------
-  // 2. MÁSCARAS E VALIDAÇÃO DE FORMULÁRIO
-  // ---------------------------------------------------------
-  const FormUtils = (function() {
-    function applyPhoneMask() {
-      const phoneInputs = document.querySelectorAll('.phone-mask');
-      phoneInputs.forEach(input => {
-        input.addEventListener('input', function (e) {
-          let x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,5})(\d{0,4})/);
-          e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
-        });
-      });
-    }
-    return { init: applyPhoneMask };
-  })();
-
-  function validateForm(formId) {
-    const form = document.getElementById(formId);
-    if (!form) return false;
-    
-    let isValid = true;
-    const requiredInputs = form.querySelectorAll('[required]');
-    
-    requiredInputs.forEach(input => {
-      if (input.type !== 'radio' && input.type !== 'checkbox') {
-        if (!input.value.trim()) {
-          isValid = false;
-          input.classList.add('invalid');
-        } else {
-          input.classList.remove('invalid');
-        }
+// ═══════════════════════════════════════════
+// OPTION CARD SELECTION (single-select per step)
+// ═══════════════════════════════════════════
+function setupOptionGroup(containerId, questionKey, autoAdvance){
+  const container = document.getElementById(containerId);
+  if(!container) return;
+  container.querySelectorAll('.opt-card, .pill-opt').forEach(card => {
+    card.addEventListener('click', () => {
+      container.querySelectorAll('.opt-card, .pill-opt').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      answers[questionKey] = card.dataset.value;
+      validateCurrentStep();
+      if(autoAdvance){
+        setTimeout(() => { if(currentStep < TOTAL_STEPS) nextStep(); }, 280);
       }
     });
+  });
+}
 
-    const radioGroups = form.querySelectorAll('.radio-group');
-    radioGroups.forEach(group => {
-      const radios = group.querySelectorAll('input[type="radio"]');
-      if(radios.length > 0 && radios[0].hasAttribute('required')) {
-        let isChecked = false;
-        radios.forEach(radio => {
-          if(radio.checked) isChecked = true;
-        });
-        if(!isChecked) isValid = false;
-      }
-    });
+setupOptionGroup('q1-options', 'tipoNegocio', true);
+setupOptionGroup('q2-options', 'presencaAtual', true);
+setupOptionGroup('q3-options', 'dificuldade', true);
+setupOptionGroup('q4-options', 'investeAnuncios', true);
+setupOptionGroup('q5-options', 'orcamento', true);
+setupOptionGroup('q6-options', 'urgencia', true);
+setupOptionGroup('q7-options', 'objetivo', true);
 
-    if (!isValid) {
-      alert("Atenção: Todos os campos são obrigatórios para a análise da Ademir Agência. Preencha as informações pendentes.");
+// ═══════════════════════════════════════════
+// VALIDATION PER STEP
+// ═══════════════════════════════════════════
+function validateCurrentStep(){
+  const btn = document.getElementById('btnNext');
+  let valid = false;
+
+  switch(currentStep){
+    case 1: valid = !!answers.tipoNegocio; break;
+    case 2: valid = !!answers.presencaAtual; break;
+    case 3: valid = !!answers.dificuldade; break;
+    case 4: valid = !!answers.investeAnuncios; break;
+    case 5: valid = !!answers.orcamento; break;
+    case 6: valid = !!answers.urgencia; break;
+    case 7: valid = !!answers.objetivo; break;
+    case 8: {
+      const cidade = document.getElementById('cidade').value.trim();
+      valid = cidade.length >= 2;
+      break;
     }
-    return isValid;
+    case 9: {
+      const nome = document.getElementById('nome').value.trim();
+      const wa = document.getElementById('whatsapp').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      const waOk = wa.replace(/\D/g,'').length >= 10;
+      valid = nome.length >= 3 && waOk && emailOk;
+      break;
+    }
   }
 
-  // Inicializa tudo ao carregar a página
-  document.addEventListener('DOMContentLoaded', () => {
-    Marketinometro.init();
-    FormUtils.init();
+  btn.disabled = !valid;
+  if(currentStep === TOTAL_STEPS){
+    btn.querySelector('.btn-next-label').textContent = 'Receber meu diagnóstico';
+  } else {
+    btn.querySelector('.btn-next-label').textContent = 'Continuar';
+  }
+}
+
+// Live validation for text inputs
+['cidade','nome','whatsapp','email','empresa'].forEach(id => {
+  const el = document.getElementById(id);
+  if(el) el.addEventListener('input', validateCurrentStep);
+});
+
+// WhatsApp mask
+document.getElementById('whatsapp').addEventListener('input', function(e){
+  let v = e.target.value.replace(/\D/g,'').slice(0,11);
+  if(v.length > 6){
+    v = '(' + v.slice(0,2) + ') ' + v.slice(2,7) + '-' + v.slice(7);
+  } else if(v.length > 2){
+    v = '(' + v.slice(0,2) + ') ' + v.slice(2);
+  } else if(v.length > 0){
+    v = '(' + v;
+  }
+  e.target.value = v;
+});
+
+// Enter key advances (for text-input steps)
+document.querySelectorAll('.field-input').forEach(input => {
+  input.addEventListener('keydown', e => {
+    if(e.key === 'Enter'){
+      e.preventDefault();
+      const btn = document.getElementById('btnNext');
+      if(!btn.disabled) nextStep();
+    }
   });
+});
+
+// ═══════════════════════════════════════════
+// LEAD SCORING — define prioridade
+// ═══════════════════════════════════════════
+function calcularPerfil(){
+  let score = 0;
+
+  // Orçamento (peso maior)
+  const orcamentoPontos = {
+    'Acima de R$ 7.000': 4,
+    'R$ 3.000 a R$ 7.000': 3,
+    'R$ 1.000 a R$ 3.000': 2,
+    'Até R$ 1.000': 1,
+    'Ainda não defini': 0
+  };
+  score += orcamentoPontos[answers.orcamento] || 0;
+
+  // Urgência
+  const urgenciaPontos = {
+    'O quanto antes (urgente)': 3,
+    'Nas próximas semanas': 2,
+    'No próximo mês': 1,
+    'Só estou pesquisando': 0
+  };
+  score += urgenciaPontos[answers.urgencia] || 0;
+
+  // Já investe em anúncios = mais qualificado
+  const investePontos = {
+    'Sim, atualmente': 2,
+    'Já investi, mas parei': 1,
+    'Nunca investi': 0,
+    'Não sei o que é': 0
+  };
+  score += investePontos[answers.investeAnuncios] || 0;
+
+  let perfil, prioridade;
+  if(score >= 7){
+    perfil = 'Lead Quente 🔥';
+    prioridade = 'Alta — contatar hoje';
+  } else if(score >= 4){
+    perfil = 'Lead Qualificado';
+    prioridade = 'Média — contatar em até 24h';
+  } else {
+    perfil = 'Lead em Descoberta';
+    prioridade = 'Nutrir — enviar conteúdo educativo';
+  }
+
+  return {score, perfil, prioridade};
+}
+
+// ═══════════════════════════════════════════
+// SUBMIT
+// ═══════════════════════════════════════════
+async function submitForm(){
+  const btn = document.getElementById('btnNext');
+  const errorBox = document.getElementById('submitError');
+  errorBox.style.display = 'none';
+  btn.disabled = true;
+  btn.classList.add('loading');
+
+  const nome = document.getElementById('nome').value.trim();
+  const whatsapp = document.getElementById('whatsapp').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const empresa = document.getElementById('empresa').value.trim();
+  const cidade = document.getElementById('cidade').value.trim();
+
+  const {score, perfil, prioridade} = calcularPerfil();
+
+  const payload = {
+    access_key: WEB3FORMS_KEY,
+    subject: `🎯 Novo Diagnóstico: ${nome} (${perfil})`,
+    from_name: 'Quiz Diagnóstico — Ademir Agência',
+    'Nome': nome,
+    'WhatsApp': whatsapp,
+    'E-mail': email,
+    'Empresa': empresa || 'Não informado',
+    'Cidade': cidade,
+    'Tipo de Negócio': answers.tipoNegocio || '—',
+    'Presença Atual nas Redes': answers.presencaAtual || '—',
+    'Maior Dificuldade': answers.dificuldade || '—',
+    'Já Investe em Anúncios': answers.investeAnuncios || '—',
+    'Orçamento Mensal': answers.orcamento || '—',
+    'Urgência': answers.urgencia || '—',
+    'Objetivo Principal': answers.objetivo || '—',
+    'Pontuação do Lead': score,
+    'Perfil': perfil,
+    'Prioridade': prioridade,
+    botcheck: ''
+  };
+
+  try{
+    const response = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const result = await response.json();
+
+    if(result.success){
+      showResult(perfil, prioridade, nome, whatsapp);
+    } else {
+      throw new Error(result.message || 'Erro ao enviar');
+    }
+  } catch(err){
+    errorBox.style.display = 'block';
+    btn.disabled = false;
+    btn.classList.remove('loading');
+  }
+}
+
+function showResult(perfil, prioridade, nome, whatsapp){
+  document.getElementById('stepsContainer').style.display = 'none';
+  document.getElementById('navWrap').style.display = 'none';
+  document.getElementById('trustFooter').style.display = 'none';
+  document.getElementById('progressBar').style.width = '100%';
+  document.getElementById('stepCounter').textContent = 'Concluído';
+
+  document.getElementById('resultTitle').textContent = `Show, ${nome.split(' ')[0]}! Diagnóstico recebido.`;
+  document.getElementById('resultPerfil').textContent = perfil;
+  document.getElementById('resultPrioridade').textContent = prioridade.split('—')[0].trim();
+
+  const waNumber = '5567981082158';
+  const waMsg = encodeURIComponent(`Olá! Acabei de responder o diagnóstico gratuito no site e quero saber mais sobre como vocês podem me ajudar. Meu nome é ${nome}.`);
+  document.getElementById('btnWhatsapp').href = `https://wa.me/${waNumber}?text=${waMsg}`;
+
+  document.getElementById('resultScreen').classList.add('active');
+}
+
+// ═══════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════
+showStep(1);
 </script>
 
 </body>
