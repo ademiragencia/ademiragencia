@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Processo Seletivo — Social Media Pleno | Ademir Agência</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0A0A0A;--bg2:#111111;--bg3:#161616;--bg4:#1c1c1c;
+  --gold:#F5A623;--gold2:#FFB84D;--gold-dim:rgba(245,166,35,0.12);--gold-glow:rgba(245,166,35,0.3);
+  --white:#FFFFFF;--gray:#8a8a8a;--gray2:#444;
+  --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.14);
+  --green:#22c55e;--green-dim:rgba(34,197,94,0.12);
+  --red:#ef4444;--red-dim:rgba(239,68,68,0.12);
+  --blue:#3b82f6;--blue-dim:rgba(59,130,246,0.12);
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--white);
+  -webkit-font-smoothing:antialiased;line-height:1.5;
+}
+h1,h2,h3,.display{font-family:'Outfit',sans-serif;letter-spacing:-0.02em}
+::-webkit-scrollbar{width:8px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--gray2);border-radius:4px}
+
+body{
+  background:
+    radial-gradient(ellipse 70% 40% at 50% 0%, rgba(245,166,35,0.07) 0%, transparent 55%),
+    var(--bg);
+}
+
+/* ═══ TOP PROGRESS BAR (sticky) ═══ */
+.top-progress{
+  position:sticky;top:0;z-index:100;
+  height:5px;background:var(--bg3);
+}
+.top-progress-bar{
+  height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));
+  width:0%;transition:width 0.3s ease;box-shadow:0 0 10px var(--gold-glow);
+}
+
+/* ═══ HERO HEADER ═══ */
+.hero{
+  max-width:920px;margin:0 auto;padding:56px 24px 40px;text-align:center;
+}
+.hero-logo{height:42px;margin-bottom:28px;filter:drop-shadow(0 0 12px var(--gold-glow))}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--gold-dim);border:1px solid rgba(245,166,35,0.3);
+  color:var(--gold);font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  padding:7px 16px;border-radius:100px;margin-bottom:22px;
+}
+.hero-eyebrow svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.5}
+.hero h1{
+  font-size:clamp(28px,5vw,46px);font-weight:900;line-height:1.1;
+  margin-bottom:18px;letter-spacing:-0.03em;
+}
+.hero h1 span{color:var(--gold)}
+.hero-sub{
+  font-size:16px;color:var(--gray);max-width:600px;margin:0 auto 32px;line-height:1.65;
+}
+.hero-stats{
+  display:flex;justify-content:center;gap:0;flex-wrap:wrap;
+  border:1px solid var(--border2);border-radius:16px;overflow:hidden;
+  max-width:680px;margin:0 auto;
+}
+.hero-stat{
+  flex:1;min-width:140px;padding:20px 16px;border-right:1px solid var(--border);
+  background:var(--bg2);
+}
+.hero-stat:last-child{border-right:none}
+.hero-stat-val{font-family:'Outfit',sans-serif;font-size:24px;font-weight:900;color:var(--gold);margin-bottom:4px}
+.hero-stat-lbl{font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:1px;font-weight:600}
+
+/* ═══ WARNING BANNER ═══ */
+.warning-banner{
+  max-width:920px;margin:0 auto 0;padding:0 24px;
+}
+.warning-box{
+  background:var(--red-dim);border:1px solid rgba(239,68,68,0.3);
+  border-radius:14px;padding:18px 22px;display:flex;gap:14px;align-items:flex-start;
+  margin-bottom:40px;
+}
+.warning-box svg{width:22px;height:22px;stroke:var(--red);fill:none;stroke-width:2;flex-shrink:0;margin-top:1px}
+.warning-box-text{font-size:13.5px;color:rgba(255,255,255,0.85);line-height:1.6}
+.warning-box-text b{color:var(--red)}
+
+/* ═══ MAIN CONTAINER ═══ */
+.exam-wrap{max-width:780px;margin:0 auto;padding:0 24px 120px}
+
+/* ═══ SECTION BLOCKS ═══ */
+.section-block{
+  background:var(--bg2);border:1px solid var(--border2);border-radius:20px;
+  padding:0;margin-bottom:28px;overflow:hidden;
+  scroll-margin-top:80px;
+}
+.section-head{
+  padding:28px 32px 22px;border-bottom:1px solid var(--border);
+  display:flex;align-items:flex-start;gap:18px;
+}
+.section-num{
+  font-family:'Outfit',sans-serif;font-size:13px;font-weight:900;
+  background:var(--gold);color:#000;width:38px;height:38px;border-radius:11px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.section-title{font-size:21px;font-weight:800;margin-bottom:6px;letter-spacing:-0.02em}
+.section-desc{font-size:13.5px;color:var(--gray);line-height:1.55}
+.section-body{padding:28px 32px 32px}
+
+/* ═══ QUESTION BLOCKS ═══ */
+.q{margin-bottom:28px}
+.q:last-child{margin-bottom:0}
+.q-text{
+  font-size:15px;font-weight:600;margin-bottom:6px;line-height:1.5;
+  display:flex;gap:10px;
+}
+.q-num{color:var(--gold);font-weight:800;flex-shrink:0}
+.q-points{
+  display:inline-block;font-size:10.5px;font-weight:700;color:var(--gold);
+  background:var(--gold-dim);padding:2px 9px;border-radius:100px;margin-left:8px;
+  vertical-align:middle;
+}
+.q-hint{font-size:12.5px;color:var(--gray);margin-bottom:14px;line-height:1.5;font-style:italic}
+
+/* Multiple choice */
+.mc-options{display:flex;flex-direction:column;gap:9px;margin-top:12px}
+.mc-opt{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:13px 16px;background:var(--bg3);border:1.5px solid var(--border2);
+  border-radius:11px;cursor:pointer;transition:all 0.15s ease;
+}
+.mc-opt:hover{border-color:rgba(245,166,35,0.35)}
+.mc-opt.selected{border-color:var(--gold);background:var(--gold-dim)}
+.mc-radio{
+  width:19px;height:19px;border-radius:50%;border:2px solid var(--border2);
+  flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;
+  transition:all 0.15s ease;
+}
+.mc-opt.selected .mc-radio{border-color:var(--gold)}
+.mc-radio-dot{width:9px;height:9px;border-radius:50%;background:var(--gold);opacity:0;transition:opacity 0.15s}
+.mc-opt.selected .mc-radio-dot{opacity:1}
+.mc-opt-text{font-size:13.5px;line-height:1.5;color:rgba(255,255,255,0.9)}
+
+/* Checkbox (multi-select) */
+.cb-opt .mc-radio{border-radius:6px}
+.cb-opt.selected .mc-radio{background:var(--gold)}
+.cb-opt .mc-radio-dot{width:100%;height:100%;border-radius:3px;background:none;opacity:1;display:flex;align-items:center;justify-content:center}
+.cb-opt .mc-radio-dot svg{width:11px;height:11px;stroke:#000;stroke-width:3;fill:none;opacity:0;transition:opacity .15s}
+.cb-opt.selected .mc-radio-dot svg{opacity:1}
+
+/* Text inputs */
+.field-input,.field-textarea,.field-select{
+  width:100%;background:var(--bg3);border:1.5px solid var(--border2);
+  border-radius:11px;padding:13px 16px;color:var(--white);
+  font-family:'Space Grotesk',sans-serif;font-size:14px;outline:none;
+  transition:border-color 0.2s,box-shadow 0.2s;margin-top:10px;
+}
+.field-input::placeholder,.field-textarea::placeholder{color:var(--gray2)}
+.field-input:focus,.field-textarea:focus,.field-select:focus{
+  border-color:var(--gold);box-shadow:0 0 0 4px rgba(245,166,35,0.08);
+}
+.field-textarea{resize:vertical;min-height:100px;font-family:'Space Grotesk',sans-serif}
+.field-textarea.tall{min-height:160px}
+.field-textarea.xtall{min-height:220px}
+.char-count{font-size:11px;color:var(--gray2);text-align:right;margin-top:5px}
+.field-select{cursor:pointer;-webkit-appearance:none;appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 16px center;padding-right:42px;
+}
+.field-select option{background:var(--bg3)}
+
+/* Ranking / ordering */
+.rank-list{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.rank-item{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 14px;background:var(--bg3);border:1.5px solid var(--border2);border-radius:10px;
+}
+.rank-item select{
+  background:var(--bg4);border:1px solid var(--border2);border-radius:7px;
+  color:var(--gold);font-weight:800;font-size:13px;padding:6px 10px;
+  width:54px;text-align:center;-webkit-appearance:none;appearance:none;cursor:pointer;
+}
+.rank-item-text{font-size:13.5px;flex:1}
+
+/* Case study reference box */
+.case-box{
+  background:var(--bg4);border:1px solid var(--border2);border-left:3px solid var(--gold);
+  border-radius:12px;padding:20px 22px;margin-bottom:20px;
+}
+.case-box-title{font-size:12px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.case-box-title svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2}
+.case-box p{font-size:13.5px;color:rgba(255,255,255,0.8);line-height:1.65;margin-bottom:10px}
+.case-box p:last-child{margin-bottom:0}
+.case-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-top:14px}
+.case-stat{background:var(--bg3);border-radius:9px;padding:12px;text-align:center}
+.case-stat-v{font-family:'Outfit',sans-serif;font-size:18px;font-weight:900;color:var(--gold)}
+.case-stat-l{font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px}
+
+/* Timer/copy challenge badge */
+.live-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--red-dim);border:1px solid rgba(239,68,68,0.35);color:var(--red);
+  font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;
+  padding:5px 13px;border-radius:100px;margin-bottom:16px;
+}
+.live-badge svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.5}
+.pulse-dot{width:6px;height:6px;border-radius:50%;background:var(--red);animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+
+/* Section divider for stage transitions */
+.stage-divider{
+  display:flex;align-items:center;gap:16px;margin:44px 0 28px;
+}
+.stage-divider-line{flex:1;height:1px;background:var(--border2)}
+.stage-divider-label{
+  font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--gray);
+  white-space:nowrap;
+}
+
+/* ═══ SUBMIT FOOTER ═══ */
+.submit-footer{
+  position:sticky;bottom:0;z-index:90;
+  background:rgba(17,17,17,0.92);backdrop-filter:blur(16px);
+  border-top:1px solid var(--border2);
+  padding:18px 24px;margin-top:0;
+}
+.submit-footer-inner{
+  max-width:780px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+}
+.submit-progress-text{font-size:12.5px;color:var(--gray)}
+.submit-progress-text b{color:var(--gold)}
+.btn-submit{
+  display:flex;align-items:center;gap:10px;
+  background:var(--gold);color:#000;border:none;
+  font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:15px;
+  padding:15px 32px;border-radius:100px;cursor:pointer;
+  transition:all 0.2s ease;box-shadow:0 8px 24px rgba(245,166,35,0.25);
+  white-space:nowrap;
+}
+.btn-submit:hover{background:var(--gold2);transform:translateY(-1px);box-shadow:0 10px 28px rgba(245,166,35,0.35)}
+.btn-submit:disabled{opacity:0.4;cursor:not-allowed;transform:none}
+.btn-submit svg{width:17px;height:17px;stroke:currentColor;stroke-width:2.5;fill:none}
+.spinner{
+  width:18px;height:18px;border:2.5px solid rgba(0,0,0,0.25);
+  border-top-color:#000;border-radius:50%;animation:spin 0.7s linear infinite;display:none;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.btn-submit.loading .spinner{display:block}
+.btn-submit.loading .btn-label,.btn-submit.loading svg.arrow{display:none}
+
+/* ═══ ERROR / SUCCESS MESSAGES ═══ */
+.form-error{
+  display:none;max-width:780px;margin:0 auto 16px;padding:0 24px;
+}
+.form-error-box{
+  background:var(--red-dim);border:1px solid rgba(239,68,68,0.3);color:var(--red);
+  padding:14px 18px;border-radius:12px;font-size:13.5px;text-align:center;
+}
+.field-error{font-size:12px;color:var(--red);margin-top:6px;display:none}
+.q.has-error .mc-opt,.q.has-error .field-input,.q.has-error .field-textarea{border-color:rgba(239,68,68,0.5)}
+
+/* ═══ SUCCESS SCREEN ═══ */
+.success-screen{
+  display:none;min-height:100vh;align-items:center;justify-content:center;
+  flex-direction:column;text-align:center;padding:40px 24px;
+}
+.success-screen.active{display:flex}
+.success-icon{
+  width:90px;height:90px;border-radius:50%;
+  background:var(--gold-dim);border:2px solid var(--gold);
+  display:flex;align-items:center;justify-content:center;margin-bottom:28px;
+  box-shadow:0 0 50px var(--gold-glow);
+  animation:popIn 0.5s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes popIn{from{transform:scale(0.5);opacity:0}to{transform:scale(1);opacity:1}}
+.success-icon svg{width:42px;height:42px;stroke:var(--gold);stroke-width:2.5;fill:none}
+.success-screen h2{font-size:30px;font-weight:900;margin-bottom:14px;letter-spacing:-0.02em}
+.success-screen p{font-size:15px;color:var(--gray);max-width:480px;line-height:1.7;margin-bottom:8px}
+.success-screen .success-id{
+  font-family:'Outfit',sans-serif;font-size:13px;color:var(--gold);font-weight:700;
+  margin-top:20px;background:var(--bg3);padding:10px 20px;border-radius:100px;border:1px solid var(--border2);
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width:640px){
+  .hero{padding:40px 18px 32px}
+  .hero h1{font-size:26px}
+  .hero-stat{padding:16px 10px}
+  .hero-stat-val{font-size:20px}
+  .exam-wrap{padding:0 16px 140px}
+  .section-head{padding:22px 20px 18px;gap:12px}
+  .section-title{font-size:18px}
+  .section-body{padding:22px 20px 26px}
+  .q-text{font-size:14px}
+  .submit-footer-inner{flex-direction:column;align-items:stretch;text-align:center}
+  .btn-submit{width:100%;justify-content:center}
+  .warning-banner{padding:0 16px}
+  .case-stat-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<div class="top-progress"><div class="top-progress-bar" id="progressBar"></div></div>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<div class="hero">
+  <img src="https://res.cloudinary.com/dmdaiwkyl/image/upload/v1781641114/ChatGPT_Image_16_de_jun._de_2026_16_18_24_skbudu.png" alt="Ademir Agência" class="hero-logo">
+  <div class="hero-eyebrow">
+    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+    Processo Seletivo — Vaga Pleno
+  </div>
+  <h1>Avaliação Técnica de<br><span>Social Media</span></h1>
+  <p class="hero-sub">Esta prova foi desenhada para identificar quem realmente domina estratégia, conteúdo, métricas e copy — não quem decora teoria. Reserve um tempo de qualidade para respondê-la com calma.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="hero-stat-val">12</div><div class="hero-stat-lbl">Blocos</div></div>
+    <div class="hero-stat"><div class="hero-stat-val">65+</div><div class="hero-stat-lbl">Itens</div></div>
+    <div class="hero-stat"><div class="hero-stat-val">48h</div><div class="hero-stat-lbl">Prazo de entrega</div></div>
+    <div class="hero-stat"><div class="hero-stat-val">100</div><div class="hero-stat-lbl">Pontos totais</div></div>
+  </div>
+</div>
+
+<div class="warning-banner">
+  <div class="warning-box">
+    <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    <div class="warning-box-text">
+      Esta prova avalia <b>raciocínio próprio, não memorização</b>. Respostas genéricas, copiadas ou geradas inteiramente por IA sem reflexão pessoal são facilmente identificáveis e eliminam o candidato automaticamente. Queremos ver <b>como você pensa</b> — use exemplos reais, sua experiência, e seja honesto onde não souber algo. Isso vale mais do que enrolação.
+    </div>
+  </div>
+</div>
+
+<form id="examForm" class="exam-wrap">
+  <!-- ═══════════════ BLOCO 1: IDENTIFICAÇÃO ═══════════════ -->
+  <div class="section-block" id="block1">
+    <div class="section-head">
+      <div class="section-num">01</div>
+      <div>
+        <div class="section-title">Identificação</div>
+        <div class="section-desc">Seus dados de contato e declaração de autoria.</div>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">1.</span> Nome completo</div>
+        <input type="text" class="field-input" id="nome" placeholder="Seu nome completo" required>
+        <div class="field-error" id="nome-error">Preencha seu nome completo.</div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">2.</span> E-mail</div>
+        <input type="email" class="field-input" id="email" placeholder="seu@email.com" required>
+        <div class="field-error" id="email-error">Preencha um e-mail válido.</div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">3.</span> WhatsApp</div>
+        <input type="tel" class="field-input" id="whatsapp" placeholder="(67) 99999-9999" required>
+        <div class="field-error" id="whatsapp-error">Preencha um WhatsApp válido.</div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">4.</span> Link do portfólio, Instagram profissional ou perfis que você gerencia <span class="q-points">obrigatório</span></div>
+        <div class="q-hint">Cole quantos links quiser, separados por vírgula ou linha. Queremos ver seu trabalho real.</div>
+        <textarea class="field-textarea" id="portfolio" placeholder="https://instagram.com/seuperfil&#10;https://drive.google.com/seu-portfolio" required></textarea>
+        <div class="field-error" id="portfolio-error">Inclua ao menos um link.</div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">5.</span> Há quantos anos você trabalha com social media profissionalmente?</div>
+        <select class="field-select" id="experiencia" required>
+          <option value="">Selecionar...</option>
+          <option>Menos de 1 ano</option>
+          <option>1 a 2 anos</option>
+          <option>2 a 4 anos</option>
+          <option>4 a 7 anos</option>
+          <option>Mais de 7 anos</option>
+        </select>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">6.</span> Declaração de autoria <span class="q-points">obrigatório</span></div>
+        <div class="q-hint">Marque para confirmar que as respostas refletem seu próprio conhecimento e raciocínio.</div>
+        <div class="mc-options" id="declaracao-options">
+          <div class="cb-opt mc-opt" data-value="confirmado">
+            <div class="mc-radio"><div class="mc-radio-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+            <div class="mc-opt-text">Declaro que as respostas desta prova são de minha própria autoria. Posso ter usado ferramentas de pesquisa como apoio, mas o raciocínio, as decisões estratégicas e os textos finais são meus.</div>
+          </div>
+        </div>
+        <div class="field-error" id="declaracao-error">É necessário confirmar a declaração para continuar.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════ BLOCO 2: FUNDAMENTOS ESTRATÉGICOS ═══════════════ -->
+  <div class="section-block" id="block2">
+    <div class="section-head">
+      <div class="section-num">02</div>
+      <div>
+        <div class="section-title">Fundamentos estratégicos</div>
+        <div class="section-desc">Conceitos-base de planejamento de conteúdo e posicionamento.</div>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">7.</span> Um cliente de estética chega dizendo "quero viralizar". Qual é a resposta mais correta profissionalmente? <span class="q-points">2 pts</span></div>
+        <div class="mc-options" data-q="q7">
+          <div class="mc-opt" data-value="a"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Prometo que sim, viral é fácil com a estratégia certa de hashtags.</div></div>
+          <div class="mc-opt" data-value="b"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Explico que viralização não é controlável nem é o objetivo certo — o foco deve ser atrair o público certo e converter, não alcance vazio.</div></div>
+          <div class="mc-opt" data-value="c"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Sugiro investir pesado em anúncios para forçar o viral.</div></div>
+          <div class="mc-opt" data-value="d"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Digo que vídeos com trends sempre viralizam, então é só copiar trends.</div></div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">8.</span> O que é "pilar de conteúdo" dentro de um planejamento editorial? <span class="q-points">2 pts</span></div>
+        <div class="mc-options" data-q="q8">
+          <div class="mc-opt" data-value="a"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">O post com melhor desempenho do mês.</div></div>
+          <div class="mc-opt" data-value="b"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Uma categoria temática recorrente que organiza o tipo de conteúdo publicado (ex: educativo, institucional, prova social, bastidores).</div></div>
+          <div class="mc-opt" data-value="c"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">O formato fixo de todo post (sempre carrossel, por exemplo).</div></div>
+          <div class="mc-opt" data-value="d"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">A paleta de cores usada no feed.</div></div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">9.</span> Marque todas as alternativas que representam objetivos válidos de uma estratégia de conteúdo (pode marcar mais de uma) <span class="q-points">3 pts</span></div>
+        <div class="mc-options" id="q9-options">
+          <div class="cb-opt mc-opt" data-value="awareness"><div class="mc-radio"><div class="mc-radio-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div><div class="mc-opt-text">Aumentar reconhecimento de marca (awareness)</div></div>
+          <div class="cb-opt mc-opt" data-value="leads"><div class="mc-radio"><div class="mc-radio-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div><div class="mc-opt-text">Gerar leads qualificados</div></div>
+          <div class="cb-opt mc-opt" data-value="seguidores"><div class="mc-radio"><div class="mc-radio-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div><div class="mc-opt-text">Aumentar número de seguidores a qualquer custo, sem relação com vendas</div></div>
+          <div class="cb-opt mc-opt" data-value="retencao"><div class="mc-radio"><div class="mc-radio-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div><div class="mc-opt-text">Fortalecer relacionamento e retenção de clientes existentes</div></div>
+          <div class="cb-opt mc-opt" data-value="autoridade"><div class="mc-radio"><div class="mc-radio-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div><div class="mc-opt-text">Construir autoridade no nicho</div></div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">10.</span> Explique, com suas palavras, a diferença entre <b>alcance</b> e <b>impressões</b>. <span class="q-points">3 pts</span></div>
+        <textarea class="field-textarea" id="q10" placeholder="Sua resposta..."></textarea>
+        <div class="char-count" data-for="q10">0 caracteres</div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">11.</span> Por que postar todos os dias no mesmo horário não é, sozinho, uma estratégia eficaz? <span class="q-points">3 pts</span></div>
+        <textarea class="field-textarea" id="q11" placeholder="Sua resposta..."></textarea>
+        <div class="char-count" data-for="q11">0 caracteres</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════ BLOCO 3: MÉTRICAS E ANÁLISE DE DADOS ═══════════════ -->
+  <div class="section-block" id="block3">
+    <div class="section-head">
+      <div class="section-num">03</div>
+      <div>
+        <div class="section-title">Métricas e análise de dados</div>
+        <div class="section-desc">Aqui separamos quem só posta de quem entende performance.</div>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <div class="case-box">
+        <div class="case-box-title"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Dados do mês — Perfil fictício "Loja Bella"</div>
+        <p>Conta de e-commerce de roupas femininas. 18.400 seguidores. Veja os números do último mês:</p>
+        <div class="case-stat-grid">
+          <div class="case-stat"><div class="case-stat-v">312.000</div><div class="case-stat-l">Alcance</div></div>
+          <div class="case-stat"><div class="case-stat-v">890.000</div><div class="case-stat-l">Impressões</div></div>
+          <div class="case-stat"><div class="case-stat-v">2,1%</div><div class="case-stat-l">Engajamento</div></div>
+          <div class="case-stat"><div class="case-stat-v">+340</div><div class="case-stat-l">Seguidores novos</div></div>
+          <div class="case-stat"><div class="case-stat-v">-180</div><div class="case-stat-l">Deixaram de seguir</div></div>
+          <div class="case-stat"><div class="case-stat-v">41</div><div class="case-stat-l">Cliques no link da bio</div></div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">12.</span> Com base nos dados acima, qual é o maior problema dessa conta? <span class="q-points">3 pts</span></div>
+        <div class="mc-options" data-q="q12">
+          <div class="mc-opt" data-value="a"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">O alcance está baixo demais, precisa de mais hashtags.</div></div>
+          <div class="mc-opt" data-value="b"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">A relação entre alcance/impressões e cliques no link é desproporcionalmente baixa — está gerando atenção mas quase nenhuma ação, sugerindo CTA fraco ou conteúdo desalinhado do objetivo comercial.</div></div>
+          <div class="mc-opt" data-value="c"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">O crescimento líquido de seguidores (160) já é satisfatório, não há problema.</div></div>
+          <div class="mc-opt" data-value="d"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">As impressões deveriam ser menores que o alcance, os dados estão errados.</div></div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">13.</span> Quais 3 ações você recomendaria a esse cliente no próximo mês? Seja específico e justifique. <span class="q-points">5 pts</span></div>
+        <textarea class="field-textarea tall" id="q13" placeholder="1) ...&#10;2) ...&#10;3) ..."></textarea>
+        <div class="char-count" data-for="q13">0 caracteres</div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">14.</span> Uma taxa de engajamento "boa" no Instagram hoje gira em torno de qual faixa para contas de 10k-50k seguidores? <span class="q-points">2 pts</span></div>
+        <div class="mc-options" data-q="q14">
+          <div class="mc-opt" data-value="a"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">10% a 15%</div></div>
+          <div class="mc-opt" data-value="b"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">1% a 3,5%</div></div>
+          <div class="mc-opt" data-value="c"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">15% a 25%</div></div>
+          <div class="mc-opt" data-value="d"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Abaixo de 0,1%</div></div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">15.</span> O que é "saves" (salvamentos) e por que essa métrica costuma importar mais que curtidas para o algoritmo do Instagram? <span class="q-points">3 pts</span></div>
+        <textarea class="field-textarea" id="q15" placeholder="Sua resposta..."></textarea>
+        <div class="char-count" data-for="q15">0 caracteres</div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">16.</span> Ordene por prioridade as métricas que você analisaria primeiro ao assumir uma conta nova de um cliente (1 = primeira que olha, 5 = última) <span class="q-points">3 pts</span></div>
+        <div class="rank-list" id="rankList">
+          <div class="rank-item" data-value="taxa_engajamento">
+            <select class="rank-select"><option value="">-</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+            <div class="rank-item-text">Taxa de engajamento média dos últimos posts</div>
+          </div>
+          <div class="rank-item" data-value="origem_seguidores">
+            <select class="rank-select"><option value="">-</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+            <div class="rank-item-text">Origem do público (comprado, orgânico, ads antigos)</div>
+          </div>
+          <div class="rank-item" data-value="conversao_link">
+            <select class="rank-select"><option value="">-</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+            <div class="rank-item-text">Conversão do link da bio / cliques</div>
+          </div>
+          <div class="rank-item" data-value="frequencia">
+            <select class="rank-select"><option value="">-</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+            <div class="rank-item-text">Frequência e consistência de postagem histórica</div>
+          </div>
+          <div class="rank-item" data-value="concorrencia">
+            <select class="rank-select"><option value="">-</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+            <div class="rank-item-text">Comparação com concorrentes diretos</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════ BLOCO 4: ALGORITMO E FORMATOS ═══════════════ -->
+  <div class="section-block" id="block4">
+    <div class="section-head">
+      <div class="section-num">04</div>
+      <div>
+        <div class="section-title">Algoritmo e formatos</div>
+        <div class="section-desc">Como cada plataforma realmente decide o que distribuir.</div>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">17.</span> Qual destes fatores tem MAIOR peso na distribuição de Reels hoje? <span class="q-points">2 pts</span></div>
+        <div class="mc-options" data-q="q17">
+          <div class="mc-opt" data-value="a"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Quantidade de hashtags usadas</div></div>
+          <div class="mc-opt" data-value="b"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Taxa de retenção / tempo assistido (watch time) nos primeiros segundos</div></div>
+          <div class="mc-opt" data-value="c"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Horário exato de postagem</div></div>
+          <div class="mc-opt" data-value="d"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Número de emojis na legenda</div></div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">18.</span> Um Reels perde 60% da audiência nos primeiros 3 segundos. Qual é provavelmente o problema? <span class="q-points">3 pts</span></div>
+        <textarea class="field-textarea" id="q18" placeholder="Sua resposta..."></textarea>
+        <div class="char-count" data-for="q18">0 caracteres</div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">19.</span> Marque os formatos que você consideraria PRIORITÁRIOS em 2026 para gerar alcance orgânico (marque quantos forem aplicáveis) <span class="q-points">2 pts</span></div>
+        <div class="mc-options" id="q19-options">
+          <div class="cb-opt mc-opt" data-value="reels"><div class="mc-radio"><div class="mc-radio-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div><div class="mc-opt-text">Reels / vídeos curtos</div></div>
+          <div class="cb-opt mc-opt" data-value="carrossel"><div class="mc-radio"><div class="mc-radio-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div><div class="mc-opt-text">Carrossel educativo</div></div>
+          <div class="cb-opt mc-opt" data-value="stories"><div class="mc-radio"><div class="mc-radio-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div><div class="mc-opt-text">Stories interativos</div></div>
+          <div class="cb-opt mc-opt" data-value="estatico"><div class="mc-radio"><div class="mc-radio-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div><div class="mc-opt-text">Post estático único, sem texto na imagem</div></div>
+          <div class="cb-opt mc-opt" data-value="live"><div class="mc-radio"><div class="mc-radio-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div><div class="mc-opt-text">Lives</div></div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">20.</span> O que significa "hook" em um vídeo e dê um exemplo de hook fraco vs. hook forte para um post sobre "5 erros que travam suas vendas no Instagram" <span class="q-points">4 pts</span></div>
+        <textarea class="field-textarea tall" id="q20" placeholder="Hook fraco: ...&#10;Hook forte: ..."></textarea>
+        <div class="char-count" data-for="q20">0 caracteres</div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">21.</span> Stories com figurinha de enquete/pergunta ajudam o alcance dos posts seguintes? <span class="q-points">1 pt</span></div>
+        <div class="mc-options" data-q="q21">
+          <div class="mc-opt" data-value="a"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Sim, interações geram sinais positivos de engajamento que ajudam a distribuição geral do perfil</div></div>
+          <div class="mc-opt" data-value="b"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Não, Stories e Feed são 100% desconectados algoritmicamente</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════ BLOCO 5: TRÁFEGO PAGO E ANÚNCIOS ═══════════════ -->
+  <div class="section-block" id="block5">
+    <div class="section-head">
+      <div class="section-num">05</div>
+      <div>
+        <div class="section-title">Tráfego pago e anúncios</div>
+        <div class="section-desc">Mesmo sendo vaga de conteúdo, todo bom social media entende a ponte com performance.</div>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">22.</span> O que é CPM e o que ele indica? <span class="q-points">2 pts</span></div>
+        <div class="mc-options" data-q="q22">
+          <div class="mc-opt" data-value="a"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Custo por mensagem — quanto custa cada DM recebida</div></div>
+          <div class="mc-opt" data-value="b"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Custo por mil impressões — quanto custa exibir o anúncio 1.000 vezes</div></div>
+          <div class="mc-opt" data-value="c"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Custo por minuto de exibição em vídeo</div></div>
+          <div class="mc-opt" data-value="d"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Custo permanente mensal da campanha</div></div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">23.</span> Uma campanha de tráfego tem CTR de 0,4% e CPC de R$ 4,50. O que isso sugere? <span class="q-points">3 pts</span></div>
+        <textarea class="field-textarea" id="q23" placeholder="Sua resposta..."></textarea>
+        <div class="char-count" data-for="q23">0 caracteres</div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">24.</span> Qual a diferença entre otimizar uma campanha para "engajamento" vs. para "conversão"? Quando usar cada uma? <span class="q-points">4 pts</span></div>
+        <textarea class="field-textarea tall" id="q24" placeholder="Sua resposta..."></textarea>
+        <div class="char-count" data-for="q24">0 caracteres</div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">25.</span> Um cliente quer gastar R$ 500/mês em anúncios e esperar 50 vendas de um produto de R$ 200. O que você diria? <span class="q-points">3 pts</span></div>
+        <div class="mc-options" data-q="q25">
+          <div class="mc-opt" data-value="a"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Que é totalmente viável e vou garantir o resultado.</div></div>
+          <div class="mc-opt" data-value="b"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Explico que isso exigiria CPA de R$10 (ou ROAS altíssimo), o que é incomum sem funil e produto já validados — apresento expectativas realistas baseadas em benchmark do nicho.</div></div>
+          <div class="mc-opt" data-value="c"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Recuso o projeto imediatamente sem explicar o motivo.</div></div>
+          <div class="mc-opt" data-value="d"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Aumento a verba sem perguntar para tentar bater a meta.</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════ BLOCO 6: FERRAMENTAS DO DIA A DIA ═══════════════ -->
+  <div class="section-block" id="block6">
+    <div class="section-head">
+      <div class="section-num">06</div>
+      <div>
+        <div class="section-title">Ferramentas do dia a dia</div>
+        <div class="section-desc">O que você realmente usa na rotina de trabalho.</div>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">26.</span> Quais ferramentas você já usou profissionalmente? (marque todas aplicáveis) <span class="q-points">2 pts</span></div>
+        <div class="mc-options" id="q26-options">
+          <div class="cb-opt mc-opt" data-value="canva"><div class="mc-radio"><div class="mc-radio-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div><div class="mc-opt-text">Canva</div></div>
+          <div class="cb-opt mc-opt" data-value="capcut"><div class="mc-radio"><div class="mc-radio-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div><div class="mc-opt-text">CapCut / Premiere / Edição de vídeo</div></div>
+          <div class="cb-opt mc-opt" data-value="metabusiness"><div class="mc-radio"><div class="mc-radio-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div><div class="mc-opt-text">Meta Business Suite / Gerenciador de Anúncios</div></div>
+          <div class="cb-opt mc-opt" data-value="agendamento"><div class="mc-radio"><div class="mc-radio-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div><div class="mc-opt-text">Ferramentas de agendamento (Mlabs, Later, Hootsuite, etc)</div></div>
+          <div class="cb-opt mc-opt" data-value="analytics"><div class="mc-radio"><div class="mc-radio-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div><div class="mc-opt-text">Ferramentas de análise (Metricool, Iconosquare, etc)</div></div>
+          <div class="cb-opt mc-opt" data-value="ia"><div class="mc-radio"><div class="mc-radio-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div><div class="mc-opt-text">Ferramentas de IA (ChatGPT, Midjourney, etc) como apoio</div></div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">27.</span> Como você usa Inteligência Artificial no seu fluxo de trabalho hoje? Seja honesto — queremos saber seu processo real, não a resposta "certa". <span class="q-points">3 pts</span></div>
+        <textarea class="field-textarea tall" id="q27" placeholder="Sua resposta..."></textarea>
+        <div class="char-count" data-for="q27">0 caracteres</div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">28.</span> Você já criou ou usou algum calendário editorial estruturado? Como ele era organizado? <span class="q-points">3 pts</span></div>
+        <textarea class="field-textarea" id="q28" placeholder="Sua resposta..."></textarea>
+        <div class="char-count" data-for="q28">0 caracteres</div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">29.</span> Em uma escala, qual seu nível de autonomia em edição de vídeo (cortes, legendas, ritmo)? <span class="q-points">1 pt</span></div>
+        <select class="field-select" id="q29">
+          <option value="">Selecionar...</option>
+          <option value="iniciante">Iniciante — preciso de ajuda/tutorial</option>
+          <option value="basico">Básico — faço cortes simples e legendas automáticas</option>
+          <option value="intermediario">Intermediário — edito com ritmo, transições, trilha</option>
+          <option value="avancado">Avançado — domino motion, color grading e storytelling visual</option>
+        </select>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════ BLOCO 7: GESTÃO DE CRISE E ATENDIMENTO ═══════════════ -->
+  <div class="section-block" id="block7">
+    <div class="section-head">
+      <div class="section-num">07</div>
+      <div>
+        <div class="section-title">Gestão de crise e atendimento ao cliente</div>
+        <div class="section-desc">Como você lida com situações difíceis na prática.</div>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <div class="case-box">
+        <div class="case-box-title"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Situação real</div>
+        <p>Um cliente publicou um Reels às 19h. Às 21h, os comentários começam a encher de críticas sobre um produto com defeito que vários clientes relatam ter recebido. O post já tem 40 mil visualizações e os comentários negativos estão entre os mais curtidos.</p>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">30.</span> Qual sua primeira ação nesse cenário? <span class="q-points">3 pts</span></div>
+        <div class="mc-options" data-q="q30">
+          <div class="mc-opt" data-value="a"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Apago o post imediatamente sem avisar o cliente.</div></div>
+          <div class="mc-opt" data-value="b"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Aviso o cliente imediatamente, sugiro uma resposta pública transparente e um canal direto para resolver os casos individualmente, sem apagar comentários.</div></div>
+          <div class="mc-opt" data-value="c"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Ignoro até amanhã, vai passar.</div></div>
+          <div class="mc-opt" data-value="d"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Apago todos os comentários negativos para "limpar" a imagem.</div></div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">31.</span> Escreva a resposta pública (comentário fixado) que você publicaria nesse post. <span class="q-points">5 pts</span></div>
+        <textarea class="field-textarea tall" id="q31" placeholder="Sua resposta..."></textarea>
+        <div class="char-count" data-for="q31">0 caracteres</div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">32.</span> O cliente, irritado, te liga e diz "apaga tudo e nunca mais fala desse produto". Como você responde a ele (não ao público)? <span class="q-points">3 pts</span></div>
+        <textarea class="field-textarea" id="q32" placeholder="Sua resposta..."></textarea>
+        <div class="char-count" data-for="q32">0 caracteres</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════ BLOCO 8: PLANEJAMENTO E ROTINA ═══════════════ -->
+  <div class="section-block" id="block8">
+    <div class="section-head">
+      <div class="section-num">08</div>
+      <div>
+        <div class="section-title">Planejamento e rotina de trabalho</div>
+        <div class="section-desc">Como você organiza múltiplas contas ao mesmo tempo.</div>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">33.</span> Em uma agência, você gerenciaria 5-8 contas de clientes diferentes simultaneamente. Descreva como seria sua rotina semanal para dar conta disso com qualidade. <span class="q-points">5 pts</span></div>
+        <textarea class="field-textarea xtall" id="q33" placeholder="Sua resposta..."></textarea>
+        <div class="char-count" data-for="q33">0 caracteres</div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">34.</span> Dois clientes pedem urgência no mesmo dia, mas você só tem tempo para atender um com qualidade. Como decide e como comunica ao outro? <span class="q-points">3 pts</span></div>
+        <textarea class="field-textarea" id="q34" placeholder="Sua resposta..."></textarea>
+        <div class="char-count" data-for="q34">0 caracteres</div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">35.</span> Com que frequência você acredita que um relatório de performance deve ser entregue ao cliente? <span class="q-points">1 pt</span></div>
+        <div class="mc-options" data-q="q35">
+          <div class="mc-opt" data-value="a"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Nunca, só quando o cliente pedir</div></div>
+          <div class="mc-opt" data-value="b"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Mensalmente, com dados claros e comparativos</div></div>
+          <div class="mc-opt" data-value="c"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Diariamente, em mensagens soltas</div></div>
+          <div class="mc-opt" data-value="d"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Anualmente</div></div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">36.</span> O que você faz quando recebe um feedback de cliente que considera tecnicamente errado (ex: "tira essa legenda grande, ninguém lê")? <span class="q-points">3 pts</span></div>
+        <textarea class="field-textarea" id="q36" placeholder="Sua resposta..."></textarea>
+        <div class="char-count" data-for="q36">0 caracteres</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════ BLOCO 9: CASE PRÁTICO COMPLETO ═══════════════ -->
+  <div class="section-block" id="block9">
+    <div class="section-head">
+      <div class="section-num">09</div>
+      <div>
+        <div class="section-title">Case prático — Diagnóstico e estratégia</div>
+        <div class="section-desc">Este é o bloco mais importante da prova. Capricha.</div>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <div class="case-box">
+        <div class="case-box-title"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>Briefing do cliente fictício</div>
+        <p><b>Negócio:</b> "Studio Raiz" — clínica odontológica especializada em estética dental (lentes de contato dental, clareamento, harmonização facial), em Campo Grande/MS.</p>
+        <p><b>Situação atual:</b> Instagram com 3.200 seguidores, posta 1x por semana, conteúdo majoritariamente fotos de "antes e depois" sem legenda explicativa. Zero Reels nos últimos 2 meses. Taxa de engajamento de 0,8%. Já tentaram anúncios uma vez, sem acompanhamento, e "não funcionou".</p>
+        <p><b>Objetivo do cliente:</b> Quer ser a clínica de referência em estética dental da cidade e aumentar agendamentos de avaliação em 30% nos próximos 3 meses.</p>
+        <p><b>Verba disponível:</b> R$ 2.500/mês (gestão + anúncios).</p>
+        <p><b>Diferencial real do negócio:</b> Dentista premiada, atendimento humanizado, parcelamento facilitado, e clínica recém-reformada com ambiente clean.</p>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">37.</span> Diagnóstico: liste 4 problemas concretos que você identifica na presença atual do Studio Raiz. <span class="q-points">5 pts</span></div>
+        <textarea class="field-textarea tall" id="q37" placeholder="1) ...&#10;2) ...&#10;3) ...&#10;4) ..."></textarea>
+        <div class="char-count" data-for="q37">0 caracteres</div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">38.</span> Defina 3 pilares de conteúdo específicos para essa conta (com nome e breve descrição de cada um). <span class="q-points">5 pts</span></div>
+        <textarea class="field-textarea tall" id="q38" placeholder="Pilar 1: ...&#10;Pilar 2: ...&#10;Pilar 3: ..."></textarea>
+        <div class="char-count" data-for="q38">0 caracteres</div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">39.</span> Monte uma proposta de cronograma semanal de postagens (quantos posts, em quais formatos, e por quê). <span class="q-points">5 pts</span></div>
+        <textarea class="field-textarea tall" id="q39" placeholder="Segunda: ...&#10;Quarta: ...&#10;Sexta: ..."></textarea>
+        <div class="char-count" data-for="q39">0 caracteres</div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">40.</span> Como você distribuiria os R$ 2.500/mês entre gestão, criação e anúncios? Justifique. <span class="q-points">4 pts</span></div>
+        <textarea class="field-textarea" id="q40" placeholder="Sua resposta..."></textarea>
+        <div class="char-count" data-for="q40">0 caracteres</div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">41.</span> Defina 3 métricas (KPIs) que você usaria para provar, em 90 dias, que a estratégia está funcionando — e por que essas e não outras. <span class="q-points">4 pts</span></div>
+        <textarea class="field-textarea tall" id="q41" placeholder="Sua resposta..."></textarea>
+        <div class="char-count" data-for="q41">0 caracteres</div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">42.</span> O dono diz "não quero postar antes e depois, acho que é feio". Como você reage profissionalmente, sabendo que esse formato costuma converter bem nesse nicho? <span class="q-points">4 pts</span></div>
+        <textarea class="field-textarea" id="q42" placeholder="Sua resposta..."></textarea>
+        <div class="char-count" data-for="q42">0 caracteres</div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">43.</span> Cole aqui links de exemplos reais (prints, perfis, posts) que você usaria como referência de inspiração para esse case, com uma frase explicando por que cada um é relevante. <span class="q-points">3 pts</span></div>
+        <div class="q-hint">Pode ser link do Drive, Instagram, Pinterest, etc.</div>
+        <textarea class="field-textarea" id="q43" placeholder="https://...  — Por quê: ..."></textarea>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════ BLOCO 10: DESAFIO DE COPY AO VIVO ═══════════════ -->
+  <div class="section-block" id="block10">
+    <div class="section-head">
+      <div class="section-num">10</div>
+      <div>
+        <div class="section-title">Desafio de copywriting</div>
+        <div class="section-desc">Escreva como se fosse publicar agora mesmo. Sem enrolar.</div>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <div class="live-badge"><span class="pulse-dot"></span>Escreva como se fosse ao ar em 10 minutos</div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">44.</span> Escreva a legenda completa de um Reels promovendo o "Studio Raiz" (case do bloco anterior), focado em atrair pessoas inseguras com o sorriso para agendar uma avaliação gratuita. Inclua hook, corpo e CTA. <span class="q-points">8 pts</span></div>
+        <textarea class="field-textarea xtall" id="q44" placeholder="Sua legenda completa aqui..."></textarea>
+        <div class="char-count" data-for="q44">0 caracteres</div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">45.</span> Escreva 3 hooks diferentes (primeira linha/frase) para vídeos sobre o mesmo tema, testando ângulos diferentes (ex: dor, curiosidade, prova social). <span class="q-points">5 pts</span></div>
+        <textarea class="field-textarea tall" id="q45" placeholder="Hook 1 (dor): ...&#10;Hook 2 (curiosidade): ...&#10;Hook 3 (prova social): ..."></textarea>
+        <div class="char-count" data-for="q45">0 caracteres</div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">46.</span> Escreva uma resposta de DM para alguém que perguntou "quanto custa a lente de contato dental?" sem dar o preço exato (a clínica não divulga valores publicamente), mas mantendo o interesse vivo. <span class="q-points">4 pts</span></div>
+        <textarea class="field-textarea" id="q46" placeholder="Sua resposta..."></textarea>
+        <div class="char-count" data-for="q46">0 caracteres</div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">47.</span> Escreva um título de carrossel (capa) de até 8 palavras para "5 mitos sobre clareamento dental que ainda acreditam". Faça 2 versões. <span class="q-points">3 pts</span></div>
+        <textarea class="field-textarea" id="q47" placeholder="Versão 1: ...&#10;Versão 2: ..."></textarea>
+        <div class="char-count" data-for="q47">0 caracteres</div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">48.</span> Reescreva esta legenda fraca, tornando-a persuasiva: <i>"Oi pessoal, hoje vamos falar sobre nosso novo tratamento. Ele é muito bom e vocês vão gostar. Agende já!"</i> <span class="q-points">5 pts</span></div>
+        <textarea class="field-textarea tall" id="q48" placeholder="Sua versão reescrita..."></textarea>
+        <div class="char-count" data-for="q48">0 caracteres</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════ BLOCO 11: SITUAÇÕES E JULGAMENTO PROFISSIONAL ═══════════════ -->
+  <div class="section-block" id="block11">
+    <div class="section-head">
+      <div class="section-num">11</div>
+      <div>
+        <div class="section-title">Julgamento profissional</div>
+        <div class="section-desc">Situações reais do dia a dia de agência.</div>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">49.</span> Você percebe que um print de resultado que sua coordenação quer usar como prova social está com números levemente exagerados em relação à realidade. O que você faz? <span class="q-points">3 pts</span></div>
+        <div class="mc-options" data-q="q49">
+          <div class="mc-opt" data-value="a"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Uso sem questionar, não é problema meu.</div></div>
+          <div class="mc-opt" data-value="b"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Sinalizo a divergência discretamente para a coordenação e sugiro usar os números reais.</div></div>
+          <div class="mc-opt" data-value="c"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Posto publicamente questionando a empresa.</div></div>
+          <div class="mc-opt" data-value="d"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Ignoro e não falo nada para ninguém.</div></div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">50.</span> Um cliente pede para você comprar seguidores ou curtidas para "parecer maior". Sua resposta? <span class="q-points">3 pts</span></div>
+        <textarea class="field-textarea" id="q50" placeholder="Sua resposta..."></textarea>
+        <div class="char-count" data-for="q50">0 caracteres</div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">51.</span> Você descobre, no meio do mês, que esqueceu de postar um conteúdo importante combinado com o cliente (ex: lançamento). Qual sua atitude? <span class="q-points">3 pts</span></div>
+        <div class="mc-options" data-q="q51">
+          <div class="mc-opt" data-value="a"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Não falo nada, espero que ele não perceba.</div></div>
+          <div class="mc-opt" data-value="b"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Assumo o erro proativamente, explico a correção e o prazo de recuperação, sem fazer drama.</div></div>
+          <div class="mc-opt" data-value="c"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Culpo um problema técnico inventado.</div></div>
+          <div class="mc-opt" data-value="d"><div class="mc-radio"><div class="mc-radio-dot"></div></div><div class="mc-opt-text">Posto qualquer coisa às pressas sem qualidade só para "cumprir tabela".</div></div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">52.</span> Como você lida com receber feedbacks duros sobre seu trabalho durante uma reunião de equipe? <span class="q-points">2 pts</span></div>
+        <textarea class="field-textarea" id="q52" placeholder="Sua resposta..."></textarea>
+        <div class="char-count" data-for="q52">0 caracteres</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════ BLOCO 12: TENDÊNCIAS E VISÃO DE FUTURO ═══════════════ -->
+  <div class="section-block" id="block12">
+    <div class="section-head">
+      <div class="section-num">12</div>
+      <div>
+        <div class="section-title">Tendências e visão de mercado</div>
+        <div class="section-desc">Para entender se você acompanha o mercado de verdade.</div>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">53.</span> Qual mudança recente nas redes sociais (último ano) você considera mais relevante para o trabalho de social media, e por quê? <span class="q-points">4 pts</span></div>
+        <textarea class="field-textarea tall" id="q53" placeholder="Sua resposta..."></textarea>
+        <div class="char-count" data-for="q53">0 caracteres</div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">54.</span> Você acredita que a Inteligência Artificial vai substituir o trabalho de social media nos próximos anos? Argumente. <span class="q-points">4 pts</span></div>
+        <textarea class="field-textarea tall" id="q54" placeholder="Sua resposta..."></textarea>
+        <div class="char-count" data-for="q54">0 caracteres</div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">55.</span> Cite 2 perfis, agências ou referências (nacionais ou internacionais) que você acompanha e admira no mercado de social media, e o que aprende com eles. <span class="q-points">3 pts</span></div>
+        <textarea class="field-textarea" id="q55" placeholder="Sua resposta..."></textarea>
+        <div class="char-count" data-for="q55">0 caracteres</div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">56.</span> Qual rede social você acredita estar em ascensão para negócios locais (pequenas e médias empresas) e qual está em declínio? <span class="q-points">3 pts</span></div>
+        <textarea class="field-textarea" id="q56" placeholder="Sua resposta..."></textarea>
+        <div class="char-count" data-for="q56">0 caracteres</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════ BLOCO 13: SOBRE VOCÊ ═══════════════ -->
+  <div class="section-block" id="block13">
+    <div class="section-head">
+      <div class="section-num">13</div>
+      <div>
+        <div class="section-title">Sobre você</div>
+        <div class="section-desc">Últimas perguntas — para te conhecermos além do currículo.</div>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">57.</span> Por que você quer trabalhar especificamente com social media, e por que na Ademir Agência? <span class="q-points">4 pts</span></div>
+        <textarea class="field-textarea tall" id="q57" placeholder="Sua resposta..."></textarea>
+        <div class="char-count" data-for="q57">0 caracteres</div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">58.</span> Conte sobre um projeto ou conta que você considera seu melhor trabalho até hoje. O que você fez e qual foi o resultado? <span class="q-points">5 pts</span></div>
+        <textarea class="field-textarea xtall" id="q58" placeholder="Sua resposta..."></textarea>
+        <div class="char-count" data-for="q58">0 caracteres</div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">59.</span> Qual foi seu maior erro profissional e o que você aprendeu com ele? <span class="q-points">4 pts</span></div>
+        <textarea class="field-textarea tall" id="q59" placeholder="Sua resposta..."></textarea>
+        <div class="char-count" data-for="q59">0 caracteres</div>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">60.</span> Você tem disponibilidade para qual modelo de trabalho? <span class="q-points">1 pt</span></div>
+        <select class="field-select" id="q60">
+          <option value="">Selecionar...</option>
+          <option>Presencial integral</option>
+          <option>Híbrido</option>
+          <option>Remoto</option>
+          <option>Tenho flexibilidade para qualquer modelo</option>
+        </select>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">61.</span> Pretensão salarial (faixa)</div>
+        <input type="text" class="field-input" id="q61" placeholder="Ex: R$ 2.500 a R$ 3.500">
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">62.</span> Disponibilidade para início</div>
+        <select class="field-select" id="q62">
+          <option value="">Selecionar...</option>
+          <option>Imediata</option>
+          <option>Em até 15 dias</option>
+          <option>Em até 30 dias</option>
+          <option>Mais de 30 dias (aviso prévio)</option>
+        </select>
+      </div>
+
+      <div class="q">
+        <div class="q-text"><span class="q-num">63.</span> Algo mais que queira nos contar e não teve espaço nas perguntas acima?</div>
+        <textarea class="field-textarea" id="q63" placeholder="Opcional..."></textarea>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="form-error" id="formError">
+    <div class="form-error-box" id="formErrorBox">Preencha os campos obrigatórios destacados acima antes de enviar.</div>
+  </div>
+
+</form>
+
+<!-- ═══════════════ SUCCESS SCREEN ═══════════════ -->
+<div class="success-screen" id="successScreen">
+  <div class="success-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+  <h2>Prova enviada com sucesso!</h2>
+  <p>Recebemos suas respostas. Nossa equipe vai analisar com calma — provas como essa exigem leitura cuidadosa, então o retorno pode levar alguns dias.</p>
+  <p>Obrigado pelo tempo e dedicação que você investiu nessa prova. Isso já diz muito sobre você.</p>
+  <div class="success-id" id="successId">Protocolo: —</div>
+</div>
+
+<!-- ═══════════════ STICKY SUBMIT FOOTER ═══════════════ -->
+<div class="submit-footer" id="submitFooter">
+  <div class="submit-footer-inner">
+    <div class="submit-progress-text"><b id="answeredCount">0</b> de <b>63</b> perguntas respondidas</div>
+    <button type="button" class="btn-submit" id="btnSubmit">
+      <span class="btn-label">Enviar prova completa</span>
+      <svg class="arrow" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      <span class="spinner"></span>
+    </button>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════════════
+const WEB3FORMS_KEY = '3e4ba65a-8492-4fc5-9741-a980ec00414c';
+
+// ═══════════════════════════════════════════
+// SINGLE-SELECT (radio-like) OPTION GROUPS
+// ═══════════════════════════════════════════
+document.querySelectorAll('.mc-options[data-q]').forEach(group => {
+  const qKey = group.dataset.q;
+  group.querySelectorAll('.mc-opt').forEach(opt => {
+    opt.addEventListener('click', () => {
+      group.querySelectorAll('.mc-opt').forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      group.dataset.selected = opt.dataset.value;
+      group.closest('.q').classList.remove('has-error');
+      updateProgress();
+    });
+  });
+});
+
+// ═══════════════════════════════════════════
+// MULTI-SELECT (checkbox-like) OPTION GROUPS
+// ═══════════════════════════════════════════
+document.querySelectorAll('.mc-options[id$="-options"]').forEach(group => {
+  group.querySelectorAll('.cb-opt').forEach(opt => {
+    opt.addEventListener('click', () => {
+      opt.classList.toggle('selected');
+      group.closest('.q').classList.remove('has-error');
+      updateProgress();
+    });
+  });
+});
+
+// ═══════════════════════════════════════════
+// CHAR COUNTERS for textareas
+// ═══════════════════════════════════════════
+document.querySelectorAll('.field-textarea').forEach(ta => {
+  const counter = document.querySelector('.char-count[data-for="' + ta.id + '"]');
+  if(counter){
+    ta.addEventListener('input', () => {
+      counter.textContent = ta.value.length + ' caracteres';
+      updateProgress();
+    });
+  }
+  ta.addEventListener('input', () => ta.closest('.q')?.classList.remove('has-error'));
+});
+
+document.querySelectorAll('.field-input, .field-select').forEach(el => {
+  el.addEventListener('input', () => {
+    el.closest('.q')?.classList.remove('has-error');
+    updateProgress();
+  });
+  el.addEventListener('change', updateProgress);
+});
+
+document.querySelectorAll('.rank-select').forEach(sel => {
+  sel.addEventListener('change', updateProgress);
+});
+
+// ═══════════════════════════════════════════
+// PROGRESS TRACKING
+// ═══════════════════════════════════════════
+const TOTAL_QUESTIONS = 63;
+
+function countAnswered(){
+  let count = 0;
+
+  // text/select inputs with IDs starting with q or known field names
+  document.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], textarea, select').forEach(el => {
+    if(el.value && el.value.trim().length > 0) count++;
+  });
+
+  // single-select groups
+  document.querySelectorAll('.mc-options[data-q]').forEach(g => {
+    if(g.dataset.selected) count++;
+  });
+
+  // multi-select groups (count as 1 if any selected)
+  document.querySelectorAll('.mc-options[id$="-options"]').forEach(g => {
+    if(g.querySelector('.cb-opt.selected')) count++;
+  });
+
+  return Math.min(count, TOTAL_QUESTIONS + 5); // small buffer for id/declaracao fields
+}
+
+function updateProgress(){
+  const answered = countAnswered();
+  const pct = Math.min((answered / TOTAL_QUESTIONS) * 100, 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('answeredCount').textContent = Math.min(answered, TOTAL_QUESTIONS);
+}
+
+// ═══════════════════════════════════════════
+// VALIDATION (only block hard-required fields)
+// ═══════════════════════════════════════════
+function validateRequired(){
+  let valid = true;
+  const errors = [];
+
+  const nome = document.getElementById('nome').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const whatsapp = document.getElementById('whatsapp').value.trim();
+  const portfolio = document.getElementById('portfolio').value.trim();
+  const declaracaoGroup = document.getElementById('declaracao-options');
+  const declaracaoChecked = declaracaoGroup.querySelector('.cb-opt.selected');
+
+  if(nome.length < 3){
+    document.getElementById('nome-error').style.display = 'block';
+    document.getElementById('nome').closest('.q').classList.add('has-error');
+    valid = false;
+  } else {
+    document.getElementById('nome-error').style.display = 'none';
+  }
+
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    document.getElementById('email-error').style.display = 'block';
+    document.getElementById('email').closest('.q').classList.add('has-error');
+    valid = false;
+  } else {
+    document.getElementById('email-error').style.display = 'none';
+  }
+
+  if(whatsapp.replace(/\D/g,'').length < 10){
+    document.getElementById('whatsapp-error').style.display = 'block';
+    document.getElementById('whatsapp').closest('.q').classList.add('has-error');
+    valid = false;
+  } else {
+    document.getElementById('whatsapp-error').style.display = 'none';
+  }
+
+  if(portfolio.length < 5){
+    document.getElementById('portfolio-error').style.display = 'block';
+    document.getElementById('portfolio').closest('.q').classList.add('has-error');
+    valid = false;
+  } else {
+    document.getElementById('portfolio-error').style.display = 'none';
+  }
+
+  if(!declaracaoChecked){
+    document.getElementById('declaracao-error').style.display = 'block';
+    declaracaoGroup.closest('.q').classList.add('has-error');
+    valid = false;
+  } else {
+    document.getElementById('declaracao-error').style.display = 'none';
+  }
+
+  return valid;
+}
+
+// ═══════════════════════════════════════════
+// WHATSAPP MASK
+// ═══════════════════════════════════════════
+document.getElementById('whatsapp').addEventListener('input', function(e){
+  let v = e.target.value.replace(/\D/g,'').slice(0,11);
+  if(v.length > 6){
+    v = '(' + v.slice(0,2) + ') ' + v.slice(2,7) + '-' + v.slice(7);
+  } else if(v.length > 2){
+    v = '(' + v.slice(0,2) + ') ' + v.slice(2);
+  } else if(v.length > 0){
+    v = '(' + v;
+  }
+  e.target.value = v;
+});
+
+// ═══════════════════════════════════════════
+// COLLECT ALL ANSWERS INTO PAYLOAD
+// ═══════════════════════════════════════════
+function getSelected(groupId){
+  const g = document.getElementById(groupId);
+  return g ? (g.dataset.selected || '—') : '—';
+}
+function getMultiSelected(groupId){
+  const g = document.getElementById(groupId);
+  if(!g) return '—';
+  const vals = Array.from(g.querySelectorAll('.cb-opt.selected')).map(o => o.querySelector('.opt-text, .mc-opt-text')?.textContent.trim());
+  return vals.length ? vals.join(' | ') : '—';
+}
+function getVal(id){
+  const el = document.getElementById(id);
+  return el ? (el.value.trim() || '—') : '—';
+}
+function getRanking(){
+  const items = document.querySelectorAll('#rankList .rank-item');
+  const result = [];
+  items.forEach(item => {
+    const label = item.querySelector('.rank-item-text').textContent.trim();
+    const rank = item.querySelector('.rank-select').value || '?';
+    result.push(rank + 'º - ' + label);
+  });
+  return result.sort((a,b) => a.localeCompare(b)).join(' | ');
+}
+
+function buildPayload(){
+  const protocolId = 'SM' + Date.now().toString().slice(-8);
+
+  return {
+    access_key: WEB3FORMS_KEY,
+    subject: `📋 Prova Social Media: ${getVal('nome')}`,
+    from_name: 'Processo Seletivo — Ademir Agência',
+    botcheck: '',
+
+    '── IDENTIFICAÇÃO ──': '═══════════════',
+    'Protocolo': protocolId,
+    'Nome': getVal('nome'),
+    'E-mail': getVal('email'),
+    'WhatsApp': getVal('whatsapp'),
+    'Portfólio/Links': getVal('portfolio'),
+    'Experiência': getVal('experiencia'),
+    'Declaração de Autoria': document.getElementById('declaracao-options').querySelector('.cb-opt.selected') ? 'CONFIRMADA' : 'NÃO CONFIRMADA',
+
+    '── BLOCO 2: FUNDAMENTOS ──': '═══════════════',
+    'Q7 (viralização)': getOptText('q7'),
+    'Q8 (pilar de conteúdo)': getOptText('q8'),
+    'Q9 (objetivos válidos - múltipla)': getMultiSelected('q9-options'),
+    'Q10 (alcance vs impressões)': getVal('q10'),
+    'Q11 (postar todo dia mesmo horário)': getVal('q11'),
+
+    '── BLOCO 3: MÉTRICAS ──': '═══════════════',
+    'Q12 (diagnóstico Loja Bella)': getOptText('q12'),
+    'Q13 (3 ações recomendadas)': getVal('q13'),
+    'Q14 (engajamento bom)': getOptText('q14'),
+    'Q15 (saves)': getVal('q15'),
+    'Q16 (ranking de prioridade)': getRanking(),
+
+    '── BLOCO 4: ALGORITMO E FORMATOS ──': '═══════════════',
+    'Q17 (fator de distribuição Reels)': getOptText('q17'),
+    'Q18 (perda de audiência 3seg)': getVal('q18'),
+    'Q19 (formatos prioritários)': getMultiSelected('q19-options'),
+    'Q20 (hook fraco vs forte)': getVal('q20'),
+    'Q21 (stories ajudam alcance)': getOptText('q21'),
+
+    '── BLOCO 5: TRÁFEGO PAGO ──': '═══════════════',
+    'Q22 (CPM)': getOptText('q22'),
+    'Q23 (CTR 0.4% CPC 4.50)': getVal('q23'),
+    'Q24 (engajamento vs conversão)': getVal('q24'),
+    'Q25 (R$500 = 50 vendas)': getOptText('q25'),
+
+    '── BLOCO 6: FERRAMENTAS ──': '═══════════════',
+    'Q26 (ferramentas usadas)': getMultiSelected('q26-options'),
+    'Q27 (uso de IA)': getVal('q27'),
+    'Q28 (calendário editorial)': getVal('q28'),
+    'Q29 (nível edição vídeo)': getVal('q29'),
+
+    '── BLOCO 7: CRISE ──': '═══════════════',
+    'Q30 (primeira ação na crise)': getOptText('q30'),
+    'Q31 (resposta pública)': getVal('q31'),
+    'Q32 (resposta ao cliente irritado)': getVal('q32'),
+
+    '── BLOCO 8: ROTINA ──': '═══════════════',
+    'Q33 (rotina semanal 5-8 contas)': getVal('q33'),
+    'Q34 (conflito de urgência entre clientes)': getVal('q34'),
+    'Q35 (frequência de relatório)': getOptText('q35'),
+    'Q36 (feedback tecnicamente errado)': getVal('q36'),
+
+    '── BLOCO 9: CASE PRÁTICO STUDIO RAIZ ──': '═══════════════',
+    'Q37 (4 problemas identificados)': getVal('q37'),
+    'Q38 (3 pilares de conteúdo)': getVal('q38'),
+    'Q39 (cronograma semanal)': getVal('q39'),
+    'Q40 (distribuição de verba R$2500)': getVal('q40'),
+    'Q41 (3 KPIs em 90 dias)': getVal('q41'),
+    'Q42 (cliente recusa antes/depois)': getVal('q42'),
+    'Q43 (referências/links)': getVal('q43'),
+
+    '── BLOCO 10: COPYWRITING ──': '═══════════════',
+    'Q44 (legenda completa Reels)': getVal('q44'),
+    'Q45 (3 hooks diferentes)': getVal('q45'),
+    'Q46 (resposta DM sem preço)': getVal('q46'),
+    'Q47 (título carrossel mitos)': getVal('q47'),
+    'Q48 (reescrever legenda fraca)': getVal('q48'),
+
+    '── BLOCO 11: JULGAMENTO PROFISSIONAL ──': '═══════════════',
+    'Q49 (print exagerado)': getOptText('q49'),
+    'Q50 (cliente pede comprar seguidores)': getVal('q50'),
+    'Q51 (esqueceu de postar)': getOptText('q51'),
+    'Q52 (feedback duro em reunião)': getVal('q52'),
+
+    '── BLOCO 12: TENDÊNCIAS ──': '═══════════════',
+    'Q53 (mudança mais relevante)': getVal('q53'),
+    'Q54 (IA vai substituir social media)': getVal('q54'),
+    'Q55 (referências que acompanha)': getVal('q55'),
+    'Q56 (rede em ascensão vs declínio)': getVal('q56'),
+
+    '── BLOCO 13: SOBRE VOCÊ ──': '═══════════════',
+    'Q57 (por que essa vaga/agência)': getVal('q57'),
+    'Q58 (melhor trabalho até hoje)': getVal('q58'),
+    'Q59 (maior erro profissional)': getVal('q59'),
+    'Q60 (modelo de trabalho)': getVal('q60'),
+    'Q61 (pretensão salarial)': getVal('q61'),
+    'Q62 (disponibilidade início)': getVal('q62'),
+    'Q63 (observações finais)': getVal('q63'),
+
+    '_protocolId': protocolId
+  };
+}
+
+function getOptText(qNum){
+  const group = document.querySelector('.mc-options[data-q="' + qNum + '"]');
+  if(!group) return '—';
+  const selected = group.querySelector('.mc-opt.selected');
+  if(!selected) return '—';
+  return selected.querySelector('.mc-opt-text').textContent.trim();
+}
+
+// ═══════════════════════════════════════════
+// SUBMIT
+// ═══════════════════════════════════════════
+document.getElementById('btnSubmit').addEventListener('click', async function(){
+  const btn = this;
+  const errorBox = document.getElementById('formError');
+  errorBox.style.display = 'none';
+
+  if(!validateRequired()){
+    errorBox.style.display = 'block';
+    document.querySelector('.q.has-error')?.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+
+  btn.disabled = true;
+  btn.classList.add('loading');
+
+  const payload = buildPayload();
+  const protocolId = payload._protocolId;
+  delete payload._protocolId;
+
+  try{
+    const response = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const result = await response.json();
+
+    if(result.success){
+      document.getElementById('examForm').style.display = 'none';
+      document.getElementById('submitFooter').style.display = 'none';
+      document.getElementById('successId').textContent = 'Protocolo: ' + protocolId;
+      document.getElementById('successScreen').classList.add('active');
+      document.getElementById('progressBar').style.width = '100%';
+      window.scrollTo({top:0, behavior:'smooth'});
+    } else {
+      throw new Error(result.message || 'Erro ao enviar');
+    }
+  } catch(err){
+    errorBox.style.display = 'block';
+    document.getElementById('formErrorBox').textContent = 'Erro ao enviar: ' + err.message + '. Tente novamente ou entre em contato pelo WhatsApp.';
+    btn.disabled = false;
+    btn.classList.remove('loading');
+  }
+});
+
+// ═══════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════
+updateProgress();
+</script>
+
+</body>
+</html>
