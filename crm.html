@@ -380,6 +380,7 @@ tr:hover td{background:rgba(255,255,255,.012)}
       <div class="nl">Gestão</div>
       <div class="ni" onclick="showV('followups',this)"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Follow-ups<span class="nbadge r" id="nb-fu" style="display:none">0</span></div>
       <div class="ni" onclick="showV('servicos',this)"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>Serviços</div>
+      <div class="ni" onclick="showV('despesas',this)"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/><line x1="7" y1="15" x2="11" y2="15"/></svg>Despesas Fixas</div>
       <div class="ni" onclick="showV('relatorios',this)"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Relatórios</div>
       <div class="nl">Empresa</div>
       <div class="ni" onclick="showV('equipe',this)"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Equipe</div>
@@ -463,6 +464,15 @@ tr:hover td{background:rgba(255,255,255,.012)}
         <div class="emp" id="svce" style="display:none"><div class="emp-i"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg></div><div class="emp-t">Nenhum serviço</div><div class="emp-s">Cadastre os serviços da agência.</div></div>
       </div>
 
+      <!-- DESPESAS FIXAS -->
+      <div class="view" id="view-despesas">
+        <div class="ph"><div><div class="pt">Despesas Fixas</div><div style="font-size:11px;color:var(--g1);margin-top:2px">Custos mensais recorrentes da empresa</div></div><button class="btn btn-g" onclick="openExpense()"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span>Nova Despesa</span></button></div>
+        <div class="mg4" id="exp-stats"></div>
+        <div class="tw"><div style="overflow-x:auto"><table><thead><tr><th>Despesa</th><th>Categoria</th><th>Valor/mês</th><th class="hide-m">Vencimento</th><th>Status</th><th></th></tr></thead><tbody id="exp-tb"></tbody></table></div>
+          <div class="emp" id="expe" style="display:none"><div class="emp-i"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div><div class="emp-t">Nenhuma despesa fixa</div><div class="emp-s">Cadastre aluguel, assinaturas, energia e outros custos.</div></div>
+        </div>
+      </div>
+
       <!-- RELATÓRIOS -->
       <div class="view" id="view-relatorios">
         <div class="ph"><div class="pt">Relatórios</div></div>
@@ -487,7 +497,7 @@ tr:hover td{background:rgba(255,255,255,.012)}
       <!-- INVESTIDORES -->
       <div class="view" id="view-investidores">
         <div class="ph"><div class="pt">Investidores</div><button class="btn btn-g" onclick="openPerson('investor')"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span>Adicionar</span></button></div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px" id="inv-stats"></div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:16px" id="inv-stats"></div>
         <div class="pg" id="inv-g"></div>
         <div class="emp" id="inve" style="display:none"><div class="emp-i"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6"/></svg></div><div class="emp-t">Nenhum investidor</div></div>
       </div>
@@ -526,6 +536,7 @@ tr:hover td{background:rgba(255,255,255,.012)}
 <div class="more-drawer" id="more-drawer">
   <div class="mdr-item" id="mdr-pipeline" onclick="showV('pipeline');closeMore()"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Pipeline</div>
   <div class="mdr-item" id="mdr-servicos" onclick="showV('servicos');closeMore()"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>Serviços</div>
+  <div class="mdr-item" id="mdr-despesas" onclick="showV('despesas');closeMore()"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>Despesas Fixas</div>
   <div class="mdr-item" id="mdr-relatorios" onclick="showV('relatorios');closeMore()"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Relatórios</div>
   <div class="mdr-item" id="mdr-equipe" onclick="showV('equipe');closeMore()"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Equipe</div>
   <div class="mdr-item" id="mdr-investidores" onclick="showV('investidores');closeMore()"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6"/></svg>Investidores</div>
@@ -601,6 +612,21 @@ tr:hover td{background:rgba(255,255,255,.012)}
       <div class="gr2"><div class="fg"><label class="fl">Entregáveis</label><textarea class="ft" id="svc-e" placeholder="Relatório mensal, gestão..." style="min-height:58px"></textarea></div><div class="fg"><label class="fl">Duração</label><input class="fi" id="svc-du" placeholder="Mensal, por projeto..."></div></div>
       <div class="fg"><label class="fl">Status</label><select class="fs" id="svc-s"><option value="active">Ativo</option><option value="inactive">Inativo</option></select></div>
       <div class="mfoot"><button class="btn btn-gh" onclick="closeMo('m-svc')">Cancelar</button><button class="btn btn-g" onclick="saveSvc()">Salvar</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: DESPESA FIXA -->
+<div class="mo" id="m-expense" onclick="if(event.target===this)closeMo('m-expense')">
+  <div class="mbox" style="max-width:500px">
+    <div class="mhead"><div class="mtitle" id="m-expense-t">Nova Despesa Fixa</div><button class="mclose" onclick="closeMo('m-expense')">✕</button></div>
+    <div class="mbody">
+      <input type="hidden" id="exp-id">
+      <div class="fg"><label class="fl">Nome *</label><input class="fi" id="exp-n" placeholder="Aluguel, Adobe, Internet..."></div>
+      <div class="gr2"><div class="fg"><label class="fl">Categoria</label><select class="fs" id="exp-c"><option>Aluguel</option><option>Assinaturas</option><option>Software</option><option>Energia</option><option>Internet</option><option>Contabilidade</option><option>Impostos</option><option>Marketing</option><option>Outros</option></select></div><div class="fg"><label class="fl">Valor mensal (R$) *</label><input class="fi" id="exp-v" type="number" min="0" step="0.01" placeholder="1500"></div></div>
+      <div class="gr2"><div class="fg"><label class="fl">Dia do vencimento</label><input class="fi" id="exp-d" type="number" min="1" max="31" placeholder="10"></div><div class="fg"><label class="fl">Status</label><select class="fs" id="exp-s"><option value="active">Ativa</option><option value="inactive">Inativa</option></select></div></div>
+      <div class="fg"><label class="fl">Observações</label><textarea class="ft" id="exp-o" placeholder="Informações adicionais..."></textarea></div>
+      <div class="mfoot"><button class="btn btn-gh" onclick="closeMo('m-expense')">Cancelar</button><button class="btn btn-g" onclick="saveExpense()">Salvar Despesa</button></div>
     </div>
   </div>
 </div>
@@ -705,13 +731,13 @@ const LS={
 };
 
 // ════════════════════════════════════════
-// DB — Supabase first, LS fallback
+// DB — somente Supabase; nunca finge que salvou localmente
 // ════════════════════════════════════════
 const DB={
-  async get(t,qs=''){try{return await SB.get(t,qs)}catch{return LS.get(t)}},
-  async post(t,d){try{const r=await SB.post(t,d);return Array.isArray(r)?r:[r]}catch{return LS.post(t,d)}},
-  async patch(t,id,d){try{const r=await SB.patch(t,id,d);return Array.isArray(r)?r:[r]}catch{return LS.patch(t,id,d)}},
-  async del(t,id){try{return await SB.del(t,id)}catch{return LS.del(t,id)}}
+  async get(t,qs=''){return SB.get(t,qs)},
+  async post(t,d){const r=await SB.post(t,d);return Array.isArray(r)?r:[r]},
+  async patch(t,id,d){const r=await SB.patch(t,id,d);return Array.isArray(r)?r:[r]},
+  async del(t,id){return SB.del(t,id)}
 };
 
 // ════════════════════════════════════════
@@ -923,8 +949,8 @@ async function renderUsers(){
   }).join('');
 }
 
-let leads=[],fus=[],notes=[],acts=[],people=[],svcs=[];
-let dpId=null,dpType=null,editL=null,editP=null,editSvc=null,fuFV='all';
+let leads=[],fus=[],notes=[],acts=[],people=[],svcs=[],expenses=[];
+let dpId=null,dpType=null,editL=null,editP=null,editSvc=null,editExp=null,fuFV='all';
 
 // ════════════════════════════════════════
 // LOADER
@@ -941,10 +967,10 @@ async function startApp(){
   G('pg-app').classList.add('show');
   try{
     setLd('Carregando leads...');
-    [leads,fus,notes,acts,people,svcs]=await Promise.allSettled([
+    [leads,fus,notes,acts,people,svcs,expenses]=await Promise.all([
       DB.get('leads'),DB.get('followups'),DB.get('notes'),
-      DB.get('activities','limit=30'),DB.get('people'),DB.get('services')
-    ]).then(rs=>rs.map(r=>r.status==='fulfilled'?r.value:[]));
+      DB.get('activities','limit=30'),DB.get('people'),DB.get('services'),DB.get('expenses').catch(()=>[])
+    ]);
     hideLd();
     applyRole();
     updTB();
@@ -955,17 +981,17 @@ async function startApp(){
     toast('CRM conectado ✓');
   }catch(e){
     hideLd();
-    toast('Carregado (offline)','er');
+    toast('Erro de conexão: dados não foram carregados','er');
     applyRole();updTB();updBadges();renderDash();popSelects();
   }
 }
 
 async function sync(){
   try{
-    [leads,fus,acts,people,svcs]=await Promise.allSettled([
+    [leads,fus,acts,people,svcs,expenses]=await Promise.all([
       DB.get('leads'),DB.get('followups'),
-      DB.get('activities','limit=30'),DB.get('people'),DB.get('services')
-    ]).then(rs=>rs.map(r=>r.status==='fulfilled'?r.value:[]));
+      DB.get('activities','limit=30'),DB.get('people'),DB.get('services'),DB.get('expenses').catch(()=>[])
+    ]);
     updBadges();
     const v=document.querySelector('.view.on');
     if(v)rv(v.id.replace('view-',''));
@@ -983,7 +1009,7 @@ function applyRole(){
 // NAV
 // ════════════════════════════════════════
 const VTITLES={dash:'Dashboard',leads:'Leads',clientes:'Clientes',pipeline:'Pipeline',
-  followups:'Follow-ups',servicos:'Serviços',relatorios:'Relatórios',
+  followups:'Follow-ups',servicos:'Serviços',despesas:'Despesas Fixas',relatorios:'Relatórios',
   equipe:'Equipe',investidores:'Investidores',vendedores:'Vendedores',
   usuarios:'Usuários',perfil:'Meu Perfil'};
 
@@ -999,7 +1025,7 @@ function showV(name,el){
 
 function rv(n){
   ({dash:renderDash,leads:renderLeads,clientes:renderClientes,pipeline:renderKanban,
-    followups:renderFUs,servicos:renderSvcs,relatorios:renderRep,
+    followups:renderFUs,servicos:renderSvcs,despesas:renderExpenses,relatorios:renderRep,
     equipe:renderEquipe,investidores:renderInv,vendedores:renderSel,usuarios:renderUsers})[n]?.();
 }
 
@@ -1088,7 +1114,7 @@ async function saveLead(){
       leads.unshift(r[0]);
       addAct('Novo lead: '+name);
     }
-    closeMo('m-lead');renderLeads();renderKanban();renderDash();updBadges();popSelects();
+    closeMo('m-lead');renderLeads();renderKanban();renderDash();renderInv();renderRep();updBadges();popSelects();
     toast(editL?'Lead atualizado!':'Lead salvo!');
     if(dpId===editL)openDP(editL,'lead');
     editL=null;
@@ -1103,7 +1129,7 @@ async function delLead(id,e){
   try{
     await DB.del('leads',id);
     leads=leads.filter(l=>l.id!==id);
-    addAct('Lead removido');renderLeads();renderKanban();renderDash();updBadges();
+    addAct('Lead removido');renderLeads();renderKanban();renderDash();renderInv();renderRep();updBadges();
     toast('Lead removido');if(dpId===id)closeDP();
   }catch(e){toast('Erro: '+e.message,'er')}
 }
@@ -1186,7 +1212,7 @@ async function kDrop(e,stage){
   try{
     const r=await DB.patch('leads',dId,{status:stage,updated_at:new Date().toISOString()});
     leads=leads.map(l=>l.id===dId?(r[0]||{...l,status:stage}):l);
-    addAct('Lead → "'+stage+'"');renderKanban();renderDash();updBadges();
+    addAct('Lead → "'+stage+'"');renderKanban();renderDash();renderInv();renderRep();updBadges();
     if(dpId===dId)openDP(dId,'lead');
   }catch(e){toast('Erro ao mover','er')}
   dId=null;
@@ -1311,6 +1337,66 @@ function renderSvcs(){
   }).join('');
 }
 
+// FINANCEIRO / DESPESAS FIXAS
+function financialTotals(){
+  const revenue=leads.filter(l=>l.status==='Fechado').reduce((a,b)=>a+(+b.value||0),0);
+  const fixed=expenses.filter(e=>e.status==='active').reduce((a,b)=>a+(+b.amount||0),0);
+  const payroll=people.filter(p=>p.status==='active'&&p.role!=='investor').reduce((a,b)=>a+(+b.salary||0),0);
+  const costs=fixed+payroll;
+  const net=revenue-costs;
+  const investorShare=Math.max(0,net)*.30;
+  return{revenue,fixed,payroll,costs,net,investorShare};
+}
+
+function openExpense(id=null){
+  editExp=id;
+  if(id){
+    const e=expenses.find(x=>x.id===id);if(!e)return;
+    G('m-expense-t').textContent='Editar Despesa Fixa';sv('exp-id',id);sv('exp-n',e.name);sv('exp-c',e.category||'Outros');sv('exp-v',e.amount);sv('exp-d',e.due_day);sv('exp-s',e.status||'active');sv('exp-o',e.notes);
+  }else{
+    G('m-expense-t').textContent='Nova Despesa Fixa';['exp-id','exp-n','exp-v','exp-d','exp-o'].forEach(i=>sv(i,''));sv('exp-c','Aluguel');sv('exp-s','active');
+  }
+  openMo('m-expense');setTimeout(()=>G('exp-n').focus(),100);
+}
+
+async function saveExpense(){
+  const name=G('exp-n').value.trim(),amount=parseFloat(G('exp-v').value),due=parseInt(G('exp-d').value)||null;
+  if(!name){toast('Nome obrigatório','er');return}
+  if(!Number.isFinite(amount)||amount<0){toast('Informe um valor válido','er');return}
+  if(due&&(due<1||due>31)){toast('Dia de vencimento inválido','er');return}
+  const obj={name,category:G('exp-c').value,amount,due_day:due,status:G('exp-s').value,notes:G('exp-o').value.trim()||null,updated_at:new Date().toISOString()};
+  try{
+    if(editExp){const r=await DB.patch('expenses',editExp,obj);expenses=expenses.map(e=>e.id===editExp?(r[0]||{...e,...obj}):e)}
+    else{const r=await DB.post('expenses',obj);expenses.unshift(r[0])}
+    closeMo('m-expense');editExp=null;renderExpenses();renderInv();renderRep();toast('Despesa salva!');
+  }catch(e){toast('Erro: '+e.message,'er')}
+}
+
+async function delExpense(id){
+  if(!confirm('Excluir esta despesa fixa?'))return;
+  try{await DB.del('expenses',id);expenses=expenses.filter(e=>e.id!==id);renderExpenses();renderInv();renderRep();toast('Despesa removida')}catch(e){toast('Erro: '+e.message,'er')}
+}
+
+function renderExpenses(){
+  const f=financialTotals();
+  G('exp-stats').innerHTML=[
+    ['Despesas fixas','R$'+n(f.fixed),'var(--red)'],
+    ['Folha salarial','R$'+n(f.payroll),'var(--orange)'],
+    ['Custos mensais','R$'+n(f.costs),'var(--purple)'],
+    ['Lucro líquido','R$'+n(f.net),f.net>=0?'var(--green)':'var(--red)']
+  ].map(([l,v,c])=>`<div class="met"><div class="met-v" style="font-size:22px;color:${c}">${v}</div><div class="met-l">${l}</div></div>`).join('');
+  const tb=G('exp-tb'),em=G('expe');
+  if(!expenses.length){tb.innerHTML='';em.style.display='flex';return}
+  em.style.display='none';tb.innerHTML=expenses.map(e=>`<tr>
+    <td><div class="tname">${esc(e.name)}</div>${e.notes?`<div class="tsub">${esc(e.notes)}</div>`:''}</td>
+    <td><span class="badge b-proposal">${esc(e.category||'Outros')}</span></td>
+    <td style="font-family:'Outfit',sans-serif;font-weight:800;color:var(--red)">R$${n(e.amount)}</td>
+    <td class="hide-m" style="color:var(--g1)">${e.due_day?'Dia '+e.due_day:'—'}</td>
+    <td><span class="badge ${e.status==='active'?'b-active':'b-inactive'}">${e.status==='active'?'Ativa':'Inativa'}</span></td>
+    <td><div class="rbtns"><button class="rbtn" onclick="openExpense('${e.id}')"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="rbtn del" onclick="delExpense('${e.id}')"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg></button></div></td>
+  </tr>`).join('');
+}
+
 // PEOPLE
 function openPerson(role,id=null){
   editP=id;sv('per-role',role);
@@ -1318,7 +1404,7 @@ function openPerson(role,id=null){
   G('m-person-t').textContent=(id?'Editar ':'Novo ')+tt[role];
   const ex=G('per-extra');
   if(role==='seller')ex.innerHTML=`<div class="gr2"><div class="fg"><label class="fl">Meta Mensal (R$)</label><input class="fi" id="per-goal" type="number" placeholder="5000"></div><div class="fg"><label class="fl">Comissão (%)</label><input class="fi" id="per-comm" type="number" placeholder="5"></div></div>`;
-  else if(role==='investor')ex.innerHTML=`<div class="gr2"><div class="fg"><label class="fl">Valor Investido (R$)</label><input class="fi" id="per-inv" type="number" placeholder="50000"></div><div class="fg"><label class="fl">Participação (%)</label><input class="fi" id="per-eq" type="number" placeholder="10"></div></div><div class="fg"><label class="fl">Retorno esperado (%/mês)</label><input class="fi" id="per-ret" type="number" placeholder="2"></div>`;
+  else if(role==='investor')ex.innerHTML=`<div class="gr2"><div class="fg"><label class="fl">Valor Investido (R$)</label><input class="fi" id="per-inv" type="number" placeholder="50000"></div><div class="fg"><label class="fl">Participação no lucro líquido (%)</label><input class="fi" id="per-eq" type="number" value="30" readonly></div></div><div style="background:var(--purple-d);border:1px solid rgba(168,85,247,.25);color:var(--purple);padding:9px 12px;border-radius:8px;font-size:12px;margin-bottom:12px">O investidor recebe 30% do lucro líquido mensal positivo.</div>`;
   else ex.innerHTML=`<div class="fg"><label class="fl">Departamento</label><input class="fi" id="per-dept" placeholder="Design, TI, Comercial..."></div>`;
   if(id){
     const p=people.find(x=>x.id===id);if(!p)return;
@@ -1328,11 +1414,12 @@ function openPerson(role,id=null){
     });
     G('per-dt').value=p.entry_date||'';sv('per-sal',p.salary);sv('per-st',p.status||'active');
     if(G('per-goal'))sv('per-goal',p.goal);if(G('per-comm'))sv('per-comm',p.commission);
-    if(G('per-inv'))sv('per-inv',p.invested);if(G('per-eq'))sv('per-eq',p.equity);if(G('per-ret'))sv('per-ret',p.ret);
+    if(G('per-inv'))sv('per-inv',p.invested);if(G('per-eq'))sv('per-eq',30);if(G('per-ret'))sv('per-ret',p.ret);
     if(G('per-dept'))sv('per-dept',p.dept);
   }else{
     ['per-n','per-t','per-e','per-ph','per-doc','per-adr','per-bnk','per-pix','per-sal','per-ob'].forEach(i=>sv(i,''));
     G('per-dt').value=new Date().toISOString().slice(0,10);sv('per-st','active');
+    if(G('per-eq'))sv('per-eq',30);
   }
   openMo('m-person');setTimeout(()=>G('per-n').focus(),100);
 }
@@ -1346,17 +1433,17 @@ async function savePerson(){
     salary:parseFloat(G('per-sal').value)||0,status:G('per-st').value||'active',
     obs:G('per-ob').value.trim()||null,updated_at:new Date().toISOString()};
   if(role==='seller'){obj.goal=parseFloat(G('per-goal')?.value)||0;obj.commission=parseFloat(G('per-comm')?.value)||0}
-  if(role==='investor'){obj.invested=parseFloat(G('per-inv')?.value)||0;obj.equity=parseFloat(G('per-eq')?.value)||0;obj.ret=parseFloat(G('per-ret')?.value)||0}
+  if(role==='investor'){obj.invested=parseFloat(G('per-inv')?.value)||0;obj.equity=30;obj.ret=0}
   if(G('per-dept'))obj.dept=G('per-dept').value.trim()||null;
   try{
     if(editP){const r=await DB.patch('people',editP,obj);people=people.map(p=>p.id===editP?(r[0]||{...p,...obj}):p);}
     else{const r=await DB.post('people',obj);people.unshift(r[0]);}
-    closeMo('m-person');renderEquipe();renderInv();renderSel();renderDash();popSelects();toast('Salvo!');editP=null;
+    closeMo('m-person');renderEquipe();renderInv();renderSel();renderExpenses();renderDash();renderRep();popSelects();toast('Salvo!');editP=null;
   }catch(e){toast('Erro: '+e.message,'er')}
 }
 async function delPerson(id,e){
   e?.stopPropagation();if(!confirm('Excluir?'))return;
-  try{await DB.del('people',id);people=people.filter(p=>p.id!==id);renderEquipe();renderInv();renderSel();toast('Removido');}catch{toast('Erro','er')}
+  try{await DB.del('people',id);people=people.filter(p=>p.id!==id);renderEquipe();renderInv();renderSel();renderExpenses();renderRep();toast('Removido');}catch{toast('Erro','er')}
 }
 function personCard(p){
   const c=RCO[p.role]||'var(--g1)';
@@ -1367,7 +1454,7 @@ function personCard(p){
     <div class="pc-fields">
       ${p.email?`<div class="pc-fi"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>${esc(p.email)}</div>`:''}
       ${p.phone?`<div class="pc-fi"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>${esc(p.phone)}</div>`:''}
-      ${p.role==='investor'&&p.invested?`<div class="pc-fi"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6"/></svg>R$${n(p.invested)}${p.equity?' · '+p.equity+'%':''}</div>`:''}
+      ${p.role==='investor'?`<div class="pc-fi" style="color:var(--purple)"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6"/></svg>30% do lucro · R$${n(financialTotals().investorShare)}/mês</div>`:''}
       ${p.role==='seller'&&p.goal?`<div class="pc-fi"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>Meta: R$${n(p.goal)}/mês</div>`:''}
       ${p.dept?`<div class="pc-fi"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>${esc(p.dept)}</div>`:''}
     </div>
@@ -1389,8 +1476,15 @@ function renderEquipe(){
 function renderInv(){
   const list=people.filter(p=>p.role==='investor');
   const tot=list.reduce((a,b)=>a+(+b.invested||0),0);
-  const avg=list.length?tot/list.length:0;
-  G('inv-stats').innerHTML=[['Total Investido','R$'+n(tot),'var(--gold)'],['Investidores',list.length,'var(--purple)'],['Média','R$'+n(Math.round(avg)),'var(--blue)']].map(([l,v,c])=>`<div class="card" style="text-align:center"><div style="font-family:'Outfit',sans-serif;font-size:24px;font-weight:900;color:${c}">${v}</div><div style="font-size:11px;color:var(--g1);margin-top:3px">${l}</div></div>`).join('');
+  const f=financialTotals();
+  G('inv-stats').innerHTML=[
+    ['Receita mensal','R$'+n(f.revenue),'var(--green)'],
+    ['Despesas fixas','R$'+n(f.fixed),'var(--red)'],
+    ['Folha salarial','R$'+n(f.payroll),'var(--orange)'],
+    ['Lucro líquido','R$'+n(f.net),f.net>=0?'var(--blue)':'var(--red)'],
+    ['Direito do investidor (30%)','R$'+n(f.investorShare),'var(--purple)'],
+    ['Total investido','R$'+n(tot),'var(--gold)']
+  ].map(([l,v,c])=>`<div class="card" style="text-align:center"><div style="font-family:'Outfit',sans-serif;font-size:22px;font-weight:900;color:${c}">${v}</div><div style="font-size:11px;color:var(--g1);margin-top:3px">${l}</div></div>`).join('');
   const gr=G('inv-g'),em=G('inve');
   if(!list.length){gr.innerHTML='';em.style.display='flex';return}
   em.style.display='none';gr.innerHTML=list.map(personCard).join('');
@@ -1444,7 +1538,10 @@ function openDP(id,type){
       ['Entrada',r.entry_date?new Date(r.entry_date+'T12:00').toLocaleDateString('pt-BR'):'—'],
       ['Endereço',r.address||'—'],['Banco',r.bank||'—'],['PIX',r.pix||'—'],
       ['Salário',r.salary?'R$'+n(r.salary):'—']];
-    if(r.role==='investor')flds.push(['Investido',r.invested?'R$'+n(r.invested):'—'],['Participação',r.equity?r.equity+'%':'—'],['Retorno',r.ret?r.ret+'%/mês':'—']);
+    if(r.role==='investor'){
+      const f=financialTotals();
+      flds.push(['Investido',r.invested?'R$'+n(r.invested):'—'],['Participação no lucro','30%'],['Lucro líquido atual','R$'+n(f.net)],['Repasse estimado','R$'+n(f.investorShare)+'/mês']);
+    }
     if(r.role==='seller')flds.push(['Meta',r.goal?'R$'+n(r.goal)+'/mês':'—'],['Comissão',r.commission?r.commission+'%':'—']);
     if(r.dept)flds.push(['Departamento',r.dept]);
     flds.push(['Obs.',r.obs||'—']);
@@ -1505,6 +1602,7 @@ function renderDash(){
 function renderRep(){
   const cl=leads.filter(l=>l.status==='Fechado');
   const rev=cl.reduce((a,b)=>a+(+b.value||0),0);
+  const fin=financialTotals();
   const rate=leads.length?Math.round((cl.length/leads.length)*100):0;
   const avg=cl.length?Math.round(rev/cl.length):0;
   G('r-met').innerHTML=[{v:leads.length,l:'Total Leads',c:'var(--blue)'},{v:cl.length,l:'Clientes',c:'var(--green)'},{v:rate+'%',l:'Conversão',c:'var(--gold)'},{v:'R$'+n(rev),l:'Receita',c:'var(--purple)'}].map(m=>`<div class="met"><div class="met-v" style="color:${m.c}">${m.v}</div><div class="met-l">${m.l}</div></div>`).join('');
@@ -1525,7 +1623,21 @@ function renderRep(){
   G('r-fun').innerHTML=STAGES.map(s=>{const c=leads.filter(l=>l.status===s.id).length;return`<div class="sr"><span class="sk">${s.l}</span><span class="sv2" style="color:${s.c}">${c}</span></div>`;}).join('');
   const lost=leads.filter(l=>l.status==='Perdido').length;
   const tinv=people.filter(p=>p.role==='investor').reduce((a,b)=>a+(+b.invested||0),0);
-  G('r-fin').innerHTML=[['Leads totais',leads.length,'var(--white)'],['Clientes ativos',cl.length,'var(--green)'],['Leads perdidos',lost,'var(--red)'],['Conversão',rate+'%','var(--gold)'],['Ticket médio','R$'+n(avg),'var(--blue)'],['Receita total','R$'+n(rev),'var(--purple)'],['Total investido','R$'+n(tinv),'var(--orange)'],['Serviços ativos',svcs.filter(s=>s.status==='active').length,'var(--pink)']].map(([k,v,c])=>`<div class="sr"><span class="sk">${k}</span><span class="sv2" style="color:${c}">${v}</span></div>`).join('');
+  G('r-fin').innerHTML=[
+    ['Receita mensal','R$'+n(fin.revenue),'var(--green)'],
+    ['Despesas fixas','R$'+n(fin.fixed),'var(--red)'],
+    ['Folha salarial','R$'+n(fin.payroll),'var(--orange)'],
+    ['Custos totais','R$'+n(fin.costs),'var(--gold)'],
+    ['Lucro líquido','R$'+n(fin.net),fin.net>=0?'var(--green)':'var(--red)'],
+    ['Investidor (30%)','R$'+n(fin.investorShare),'var(--purple)'],
+    ['Ticket médio','R$'+n(avg),'var(--blue)'],
+    ['Total investido','R$'+n(tinv),'var(--orange)'],
+    ['Leads totais',leads.length,'var(--white)'],
+    ['Clientes ativos',cl.length,'var(--green)'],
+    ['Leads perdidos',lost,'var(--red)'],
+    ['Conversão',rate+'%','var(--gold)'],
+    ['Serviços ativos',svcs.filter(s=>s.status==='active').length,'var(--pink)']
+  ].map(([k,v,c])=>`<div class="sr"><span class="sk">${k}</span><span class="sv2" style="color:${c}">${v}</span></div>`).join('');
 }
 
 // PERFIL
