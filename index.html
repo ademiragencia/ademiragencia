@@ -1198,6 +1198,294 @@
   </div>
 </div>
 
+<!-- MANIFESTO -->
+<section id="manifesto" style="background:var(--black);padding:0;overflow:hidden;position:relative;">
+
+<style>
+  .mf-cover {
+    min-height: 60vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; position: relative; overflow: hidden;
+    padding: 100px 5% 80px;
+    background:
+      radial-gradient(ellipse 80% 70% at 50% 50%, rgba(245,166,35,0.09) 0%, transparent 65%),
+      var(--black);
+  }
+  .mf-ring {
+    position: absolute; border-radius: 50%;
+    border: 1px solid rgba(245,166,35,0.08);
+    top: 50%; left: 50%; transform: translate(-50%,-50%);
+    animation: mfSpin linear infinite;
+    pointer-events: none;
+  }
+  .mf-ring-1 { width: 500px; height: 500px; animation-duration: 60s; }
+  .mf-ring-2 { width: 800px; height: 800px; animation-duration: 90s; animation-direction: reverse; border-style: dashed; border-color: rgba(245,166,35,0.04); }
+  @keyframes mfSpin { to { transform: translate(-50%,-50%) rotate(360deg); } }
+
+  .mf-eyebrow {
+    font-size: 11px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 28px; position: relative; z-index: 1;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .mf-eyebrow::before, .mf-eyebrow::after {
+    content: ''; flex: 1; height: 1px; background: rgba(245,166,35,0.25); max-width: 60px;
+  }
+  .mf-cover-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(42px, 8vw, 100px);
+    font-weight: 900; line-height: 0.95; letter-spacing: -0.04em;
+    position: relative; z-index: 1;
+    margin-bottom: 32px;
+  }
+  .mf-cover-title span { color: var(--gold); display: block; }
+
+  /* BODY */
+  .mf-body {
+    max-width: 720px; margin: 0 auto; padding: 0 5% 100px;
+  }
+
+  .mf-chapter {
+    padding-top: 80px; margin-top: 80px;
+    border-top: 1px solid var(--glass-border);
+  }
+  .mf-chapter:first-child { margin-top: 0; border-top: none; }
+
+  .mf-label {
+    font-size: 10px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 36px;
+    opacity: 0; transform: translateY(16px);
+    transition: opacity 0.6s, transform 0.6s;
+  }
+  .mf-label.mfv { opacity: 1; transform: translateY(0); }
+
+  .mf-big {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(28px, 4.5vw, 56px);
+    font-weight: 900; line-height: 1.1; letter-spacing: -0.035em;
+    margin-bottom: 44px;
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.8s, transform 0.8s;
+  }
+  .mf-big.mfv { opacity: 1; transform: translateY(0); }
+  .mf-big .mfg { color: var(--gold); }
+
+  .mf-p {
+    font-size: clamp(16px, 1.8vw, 18px); line-height: 1.85;
+    color: rgba(255,255,255,0.5); margin-bottom: 22px;
+    opacity: 0; transform: translateY(14px);
+    transition: opacity 0.7s, transform 0.7s;
+  }
+  .mf-p.mfv { opacity: 1; transform: translateY(0); }
+  .mf-p strong { color: var(--white); }
+
+  .mf-contrast {
+    margin: 52px 0;
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.8s, transform 0.8s;
+  }
+  .mf-contrast.mfv { opacity: 1; transform: translateY(0); }
+
+  .mf-pair {
+    display: grid; grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid var(--glass-border);
+    padding: 20px 0;
+  }
+  .mf-pair:last-child { border-bottom: none; }
+  .mf-no {
+    font-size: clamp(14px, 1.8vw, 16px); color: rgba(255,255,255,0.22);
+    text-decoration: line-through; text-decoration-color: rgba(255,255,255,0.1);
+    line-height: 1.4; padding-right: 20px;
+  }
+  .mf-yes {
+    font-size: clamp(14px, 1.8vw, 16px); color: var(--white);
+    font-weight: 600; line-height: 1.4;
+    padding-left: 20px; border-left: 2px solid var(--gold);
+  }
+
+  .mf-values {
+    margin: 40px 0;
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.8s, transform 0.8s;
+  }
+  .mf-values.mfv { opacity: 1; transform: translateY(0); }
+  .mf-val {
+    display: flex; align-items: center; gap: 18px;
+    padding: 18px 0; border-bottom: 1px solid var(--glass-border);
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(18px, 2.5vw, 24px);
+    font-weight: 800; letter-spacing: -0.02em;
+  }
+  .mf-val:first-child { padding-top: 0; }
+  .mf-val:last-child { border-bottom: none; }
+  .mf-val-n { font-size: 10px; font-weight: 500; color: var(--gold); letter-spacing: 2px; min-width: 28px; }
+
+  .mf-quote {
+    text-align: center; padding: 64px 0;
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.9s, transform 0.9s;
+  }
+  .mf-quote.mfv { opacity: 1; transform: translateY(0); }
+  .mf-quote-txt {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(22px, 3.5vw, 40px);
+    font-weight: 900; line-height: 1.2; letter-spacing: -0.03em;
+  }
+  .mf-quote-txt .mfg { color: var(--gold); }
+  .mf-quote-line { width: 40px; height: 2px; background: var(--gold); margin: 24px auto 0; }
+
+  /* CLOSING */
+  .mf-close {
+    margin-top: 80px; padding: 80px 0 0; border-top: 1px solid var(--glass-border);
+    text-align: center;
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 1s, transform 1s;
+  }
+  .mf-close.mfv { opacity: 1; transform: translateY(0); }
+  .mf-close-name {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(36px, 7vw, 80px);
+    font-weight: 900; letter-spacing: -0.04em; line-height: 1;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, var(--white) 0%, rgba(255,255,255,0.5) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .mf-close-tag {
+    font-size: clamp(15px, 2vw, 19px); color: var(--gold);
+    font-weight: 600; margin-bottom: 40px; line-height: 1.5;
+  }
+
+  @media (max-width: 640px) {
+    .mf-pair { grid-template-columns: 1fr; gap: 10px; }
+    .mf-no { padding-right: 0; border-bottom: 1px solid var(--glass-border); padding-bottom: 10px; }
+    .mf-yes { padding-left: 14px; }
+    .mf-ring-1 { width: 280px; height: 280px; }
+    .mf-ring-2 { width: 450px; height: 450px; }
+  }
+</style>
+
+<!-- COVER DO MANIFESTO -->
+<div class="mf-cover">
+  <div class="mf-ring mf-ring-1"></div>
+  <div class="mf-ring mf-ring-2"></div>
+
+  <div class="mf-cover-title">
+    Não vendemos<br>
+    <span>marketing.</span>
+  </div>
+  <p style="font-size:clamp(15px,1.8vw,18px);color:rgba(255,255,255,0.45);max-width:480px;line-height:1.7;position:relative;z-index:1;">
+    Construímos crescimento. Conheça a essência de quem somos e por que fazemos o que fazemos.
+  </p>
+</div>
+
+<!-- CORPO DO MANIFESTO -->
+<div class="mf-body">
+
+  <div class="mf-chapter">
+    <div class="mf-label mfr">Por que existimos</div>
+    <div class="mf-big mfr">Nós existimos por um motivo:<br><span class="mfg">Fazer empresas crescerem.</span></div>
+    <p class="mf-p mfr">Não acreditamos que marketing seja sobre curtidas. Não acreditamos que sucesso seja medido por visualizações. Não acreditamos que impulsionar publicações seja estratégia.</p>
+    <div class="mf-big mfr" style="font-size:clamp(36px,6vw,72px);">Acreditamos em <span class="mfg">resultados.</span></div>
+  </div>
+
+  <div class="mf-chapter">
+    <div class="mf-label mfr">Nossa escolha</div>
+    <p class="mf-p mfr">Vivemos em um mercado onde muitos prometem alcance, mas poucos entregam crescimento. Nós escolhemos o caminho mais difícil:</p>
+    <div class="mf-values mfr">
+      <div class="mf-val"><span class="mf-val-n">—</span>Cada real investido precisa ter um propósito.</div>
+      <div class="mf-val"><span class="mf-val-n">—</span>Cada campanha precisa ter uma meta.</div>
+      <div class="mf-val"><span class="mf-val-n">—</span>Cada decisão precisa ser baseada em dados.</div>
+    </div>
+  </div>
+
+  <div class="mf-chapter">
+    <div class="mf-label mfr">O que somos de verdade</div>
+    <div class="mf-big mfr">Não somos uma agência que apenas <span class="mfg">publica conteúdos.</span></div>
+    <div class="mf-contrast mfr">
+      <div class="mf-pair"><div class="mf-no">Publica conteúdo</div><div class="mf-yes">Constrói posicionamento</div></div>
+      <div class="mf-pair"><div class="mf-no">Gera curtidas</div><div class="mf-yes">Gera autoridade</div></div>
+      <div class="mf-pair"><div class="mf-no">Caça seguidores</div><div class="mf-yes">Cria demanda real</div></div>
+      <div class="mf-pair"><div class="mf-no">Mede visualizações</div><div class="mf-yes">Transforma atenção em faturamento</div></div>
+    </div>
+  </div>
+
+  <div class="mf-chapter">
+    <div class="mf-label mfr">Por que empresas crescem</div>
+    <div class="mf-big mfr">Empresas não crescem<br><span class="mfg">por acaso.</span></div>
+    <p class="mf-p mfr">Elas crescem quando existe <strong>direção</strong>. Quando existe <strong>processo</strong>. Quando existe <strong>estratégia</strong>.</p>
+  </div>
+
+  <div class="mf-chapter">
+    <div class="mf-label mfr">Por trás de cada negócio</div>
+    <div class="mf-big mfr">Por trás de cada negócio existe uma <span class="mfg">família.</span></div>
+    <p class="mf-p mfr">Um sonho. Anos de dedicação. Alguém que decidiu não desistir. É por isso que tratamos cada projeto como se fosse nosso. Celebramos resultados, mas <strong>nunca nos acomodamos</strong>.</p>
+    <div class="mf-quote mfr">
+      <div class="mf-quote-txt">O mercado muda. As plataformas mudam.<br>O comportamento das pessoas muda.<br><span class="mfg">E nós evoluímos.</span></div>
+      <div class="mf-quote-line"></div>
+    </div>
+  </div>
+
+  <div class="mf-chapter">
+    <div class="mf-label mfr">Nossa cultura</div>
+    <div class="mf-big mfr">Nossa cultura é <span class="mfg">simples.</span></div>
+    <div class="mf-values mfr">
+      <div class="mf-val"><span class="mf-val-n">01</span>Pensar grande.</div>
+      <div class="mf-val"><span class="mf-val-n">02</span>Executar com excelência.</div>
+      <div class="mf-val"><span class="mf-val-n">03</span>Aprender constantemente.</div>
+      <div class="mf-val"><span class="mf-val-n">04</span>Nunca aceitar o comum.</div>
+    </div>
+    <p class="mf-p mfr" style="margin-top:36px;">Não buscamos ser a <strong>maior agência</strong>. Buscamos ser a agência que <strong>mais gera impacto</strong> na vida dos nossos clientes.</p>
+  </div>
+
+  <div class="mf-chapter">
+    <div class="mf-label mfr">O verdadeiro poder do marketing</div>
+    <p class="mf-p mfr">Porque quando uma empresa cresce...</p>
+    <div class="mf-values mfr">
+      <div class="mf-val" style="font-size:clamp(16px,2.2vw,22px);"><span class="mf-val-n">—</span>Empregos são criados.</div>
+      <div class="mf-val" style="font-size:clamp(16px,2.2vw,22px);"><span class="mf-val-n">—</span>Famílias prosperam.</div>
+      <div class="mf-val" style="font-size:clamp(16px,2.2vw,22px);"><span class="mf-val-n">—</span>Sonhos deixam de ser planos e se tornam realidade.</div>
+    </div>
+  </div>
+
+  <div class="mf-chapter">
+    <div class="mf-label mfr">Nosso compromisso</div>
+    <div class="mf-contrast mfr">
+      <div class="mf-pair"><div class="mf-no">Vender anúncios</div><div class="mf-yes">Construir negócios</div></div>
+      <div class="mf-pair"><div class="mf-no">Comprar cliques</div><div class="mf-yes">Conquistar confiança</div></div>
+      <div class="mf-pair"><div class="mf-no">Gerar vaidade</div><div class="mf-yes">Gerar faturamento</div></div>
+    </div>
+    <div class="mf-big mfr" style="margin-top:36px;">
+      Esse é nosso compromisso.<br>
+      Essa é nossa identidade.<br>
+      <span class="mfg">Essa é nossa marca.</span>
+    </div>
+  </div>
+
+  <!-- FECHAMENTO -->
+  <div class="mf-close mfr">
+    <div class="mf-close-name">ADEMIR<br>AGÊNCIA</div>
+    <div class="mf-close-tag">Não vendemos marketing.<br>Construímos crescimento.</div>
+    <a href="https://wa.me/5567981082158?text=Olá! Li o manifesto da Ademir Agência e quero crescer meu negócio com vocês." target="_blank" class="btn-whatsapp" style="display:inline-flex;align-items:center;gap:12px;font-size:16px;padding:18px 36px;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Crescer com a Ademir
+    </a>
+  </div>
+
+</div>
+
+<script>
+// Reveal manifesto items on scroll
+(function(){
+  const mfObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting) e.target.classList.add('mfv');
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.mfr').forEach(el => mfObs.observe(el));
+})();
+</script>
+
+</section>
+
 <!-- SERVIÇOS -->
 <section id="servicos">
   <div class="section-label reveal">O que fazemos</div>
@@ -1854,294 +2142,6 @@
   </div>
 </section>
 
-
-<!-- MANIFESTO -->
-<section id="manifesto" style="background:var(--black);padding:0;overflow:hidden;position:relative;">
-
-<style>
-  .mf-cover {
-    min-height: 60vh;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    text-align: center; position: relative; overflow: hidden;
-    padding: 100px 5% 80px;
-    background:
-      radial-gradient(ellipse 80% 70% at 50% 50%, rgba(245,166,35,0.09) 0%, transparent 65%),
-      var(--black);
-  }
-  .mf-ring {
-    position: absolute; border-radius: 50%;
-    border: 1px solid rgba(245,166,35,0.08);
-    top: 50%; left: 50%; transform: translate(-50%,-50%);
-    animation: mfSpin linear infinite;
-    pointer-events: none;
-  }
-  .mf-ring-1 { width: 500px; height: 500px; animation-duration: 60s; }
-  .mf-ring-2 { width: 800px; height: 800px; animation-duration: 90s; animation-direction: reverse; border-style: dashed; border-color: rgba(245,166,35,0.04); }
-  @keyframes mfSpin { to { transform: translate(-50%,-50%) rotate(360deg); } }
-
-  .mf-eyebrow {
-    font-size: 11px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase;
-    color: var(--gold); margin-bottom: 28px; position: relative; z-index: 1;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .mf-eyebrow::before, .mf-eyebrow::after {
-    content: ''; flex: 1; height: 1px; background: rgba(245,166,35,0.25); max-width: 60px;
-  }
-  .mf-cover-title {
-    font-family: 'Outfit', sans-serif;
-    font-size: clamp(42px, 8vw, 100px);
-    font-weight: 900; line-height: 0.95; letter-spacing: -0.04em;
-    position: relative; z-index: 1;
-    margin-bottom: 32px;
-  }
-  .mf-cover-title span { color: var(--gold); display: block; }
-
-  /* BODY */
-  .mf-body {
-    max-width: 720px; margin: 0 auto; padding: 0 5% 100px;
-  }
-
-  .mf-chapter {
-    padding-top: 80px; margin-top: 80px;
-    border-top: 1px solid var(--glass-border);
-  }
-  .mf-chapter:first-child { margin-top: 0; border-top: none; }
-
-  .mf-label {
-    font-size: 10px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase;
-    color: var(--gold); margin-bottom: 36px;
-    opacity: 0; transform: translateY(16px);
-    transition: opacity 0.6s, transform 0.6s;
-  }
-  .mf-label.mfv { opacity: 1; transform: translateY(0); }
-
-  .mf-big {
-    font-family: 'Outfit', sans-serif;
-    font-size: clamp(28px, 4.5vw, 56px);
-    font-weight: 900; line-height: 1.1; letter-spacing: -0.035em;
-    margin-bottom: 44px;
-    opacity: 0; transform: translateY(24px);
-    transition: opacity 0.8s, transform 0.8s;
-  }
-  .mf-big.mfv { opacity: 1; transform: translateY(0); }
-  .mf-big .mfg { color: var(--gold); }
-
-  .mf-p {
-    font-size: clamp(16px, 1.8vw, 18px); line-height: 1.85;
-    color: rgba(255,255,255,0.5); margin-bottom: 22px;
-    opacity: 0; transform: translateY(14px);
-    transition: opacity 0.7s, transform 0.7s;
-  }
-  .mf-p.mfv { opacity: 1; transform: translateY(0); }
-  .mf-p strong { color: var(--white); }
-
-  .mf-contrast {
-    margin: 52px 0;
-    opacity: 0; transform: translateY(20px);
-    transition: opacity 0.8s, transform 0.8s;
-  }
-  .mf-contrast.mfv { opacity: 1; transform: translateY(0); }
-
-  .mf-pair {
-    display: grid; grid-template-columns: 1fr 1fr;
-    border-bottom: 1px solid var(--glass-border);
-    padding: 20px 0;
-  }
-  .mf-pair:last-child { border-bottom: none; }
-  .mf-no {
-    font-size: clamp(14px, 1.8vw, 16px); color: rgba(255,255,255,0.22);
-    text-decoration: line-through; text-decoration-color: rgba(255,255,255,0.1);
-    line-height: 1.4; padding-right: 20px;
-  }
-  .mf-yes {
-    font-size: clamp(14px, 1.8vw, 16px); color: var(--white);
-    font-weight: 600; line-height: 1.4;
-    padding-left: 20px; border-left: 2px solid var(--gold);
-  }
-
-  .mf-values {
-    margin: 40px 0;
-    opacity: 0; transform: translateY(20px);
-    transition: opacity 0.8s, transform 0.8s;
-  }
-  .mf-values.mfv { opacity: 1; transform: translateY(0); }
-  .mf-val {
-    display: flex; align-items: center; gap: 18px;
-    padding: 18px 0; border-bottom: 1px solid var(--glass-border);
-    font-family: 'Outfit', sans-serif;
-    font-size: clamp(18px, 2.5vw, 24px);
-    font-weight: 800; letter-spacing: -0.02em;
-  }
-  .mf-val:first-child { padding-top: 0; }
-  .mf-val:last-child { border-bottom: none; }
-  .mf-val-n { font-size: 10px; font-weight: 500; color: var(--gold); letter-spacing: 2px; min-width: 28px; }
-
-  .mf-quote {
-    text-align: center; padding: 64px 0;
-    opacity: 0; transform: translateY(20px);
-    transition: opacity 0.9s, transform 0.9s;
-  }
-  .mf-quote.mfv { opacity: 1; transform: translateY(0); }
-  .mf-quote-txt {
-    font-family: 'Outfit', sans-serif;
-    font-size: clamp(22px, 3.5vw, 40px);
-    font-weight: 900; line-height: 1.2; letter-spacing: -0.03em;
-  }
-  .mf-quote-txt .mfg { color: var(--gold); }
-  .mf-quote-line { width: 40px; height: 2px; background: var(--gold); margin: 24px auto 0; }
-
-  /* CLOSING */
-  .mf-close {
-    margin-top: 80px; padding: 80px 0 0; border-top: 1px solid var(--glass-border);
-    text-align: center;
-    opacity: 0; transform: translateY(20px);
-    transition: opacity 1s, transform 1s;
-  }
-  .mf-close.mfv { opacity: 1; transform: translateY(0); }
-  .mf-close-name {
-    font-family: 'Outfit', sans-serif;
-    font-size: clamp(36px, 7vw, 80px);
-    font-weight: 900; letter-spacing: -0.04em; line-height: 1;
-    margin-bottom: 16px;
-    background: linear-gradient(135deg, var(--white) 0%, rgba(255,255,255,0.5) 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-  }
-  .mf-close-tag {
-    font-size: clamp(15px, 2vw, 19px); color: var(--gold);
-    font-weight: 600; margin-bottom: 40px; line-height: 1.5;
-  }
-
-  @media (max-width: 640px) {
-    .mf-pair { grid-template-columns: 1fr; gap: 10px; }
-    .mf-no { padding-right: 0; border-bottom: 1px solid var(--glass-border); padding-bottom: 10px; }
-    .mf-yes { padding-left: 14px; }
-    .mf-ring-1 { width: 280px; height: 280px; }
-    .mf-ring-2 { width: 450px; height: 450px; }
-  }
-</style>
-
-<!-- COVER DO MANIFESTO -->
-<div class="mf-cover">
-  <div class="mf-ring mf-ring-1"></div>
-  <div class="mf-ring mf-ring-2"></div>
-  <div class="mf-eyebrow">Manifesto da marca</div>
-  <div class="mf-cover-title">
-    Não vendemos<br>
-    <span>marketing.</span>
-  </div>
-  <p style="font-size:clamp(15px,1.8vw,18px);color:rgba(255,255,255,0.45);max-width:480px;line-height:1.7;position:relative;z-index:1;">
-    Construímos crescimento. Conheça a essência de quem somos e por que fazemos o que fazemos.
-  </p>
-</div>
-
-<!-- CORPO DO MANIFESTO -->
-<div class="mf-body">
-
-  <div class="mf-chapter">
-    <div class="mf-label mfr">Por que existimos</div>
-    <div class="mf-big mfr">Nós existimos por um motivo:<br><span class="mfg">Fazer empresas crescerem.</span></div>
-    <p class="mf-p mfr">Não acreditamos que marketing seja sobre curtidas. Não acreditamos que sucesso seja medido por visualizações. Não acreditamos que impulsionar publicações seja estratégia.</p>
-    <div class="mf-big mfr" style="font-size:clamp(36px,6vw,72px);">Acreditamos em <span class="mfg">resultados.</span></div>
-  </div>
-
-  <div class="mf-chapter">
-    <div class="mf-label mfr">Nossa escolha</div>
-    <p class="mf-p mfr">Vivemos em um mercado onde muitos prometem alcance, mas poucos entregam crescimento. Nós escolhemos o caminho mais difícil:</p>
-    <div class="mf-values mfr">
-      <div class="mf-val"><span class="mf-val-n">—</span>Cada real investido precisa ter um propósito.</div>
-      <div class="mf-val"><span class="mf-val-n">—</span>Cada campanha precisa ter uma meta.</div>
-      <div class="mf-val"><span class="mf-val-n">—</span>Cada decisão precisa ser baseada em dados.</div>
-    </div>
-  </div>
-
-  <div class="mf-chapter">
-    <div class="mf-label mfr">O que somos de verdade</div>
-    <div class="mf-big mfr">Não somos uma agência que apenas <span class="mfg">publica conteúdos.</span></div>
-    <div class="mf-contrast mfr">
-      <div class="mf-pair"><div class="mf-no">Publica conteúdo</div><div class="mf-yes">Constrói posicionamento</div></div>
-      <div class="mf-pair"><div class="mf-no">Gera curtidas</div><div class="mf-yes">Gera autoridade</div></div>
-      <div class="mf-pair"><div class="mf-no">Caça seguidores</div><div class="mf-yes">Cria demanda real</div></div>
-      <div class="mf-pair"><div class="mf-no">Mede visualizações</div><div class="mf-yes">Transforma atenção em faturamento</div></div>
-    </div>
-  </div>
-
-  <div class="mf-chapter">
-    <div class="mf-label mfr">Por que empresas crescem</div>
-    <div class="mf-big mfr">Empresas não crescem<br><span class="mfg">por acaso.</span></div>
-    <p class="mf-p mfr">Elas crescem quando existe <strong>direção</strong>. Quando existe <strong>processo</strong>. Quando existe <strong>estratégia</strong>.</p>
-  </div>
-
-  <div class="mf-chapter">
-    <div class="mf-label mfr">Por trás de cada negócio</div>
-    <div class="mf-big mfr">Por trás de cada negócio existe uma <span class="mfg">família.</span></div>
-    <p class="mf-p mfr">Um sonho. Anos de dedicação. Alguém que decidiu não desistir. É por isso que tratamos cada projeto como se fosse nosso. Celebramos resultados, mas <strong>nunca nos acomodamos</strong>.</p>
-    <div class="mf-quote mfr">
-      <div class="mf-quote-txt">O mercado muda. As plataformas mudam.<br>O comportamento das pessoas muda.<br><span class="mfg">E nós evoluímos.</span></div>
-      <div class="mf-quote-line"></div>
-    </div>
-  </div>
-
-  <div class="mf-chapter">
-    <div class="mf-label mfr">Nossa cultura</div>
-    <div class="mf-big mfr">Nossa cultura é <span class="mfg">simples.</span></div>
-    <div class="mf-values mfr">
-      <div class="mf-val"><span class="mf-val-n">01</span>Pensar grande.</div>
-      <div class="mf-val"><span class="mf-val-n">02</span>Executar com excelência.</div>
-      <div class="mf-val"><span class="mf-val-n">03</span>Aprender constantemente.</div>
-      <div class="mf-val"><span class="mf-val-n">04</span>Nunca aceitar o comum.</div>
-    </div>
-    <p class="mf-p mfr" style="margin-top:36px;">Não buscamos ser a <strong>maior agência</strong>. Buscamos ser a agência que <strong>mais gera impacto</strong> na vida dos nossos clientes.</p>
-  </div>
-
-  <div class="mf-chapter">
-    <div class="mf-label mfr">O verdadeiro poder do marketing</div>
-    <p class="mf-p mfr">Porque quando uma empresa cresce...</p>
-    <div class="mf-values mfr">
-      <div class="mf-val" style="font-size:clamp(16px,2.2vw,22px);"><span class="mf-val-n">—</span>Empregos são criados.</div>
-      <div class="mf-val" style="font-size:clamp(16px,2.2vw,22px);"><span class="mf-val-n">—</span>Famílias prosperam.</div>
-      <div class="mf-val" style="font-size:clamp(16px,2.2vw,22px);"><span class="mf-val-n">—</span>Sonhos deixam de ser planos e se tornam realidade.</div>
-    </div>
-  </div>
-
-  <div class="mf-chapter">
-    <div class="mf-label mfr">Nosso compromisso</div>
-    <div class="mf-contrast mfr">
-      <div class="mf-pair"><div class="mf-no">Vender anúncios</div><div class="mf-yes">Construir negócios</div></div>
-      <div class="mf-pair"><div class="mf-no">Comprar cliques</div><div class="mf-yes">Conquistar confiança</div></div>
-      <div class="mf-pair"><div class="mf-no">Gerar vaidade</div><div class="mf-yes">Gerar faturamento</div></div>
-    </div>
-    <div class="mf-big mfr" style="margin-top:36px;">
-      Esse é nosso compromisso.<br>
-      Essa é nossa identidade.<br>
-      <span class="mfg">Essa é nossa marca.</span>
-    </div>
-  </div>
-
-  <!-- FECHAMENTO -->
-  <div class="mf-close mfr">
-    <div class="mf-close-name">ADEMIR<br>AGÊNCIA</div>
-    <div class="mf-close-tag">Não vendemos marketing.<br>Construímos crescimento.</div>
-    <a href="https://wa.me/5567981082158?text=Olá! Li o manifesto da Ademir Agência e quero crescer meu negócio com vocês." target="_blank" class="btn-whatsapp" style="display:inline-flex;align-items:center;gap:12px;font-size:16px;padding:18px 36px;">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      Crescer com a Ademir
-    </a>
-  </div>
-
-</div>
-
-<script>
-// Reveal manifesto items on scroll
-(function(){
-  const mfObs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if(e.isIntersecting) e.target.classList.add('mfv');
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.mfr').forEach(el => mfObs.observe(el));
-})();
-</script>
-
-</section>
 
 <!-- FOOTER -->
 <footer>
