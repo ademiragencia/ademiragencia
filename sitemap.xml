@@ -54,4 +54,25 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ademiragencia.com.br/"/>
   </url>
 
+  <url>
+    <loc>https://www.ademiragencia.com.br/blog/</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.ademiragencia.com.br/blog/quanto-custa-trafego-pago/</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.ademiragencia.com.br/blog/como-escolher-agencia-de-marketing-digital/</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>

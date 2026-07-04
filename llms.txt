@@ -41,6 +41,7 @@ Ademir Agência é uma agência de marketing digital em Campo Grande, Mato Gross
 - Página principal (português): https://www.ademiragencia.com.br/
 - Versão em inglês: https://www.ademiragencia.com.br/en/
 - Versão em espanhol: https://www.ademiragencia.com.br/es/
+- Blog (conteúdo sobre marketing digital): https://www.ademiragencia.com.br/blog/
 - Sitemap: https://www.ademiragencia.com.br/sitemap.xml
 - Robots.txt: https://www.ademiragencia.com.br/robots.txt
 - Arquivo para LLMs: https://www.ademiragencia.com.br/llms.txt
