@@ -12,31 +12,16 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.ademiragencia.com.br/en/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.ademiragencia.com.br/es/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ademiragencia.com.br/"/>
-
     <image:image>
       <image:loc>https://www.ademiragencia.com.br/ademir-agencia-assets/hero-strategy.png</image:loc>
       <image:title>Ademir Agência - Marketing Digital em Campo Grande MS</image:title>
       <image:caption>Agência de marketing digital em Campo Grande MS com método, diagnóstico e estratégia para presença digital.</image:caption>
     </image:image>
-
-    <image:image>
-      <image:loc>https://www.ademiragencia.com.br/ademir-agencia-assets/creative-services.png</image:loc>
-      <image:title>Serviços de marketing digital e criação estratégica</image:title>
-      <image:caption>Tráfego pago, social media, branding, criação de sites e design criativo para empresas.</image:caption>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://www.ademiragencia.com.br/ademir-agencia-assets/performance-results.png</image:loc>
-      <image:title>Método de diagnóstico e performance digital</image:title>
-      <image:caption>Planejamento, análise de canais, relatório e otimização para marketing digital.</image:caption>
-    </image:image>
   </url>
 
   <url>
     <loc>https://www.ademiragencia.com.br/en/</loc>
-    <lastmod>2026-07-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-07-04</lastmod><changefreq>monthly</changefreq><priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.ademiragencia.com.br/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.ademiragencia.com.br/en/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.ademiragencia.com.br/es/"/>
@@ -45,9 +30,7 @@
 
   <url>
     <loc>https://www.ademiragencia.com.br/es/</loc>
-    <lastmod>2026-07-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-07-04</lastmod><changefreq>monthly</changefreq><priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.ademiragencia.com.br/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.ademiragencia.com.br/en/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.ademiragencia.com.br/es/"/>
@@ -56,23 +39,107 @@
 
   <url>
     <loc>https://www.ademiragencia.com.br/blog/</loc>
-    <lastmod>2026-07-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-07-04</lastmod><changefreq>weekly</changefreq><priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://www.ademiragencia.com.br/blog/quanto-custa-trafego-pago/</loc>
-    <lastmod>2026-07-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2026-07-04</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://www.ademiragencia.com.br/blog/como-escolher-agencia-de-marketing-digital/</loc>
-    <lastmod>2026-07-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2026-07-04</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.ademiragencia.com.br/blog/o-que-e-roas-como-calcular/</loc>
+    <lastmod>2026-07-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.ademiragencia.com.br/blog/site-ou-redes-sociais/</loc>
+    <lastmod>2026-06-30</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.ademiragencia.com.br/blog/google-ads-ou-meta-ads/</loc>
+    <lastmod>2026-06-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.ademiragencia.com.br/blog/como-fazer-o-instagram-vender/</loc>
+    <lastmod>2026-06-25</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.ademiragencia.com.br/blog/o-que-e-funil-de-vendas/</loc>
+    <lastmod>2026-06-23</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.ademiragencia.com.br/blog/landing-page-o-que-e/</loc>
+    <lastmod>2026-06-20</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.ademiragencia.com.br/blog/branding-para-pequenas-empresas/</loc>
+    <lastmod>2026-06-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.ademiragencia.com.br/blog/como-definir-publico-alvo/</loc>
+    <lastmod>2026-06-16</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.ademiragencia.com.br/blog/quanto-tempo-trafego-pago-da-resultado/</loc>
+    <lastmod>2026-06-13</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.ademiragencia.com.br/blog/marketing-digital-para-clinicas/</loc>
+    <lastmod>2026-06-11</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.ademiragencia.com.br/blog/marketing-digital-para-ecommerce/</loc>
+    <lastmod>2026-06-09</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.ademiragencia.com.br/blog/o-que-e-cac-e-ltv/</loc>
+    <lastmod>2026-06-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.ademiragencia.com.br/blog/como-criar-criativos-que-convertem/</loc>
+    <lastmod>2026-06-04</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.ademiragencia.com.br/blog/seo-ou-trafego-pago/</loc>
+    <lastmod>2026-06-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.ademiragencia.com.br/blog/bio-de-instagram-que-atrai-clientes/</loc>
+    <lastmod>2026-05-30</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.ademiragencia.com.br/blog/erros-comuns-em-trafego-pago/</loc>
+    <lastmod>2026-05-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.ademiragencia.com.br/blog/como-medir-resultado-do-marketing-digital/</loc>
+    <lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.ademiragencia.com.br/blog/marketing-digital-para-iniciantes/</loc>
+    <lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
   </url>
 
 </urlset>
