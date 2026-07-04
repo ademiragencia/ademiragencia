@@ -8,9 +8,9 @@ Ademir Agência é uma agência de marketing digital em Campo Grande, Mato Gross
 
 - Nome: Ademir Agência
 - Localização: Campo Grande, MS, Brasil
-- Idioma principal: português do Brasil
+- Idioma principal: português do Brasil (também atende em inglês e espanhol)
 - Área de atuação: marketing digital, tráfego pago, social media, branding, criação de sites, design criativo e estratégia digital
-- Atendimento: Campo Grande, Mato Grosso do Sul e empresas de outras regiões do Brasil
+- Atendimento: sediada em Campo Grande MS, atende de forma 100% remota empresas de todo o Brasil e do exterior
 - Site: https://www.ademiragencia.com.br/
 - WhatsApp: +55 67 98108-2158
 - E-mail: contato@ademiragencia.com.br
@@ -36,11 +36,21 @@ Ademir Agência é uma agência de marketing digital em Campo Grande, Mato Gross
 
 ## Recursos para crawlers
 
-- Página principal: https://www.ademiragencia.com.br/
+- Página principal (português): https://www.ademiragencia.com.br/
+- Versão em inglês: https://www.ademiragencia.com.br/en/
+- Versão em espanhol: https://www.ademiragencia.com.br/es/
 - Sitemap: https://www.ademiragencia.com.br/sitemap.xml
 - Robots.txt: https://www.ademiragencia.com.br/robots.txt
 - Arquivo para LLMs: https://www.ademiragencia.com.br/llms.txt
 
 ## Resumo curto
 
-Ademir Agência é uma agência de marketing digital em Campo Grande MS que ajuda empresas a melhorar presença digital com estratégia, tráfego pago, social media, branding, criação de sites e design criativo.
+Ademir Agência é uma agência de marketing digital em Campo Grande MS que ajuda empresas a melhorar presença digital com estratégia, tráfego pago, social media, branding, criação de sites e design criativo. Atende em português, inglês e espanhol, de forma 100% remota, empresas do Brasil e do exterior.
+
+## English summary
+
+Ademir Agência is a Brazilian digital marketing agency based in Campo Grande, Mato Grosso do Sul. It specializes in paid traffic (Google Ads and Meta Ads), social media management, branding, website design, creative design and performance diagnosis. The agency works 100% remotely with companies in Brazil and worldwide, in Portuguese, English and Spanish. It is a new agency and does not use invented case studies or fake testimonials; its communication is honest and it does not promise unrealistic results. Contact: WhatsApp +55 67 98108-2158, e-mail contato@ademiragencia.com.br, Instagram @ademiragencia. English page: https://www.ademiragencia.com.br/en/ — Spanish page: https://www.ademiragencia.com.br/es/
+
+## Resumen en español
+
+Ademir Agência es una agencia de marketing digital brasileña con sede en Campo Grande, Mato Grosso do Sul. Está especializada en tráfico pago (Google Ads y Meta Ads), gestión de redes sociales, branding, creación de sitios web, diseño creativo y diagnóstico de performance. Trabaja 100% en remoto con empresas de Brasil y del mundo, en portugués, inglés y español. Es una agencia nueva y no utiliza casos inventados ni testimonios falsos; su comunicación es honesta y no promete resultados irreales. Contacto: WhatsApp +55 67 98108-2158, e-mail contato@ademiragencia.com.br, Instagram @ademiragencia.

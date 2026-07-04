@@ -5,10 +5,12 @@
 
   <url>
     <loc>https://www.ademiragencia.com.br/</loc>
-    <lastmod>2026-06-27</lastmod>
+    <lastmod>2026-07-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.ademiragencia.com.br/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ademiragencia.com.br/en/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.ademiragencia.com.br/es/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ademiragencia.com.br/"/>
 
     <image:image>
@@ -28,6 +30,28 @@
       <image:title>Método de diagnóstico e performance digital</image:title>
       <image:caption>Planejamento, análise de canais, relatório e otimização para marketing digital.</image:caption>
     </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.ademiragencia.com.br/en/</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.ademiragencia.com.br/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ademiragencia.com.br/en/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.ademiragencia.com.br/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ademiragencia.com.br/"/>
+  </url>
+
+  <url>
+    <loc>https://www.ademiragencia.com.br/es/</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.ademiragencia.com.br/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ademiragencia.com.br/en/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.ademiragencia.com.br/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ademiragencia.com.br/"/>
   </url>
 
 </urlset>

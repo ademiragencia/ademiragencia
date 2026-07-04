@@ -1,5 +1,9 @@
 User-agent: *
 Allow: /
+Disallow: /crm.html
+Disallow: /fichacadastral.html
+Disallow: /selecao.html
+Disallow: /qualificacao.html
 
 User-agent: Googlebot
 Allow: /
