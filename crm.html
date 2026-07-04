@@ -749,8 +749,8 @@ const SS=s=>localStorage.setItem(SESS_KEY,JSON.stringify(s));
 const CS=()=>localStorage.removeItem(SESS_KEY);
 let CU=null;
 
-// Senha master fixa (não muda)
-const MASTER={id:'master',name:'Ademir',role:'admin',email:'contato@ademiragencia.com.br',password:'Ade3865@'};
+// Metadados da conta master (apenas exibição — a senha fica somente no banco, nunca no código)
+const MASTER={id:'master',name:'Ademir',role:'admin',email:'contato@ademiragencia.com.br'};
 
 async function getUsers(){
   // Tenta Supabase, cai para localStorage
@@ -767,18 +767,8 @@ async function getUsers(){
 }
 
 async function initAccs(){
-  // Tenta criar master no Supabase — silencioso se falhar
-  try{
-    const ex=await SB.get('users','id=eq.master').catch(()=>[]);
-    if(!ex||!ex.length){
-      await SB.post('users',{
-        id:'master',name:'Ademir',role:'admin',
-        email:'contato@ademiragencia.com.br',
-        password:'Ade3865@',
-        created_at:'2026-01-01T00:00:00.000Z'
-      }).catch(()=>{});
-    }
-  }catch{}
+  // A conta master é criada/gerenciada diretamente no banco (Supabase).
+  // Nenhuma senha é definida no código-fonte por segurança.
 }
 
 async function doLogin(){
@@ -788,15 +778,7 @@ async function doLogin(){
   btn.textContent='Entrando...';btn.disabled=true;
   G('lerr').style.display='none';
 
-  // 1) Verifica conta master (sem banco)
-  if(em===MASTER.email.toLowerCase()&&pw===MASTER.password){
-    const su={id:'master',name:'Ademir',role:'admin',email:MASTER.email};
-    SS(su);CU=su;
-    btn.textContent='Entrar';btn.disabled=false;
-    startApp();return;
-  }
-
-  // 2) Busca outros usuários no Supabase
+  // Valida as credenciais contra os usuários cadastrados no Supabase
   try{
     const users=await getUsers();
     const u=users.find(x=>
@@ -838,7 +820,7 @@ async function showResetAll(){
   if(!em)return;
   const found=all.find(x=>x.email.toLowerCase()===em.trim().toLowerCase());
   if(!found){alert('Usuário não encontrado.');return}
-  if(found.id==='master'){alert('Senha da conta master: Ade3865@\n\nPara alterar edite o arquivo HTML.');return}
+  if(found.id==='master'){alert('Por segurança, a senha da conta master não é exibida nem editada aqui.\n\nPara alterá-la, edite o campo "password" da linha do usuário master na tabela "users" do painel do Supabase.');return}
   const np=prompt('Nova senha para "'+found.name+'" (mínimo 6 caracteres):');
   if(!np||np.length<6){alert('Senha inválida.');return}
   try{
