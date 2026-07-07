@@ -13,10 +13,10 @@
    você colocar o seu ID real.
 ═══════════════════════════════════════════════════════════════ */
 (function () {
-  var GA_ID = 'G-XXXXXXXXXX'; // <<< TROQUE pelo seu ID de medição do GA4
+  var GA_ID = 'G-6XCLYCXM6F'; // <<< ID de medição do GA4
 
-  // Só ativa com um ID real (evita rastrear/mostrar banner com placeholder)
-  var VALID = GA_ID.indexOf('G-') === 0 && GA_ID.length >= 10 && GA_ID.indexOf('X') === -1;
+  // Só ativa com um ID real (o placeholder G-XXXXXXXXXX contém "XXXX")
+  var VALID = GA_ID.indexOf('G-') === 0 && GA_ID.length >= 10 && GA_ID.indexOf('XXXX') === -1;
   if (!VALID) return;
 
   var KEY = 'aa_consent';
