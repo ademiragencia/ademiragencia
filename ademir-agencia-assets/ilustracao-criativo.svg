@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" fill="none">
+  <defs>
+    <linearGradient id="cbg" x1="0" y1="0" x2="1200" y2="800" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#12100A"/><stop offset="1" stop-color="#0A0A0A"/>
+    </linearGradient>
+    <filter id="cgl"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <pattern id="cdots" width="34" height="34" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.6" fill="#F5A623" opacity="0.10"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#cbg)"/>
+  <rect width="1200" height="800" fill="url(#cdots)"/>
+  <circle cx="1040" cy="620" r="130" stroke="#F5A623" stroke-opacity="0.12" stroke-dasharray="4 10"/>
+  <circle cx="150" cy="160" r="100" stroke="#F5A623" stroke-opacity="0.10" stroke-dasharray="4 10"/>
+
+  <!-- CELULAR com feed -->
+  <g>
+    <rect x="120" y="90" width="330" height="620" rx="42" fill="#131311" stroke="#F5A623" stroke-opacity="0.45" stroke-width="2"/>
+    <rect x="230" y="112" width="110" height="12" rx="6" fill="#0A0A0A" stroke="#F5A623" stroke-opacity="0.25"/>
+    <!-- topo do perfil -->
+    <circle cx="176" cy="180" r="24" fill="#F5A623" opacity="0.9"/>
+    <path d="M176 172 a8 8 0 1 1 0 16 a8 8 0 0 1 0 -16 M160 198 a17 17 0 0 1 32 0" stroke="#0A0A0A" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <rect x="214" y="166" width="120" height="12" rx="6" fill="#FFFFFF" opacity="0.2"/>
+    <rect x="214" y="186" width="80" height="9" rx="4.5" fill="#FFFFFF" opacity="0.1"/>
+    <rect x="358" y="168" width="66" height="26" rx="13" fill="#F5A623"/>
+    <!-- grade do feed 3x3 -->
+    <g>
+      <rect x="146" y="232" width="88" height="88" rx="10" fill="#F5A623" opacity="0.85"/>
+      <rect x="242" y="232" width="88" height="88" rx="10" fill="#F5A623" opacity="0.30"/>
+      <rect x="338" y="232" width="88" height="88" rx="10" fill="#F5A623" opacity="0.15"/>
+      <rect x="146" y="328" width="88" height="88" rx="10" fill="#F5A623" opacity="0.20"/>
+      <rect x="242" y="328" width="88" height="88" rx="10" fill="#F5A623" opacity="0.6"/>
+      <rect x="338" y="328" width="88" height="88" rx="10" fill="#F5A623" opacity="0.35"/>
+      <rect x="146" y="424" width="88" height="88" rx="10" fill="#F5A623" opacity="0.4"/>
+      <rect x="242" y="424" width="88" height="88" rx="10" fill="#F5A623" opacity="0.18"/>
+      <rect x="338" y="424" width="88" height="88" rx="10" fill="#F5A623" opacity="0.75"/>
+    </g>
+    <!-- play no tile central -->
+    <path d="M279 362 l22 12 -22 12 z" fill="#0A0A0A"/>
+    <!-- coração no primeiro tile -->
+    <path d="M180 268 c-4 -8 -16 -6 -16 3 c0 7 10 12 16 17 c6 -5 16 -10 16 -17 c0 -9 -12 -11 -16 -3z" fill="#0A0A0A"/>
+    <!-- barra de engajamento -->
+    <g>
+      <rect x="146" y="536" width="280" height="64" rx="14" fill="#0F0F0D" stroke="#F5A623" stroke-opacity="0.25"/>
+      <path d="M176 576 c-5 -9 -18 -7 -18 3 c0 8 11 13 18 19 c7 -6 18 -11 18 -19 c0 -10 -13 -12 -18 -3z" fill="#F5A623" filter="url(#cgl)"/>
+      <rect x="212" y="556" width="90" height="10" rx="5" fill="#FFFFFF" opacity="0.18"/>
+      <rect x="212" y="576" width="60" height="8" rx="4" fill="#FFFFFF" opacity="0.10"/>
+      <path d="M388 560 l14 16 m0 -16 l-14 16" stroke="#F5A623" stroke-width="3" stroke-linecap="round" opacity="0"/>
+      <path d="M380 578 l8 -9 6 5 10 -11" stroke="#F5A623" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    <!-- notificação flutuante -->
+    <g filter="url(#cgl)">
+      <circle cx="450" cy="120" r="26" fill="#F5A623"/>
+      <path d="M441 120 c-3 -6 -11 -4 -11 2 c0 5 7 8 11 12 c4 -4 11 -7 11 -12 c0 -6 -8 -8 -11 -2z" fill="#0A0A0A" transform="translate(9,-6)"/>
+    </g>
+  </g>
+
+  <!-- PAINEL: identidade / paleta -->
+  <g>
+    <rect x="520" y="90" width="600" height="280" rx="22" fill="#131311" stroke="#F5A623" stroke-opacity="0.28"/>
+    <rect x="556" y="126" width="150" height="12" rx="6" fill="#FFFFFF" opacity="0.14"/>
+    <!-- swatches -->
+    <g>
+      <rect x="556" y="170" width="92" height="92" rx="14" fill="#F5A623"/>
+      <rect x="662" y="170" width="92" height="92" rx="14" fill="#FFB84D" opacity="0.8"/>
+      <rect x="768" y="170" width="92" height="92" rx="14" fill="#F5A623" opacity="0.35"/>
+      <rect x="874" y="170" width="92" height="92" rx="14" fill="#FFFFFF" opacity="0.12"/>
+      <rect x="980" y="170" width="92" height="92" rx="14" fill="#0A0A0A" stroke="#F5A623" stroke-opacity="0.5"/>
+    </g>
+    <rect x="556" y="286" width="60" height="9" rx="4.5" fill="#FFFFFF" opacity="0.12"/>
+    <rect x="662" y="286" width="60" height="9" rx="4.5" fill="#FFFFFF" opacity="0.12"/>
+    <rect x="768" y="286" width="60" height="9" rx="4.5" fill="#FFFFFF" opacity="0.12"/>
+    <!-- letra A (tipografia da marca) -->
+    <path d="M1030 246 l-22 -56 h-8 l-22 56 h10 l5 -14 h22 l5 14 z m-33 -22 l7 -20 7 20 z" fill="#F5A623" opacity="0.0"/>
+  </g>
+
+  <!-- PAINEL: caneta bezier (criação) -->
+  <g>
+    <rect x="520" y="410" width="600" height="300" rx="22" fill="#131311" stroke="#F5A623" stroke-opacity="0.28"/>
+    <rect x="556" y="446" width="130" height="12" rx="6" fill="#FFFFFF" opacity="0.14"/>
+    <!-- curva bezier -->
+    <path d="M580 640 C 700 520, 860 700, 1060 520" stroke="#F5A623" stroke-width="4" stroke-linecap="round" filter="url(#cgl)"/>
+    <!-- alças -->
+    <line x1="700" y1="520" x2="640" y2="580" stroke="#FFB84D" stroke-opacity="0.6" stroke-dasharray="4 6"/>
+    <line x1="860" y1="700" x2="960" y2="600" stroke="#FFB84D" stroke-opacity="0.6" stroke-dasharray="4 6"/>
+    <g fill="#0A0A0A" stroke="#F5A623" stroke-width="3">
+      <rect x="572" y="632" width="16" height="16" rx="3"/>
+      <rect x="1052" y="512" width="16" height="16" rx="3"/>
+    </g>
+    <circle cx="700" cy="520" r="7" fill="#FFB84D"/>
+    <circle cx="860" cy="700" r="7" fill="#FFB84D"/>
+    <!-- ponta da caneta -->
+    <g transform="translate(1060,520) rotate(30)" filter="url(#cgl)">
+      <path d="M0 0 l14 34 l-14 -8 l-14 8 z" fill="#F5A623"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" fill="none">
+  <defs>
+    <linearGradient id="pbg" x1="0" y1="0" x2="1200" y2="800" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#12100A"/><stop offset="1" stop-color="#0A0A0A"/>
+    </linearGradient>
+    <linearGradient id="parea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F5A623" stop-opacity="0.32"/><stop offset="1" stop-color="#F5A623" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="pgl"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <pattern id="pdots" width="34" height="34" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.6" fill="#F5A623" opacity="0.10"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#pbg)"/>
+  <rect width="1200" height="800" fill="url(#pdots)"/>
+  <circle cx="1030" cy="150" r="120" stroke="#F5A623" stroke-opacity="0.12" stroke-dasharray="4 10"/>
+  <circle cx="130" cy="680" r="100" stroke="#F5A623" stroke-opacity="0.10" stroke-dasharray="4 10"/>
+
+  <!-- FUNIL -->
+  <g>
+    <rect x="80" y="120" width="330" height="560" rx="22" fill="#131311" stroke="#F5A623" stroke-opacity="0.28"/>
+    <rect x="116" y="158" width="140" height="12" rx="6" fill="#FFFFFF" opacity="0.14"/>
+    <g filter="url(#pgl)">
+      <path d="M130 215 h230 l-38 86 h-154 z" fill="#F5A623" opacity="0.9"/>
+      <path d="M172 319 h146 l-30 86 h-86 z" fill="#F5A623" opacity="0.6"/>
+      <path d="M206 423 h78 l-16 86 h-46 z" fill="#F5A623" opacity="0.35"/>
+    </g>
+    <rect x="130" y="548" width="230" height="1.5" fill="#F5A623" opacity="0.25"/>
+    <!-- moeda / conversão -->
+    <circle cx="245" cy="606" r="34" fill="#F5A623" filter="url(#pgl)"/>
+    <path d="M229 618 l10 -12 8 7 14 -17" stroke="#0A0A0A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <path d="M252 596 h9 v9" stroke="#0A0A0A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+
+  <!-- GRÁFICO GRANDE -->
+  <g>
+    <rect x="450" y="120" width="670" height="360" rx="22" fill="#131311" stroke="#F5A623" stroke-opacity="0.28"/>
+    <rect x="486" y="156" width="160" height="12" rx="6" fill="#FFFFFF" opacity="0.14"/>
+    <rect x="970" y="148" width="118" height="28" rx="14" fill="#F5A623" opacity="0.15"/>
+    <path d="M990 168 l7 -8 5 4 9 -10" stroke="#F5A623" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="1018" y="158" width="52" height="9" rx="4.5" fill="#F5A623" opacity="0.6"/>
+    <g stroke="#FFFFFF" stroke-opacity="0.05">
+      <line x1="486" y1="230" x2="1088" y2="230"/><line x1="486" y1="290" x2="1088" y2="290"/>
+      <line x1="486" y1="350" x2="1088" y2="350"/><line x1="486" y1="410" x2="1088" y2="410"/>
+    </g>
+    <path d="M486 420 L570 400 L650 408 L730 360 L810 372 L890 300 L970 312 L1088 205 L1088 445 L486 445 Z" fill="url(#parea)"/>
+    <path d="M486 420 L570 400 L650 408 L730 360 L810 372 L890 300 L970 312 L1088 205" stroke="#F5A623" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#pgl)"/>
+    <circle cx="1088" cy="205" r="9" fill="#F5A623" filter="url(#pgl)"/>
+    <g fill="#0A0A0A" stroke="#F5A623" stroke-width="3">
+      <circle cx="730" cy="360" r="6.5"/><circle cx="890" cy="300" r="6.5"/>
+    </g>
+  </g>
+
+  <!-- KPI CARDS -->
+  <g>
+    <rect x="450" y="520" width="320" height="160" rx="20" fill="#131311" stroke="#F5A623" stroke-opacity="0.28"/>
+    <circle cx="512" cy="600" r="30" fill="#F5A623" opacity="0.14"/>
+    <path d="M512 614 v-28 m0 0 l-10 10 m10 -10 l10 10" stroke="#F5A623" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="562" y="572" width="130" height="16" rx="8" fill="#F5A623" opacity="0.85"/>
+    <rect x="562" y="604" width="92" height="11" rx="5.5" fill="#FFFFFF" opacity="0.16"/>
+  </g>
+  <g>
+    <rect x="800" y="520" width="320" height="160" rx="20" fill="#131311" stroke="#F5A623" stroke-opacity="0.28"/>
+    <circle cx="862" cy="600" r="30" stroke="#F5A623" stroke-width="3.5" opacity="0.9"/>
+    <path d="M862 600 L862 570 A30 30 0 0 1 888 615 Z" fill="#F5A623" opacity="0.85"/>
+    <rect x="912" y="572" width="130" height="16" rx="8" fill="#F5A623" opacity="0.85"/>
+    <rect x="912" y="604" width="92" height="11" rx="5.5" fill="#FFFFFF" opacity="0.16"/>
+  </g>
+
+  <!-- conectores -->
+  <g stroke="#F5A623" stroke-opacity="0.30">
+    <line x1="410" y1="400" x2="450" y2="400"/>
+    <line x1="610" y1="480" x2="610" y2="520"/>
+    <line x1="960" y1="480" x2="960" y2="520"/>
+  </g>
+  <g fill="#F5A623">
+    <circle cx="450" cy="400" r="4.5"/><circle cx="610" cy="480" r="4.5"/><circle cx="960" cy="520" r="4.5"/>
+  </g>
+</svg>
