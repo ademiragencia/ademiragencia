@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/lib/language";
 import { Header } from "@/components/Header";
@@ -7,13 +7,9 @@ import { Footer } from "@/components/Footer";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 import { SITE_NAME, SITE_URL, PHONE_E164, INSTAGRAM_URL } from "@/lib/site";
 
-const poppins = localFont({
-  src: [
-    { path: "./fonts/poppins-400.woff2", weight: "400", style: "normal" },
-    { path: "./fonts/poppins-500.woff2", weight: "500", style: "normal" },
-    { path: "./fonts/poppins-600.woff2", weight: "600", style: "normal" },
-    { path: "./fonts/poppins-700.woff2", weight: "700", style: "normal" },
-  ],
+const poppins = Poppins({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
   variable: "--font-poppins",
   display: "swap",
 });
