@@ -31,6 +31,65 @@
     gtag('js', new Date());
     gtag('config', GA_ID, { anonymize_ip: true });
     initLeadTracking();
+    initSpeedInsights();
+  }
+
+  // Speed Insights — mede a velocidade real de cada visita (Core Web Vitals:
+  // TTFB, FCP, LCP, CLS e INP) e envia ao GA4 como eventos "web_vitals".
+  // Equivalente ao Vercel Speed Insights, mas funcionando no GitHub Pages.
+  function initSpeedInsights() {
+    if (window.__aaVitals) return;
+    window.__aaVitals = true;
+    var sent = {};
+    function send(name, value) {
+      if (sent[name] || typeof gtag !== 'function') return;
+      sent[name] = true;
+      gtag('event', 'web_vitals', {
+        metric_name: name,
+        metric_value: Math.round(name === 'CLS' ? value * 1000 : value),
+        page_path: location.pathname,
+        non_interaction: true
+      });
+    }
+    try {
+      var nav = performance.getEntriesByType('navigation')[0];
+      if (nav) send('TTFB', nav.responseStart);
+    } catch (e) {}
+    try {
+      new PerformanceObserver(function (l) {
+        l.getEntries().forEach(function (en) {
+          if (en.name === 'first-contentful-paint') send('FCP', en.startTime);
+        });
+      }).observe({ type: 'paint', buffered: true });
+    } catch (e) {}
+    var lcp = 0, cls = 0, inp = 0;
+    try {
+      new PerformanceObserver(function (l) {
+        var es = l.getEntries();
+        if (es.length) lcp = es[es.length - 1].startTime;
+      }).observe({ type: 'largest-contentful-paint', buffered: true });
+    } catch (e) {}
+    try {
+      new PerformanceObserver(function (l) {
+        l.getEntries().forEach(function (en) {
+          if (!en.hadRecentInput) cls += en.value;
+        });
+      }).observe({ type: 'layout-shift', buffered: true });
+    } catch (e) {}
+    try {
+      new PerformanceObserver(function (l) {
+        l.getEntries().forEach(function (en) {
+          if (en.duration > inp) inp = en.duration;
+        });
+      }).observe({ type: 'event', durationThreshold: 40, buffered: true });
+    } catch (e) {}
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'hidden') {
+        if (lcp) send('LCP', lcp);
+        send('CLS', cls);
+        if (inp) send('INP', inp);
+      }
+    });
   }
 
   // Mede leads: clique em WhatsApp e envio do formulário de contato.
