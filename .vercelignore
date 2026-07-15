@@ -1,0 +1,7 @@
+# Files and directories to ignore during Vercel deployment
+.git
+.gitignore
+README.md
+llms.txt
+.vercel
+.DS_Store
