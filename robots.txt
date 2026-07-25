@@ -4,6 +4,7 @@ Disallow: /crm.html
 Disallow: /fichacadastral.html
 Disallow: /selecao.html
 Disallow: /qualificacao.html
+Disallow: /assinatura/
 
 User-agent: Googlebot
 Allow: /
